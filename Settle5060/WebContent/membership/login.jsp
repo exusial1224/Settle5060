@@ -8,7 +8,7 @@
 <body>
 
 <div class="login-box">
-    <h1 class="login-title">SETTLEにログイン</h1>
+    <h1 class="login-title">SETTLEにログインa</h1>
     <form action="Login" method="post" class="login-form">
         <div class="login-input">
             <label for="user-id" class="login-label">メールアドレス</label>
