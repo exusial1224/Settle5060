@@ -28,7 +28,7 @@
 
     <div class="button-group">
         <a href="Resalelist" class="button">リセール一覧</a>
-        <a href="Purchasedadmissionticket" class="button">購入済入場券</a>
+        <a href="purchaselist" class="button">購入済入場券</a>
     </div>
 </div>
 
