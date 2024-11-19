@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
                 // 会員IDをセッションに保存
                 membershipIds.add(membership);
                 session.setAttribute("membershipIds", membershipIds);
-                response.sendRedirect("/Settle4048/membership/facilitySelect.jsp");
+                response.sendRedirect("/Settle5060/membership/facilitySelect.jsp");
             } else {
                 // ログイン失敗時の処理
                 request.setAttribute("loginError", "無効なメールアドレスまたはパスワードです。");
