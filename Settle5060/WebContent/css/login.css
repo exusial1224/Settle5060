@@ -1,0 +1,122 @@
+/*外枠カラー*/
+body{
+	background-color: #EEEEEE;
+}
+
+/*フォーム*/
+.login-box{
+	width: 40%;
+	background-color: white;
+	height: 70%;
+	margin-top: 10%;
+	margin-left: 30%;
+	border-radius: 20px;
+}
+
+/*タイトルテキスト*/
+.gaming{
+	padding-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 20%;
+    font-size: 36px;
+    background-clip: text;
+    font-weight: bold;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(45deg,
+        red,
+        orange,
+        yellow,
+        green,
+        aqua,
+        blue,
+        purple);
+    background-size: 1200%;
+    animation: 4s linear 0s infinite alternate slide;
+}
+/*動的な変色の実装*/
+@keyframes slide {
+    from { background-position: 0% 0%; }
+    to { background-position: 100% 0%; }
+}
+
+
+/*ラベルテキスト*/
+label[for="password"],
+label[for="mail"]{
+	width:80%;
+}
+/*ラベルボタン*/
+.login-btn{
+
+}]
+
+/*ラベル前縦線*/
+ label[for="password"]::before,label[for="mail"]::before {
+	 	content: "";
+        display: inline-block;
+        width: 1%;
+        height: 6%;
+        background-color: blue;
+        margin-right: 4px;
+        vertical-align: middle;
+	}
+
+/*タイトル下線*/
+hr{
+	width: 90%;
+}
+
+    form input[type="submit"] {
+        border: 0;
+        background: #ff9900;
+        display: block;
+        margin: 20px auto;
+        padding: 15px 10px;
+        width: 90%;
+        outline: none;
+        color: #fff;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #e68a00;
+    }
+
+
+
+    form input[type="email"],
+    form input[type="password"] {
+        border: 1px solid #a9a9a9;
+        padding: 15px 10px;
+        width: 80%;
+        margin: 10px 0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        outline: none;
+        margin-left:10%;
+    }
+    label[for="password"]::before,label[for="mail"]::before {
+	 	content: "";
+        display: inline-block;
+        width: 1%;
+        height: 4%;
+        background-color: blue;
+        margin-right: 4px;
+        vertical-align: middle;
+	}
+	label[for="password"],label[for="mail"]{
+		position:left;
+		padding-left:10%;
+
+
+	}
+    form input[type="email"]:focus,
+    form input[type="password"]:focus{
+        border-color: #ff9900;
+
+    }
+
