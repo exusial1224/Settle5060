@@ -1,0 +1,26 @@
+header {
+    width: 100%;
+    height: 70px;
+    background-color: #174A5C;
+    padding-top: 5px;
+    box-sizing: border-box;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 30px;
+}
+.cust__wrapper {
+    display: flex;
+    position: fixed;
+    right: 0%;
+}
+li {
+    list-style: none;
+}
+a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-right: 35px;
+}
