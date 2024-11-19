@@ -13,7 +13,7 @@ import bean.Membership;
 import bean.PurchaseExp;
 import dao.PurchaseDAO;
 
-@WebServlet("/membership/purchaselist")
+@WebServlet("/membership/Purchaselist")
 public class PurchaseHistorylist extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
