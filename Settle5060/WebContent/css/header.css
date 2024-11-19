@@ -8,7 +8,6 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    right: 30px;
 }
 .cust__wrapper {
     display: flex;
