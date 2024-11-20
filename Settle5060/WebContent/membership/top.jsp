@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>入場券購入</title>
     <script>
-        // 現在の日付から2か月先までのオプションを生成
         function populateDateSelect() {
             const dateSelect = document.getElementById("dateSelect");
             const currentDate = new Date();
@@ -20,17 +19,14 @@
                 option.textContent = currentDate.toISOString().split("T")[0];
                 dateSelect.appendChild(option);
 
-                // 次の日に進む
                 currentDate.setDate(currentDate.getDate() + 1);
             }
         }
 
-        // ページ読み込み時に日付選択肢を設定
         window.onload = function () {
             populateDateSelect();
         };
 
-        // 選択した日付を送信する
         function submitDate() {
             const selectedDate = document.getElementById("dateSelect").value;
             if (!selectedDate) {
