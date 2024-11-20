@@ -16,7 +16,7 @@
 	}
 
 	/*タイトルテキスト*/
-	.gaming{
+	.title-text{
 		padding-top: 3%;
 		margin-bottom: 3%;
 		text-align: center;
@@ -36,14 +36,76 @@
 	    background-size: 1200%;
 	    animation: 4s linear 0s infinite alternate slide;
 	}
+
 	/*動的な変色の実装*/
 	@keyframes slide {
 	    from { background-position: 0% 0%; }
 	    to { background-position: 100% 0%; }
 	}
 
-		/*タイトル下線*/
+	/*タイトル下線*/
 	hr{
 		width: 90%;
 		margin-top: 0;
 	}
+
+	/*ラベル前縦線*/
+	.text-form::before {
+		 content: "";
+	     display: inline-block;
+	     width: 1%;
+	     height: 6%;
+	     background-color: blue;
+	     margin-right: 4px;
+	     vertical-align: middle;
+	}
+
+
+    /*入力フォームテキスト*/
+	.text-form{
+		position:left;
+		padding-left:10%;
+		margin-bottom: 0;
+		width:80%;
+	}
+
+
+	/*入力フォーム*/
+	.input-form, .passwordInput{
+		border: 1px solid #a9a9a9;
+        padding: 15px 10px;
+        width: 80%;
+        margin: 10px 0;
+        margin-top: 0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        outline: none;
+        margin-left:10%;
+	}
+
+	/*入力フォームフォーカス*/
+    .input-form:focus, .passwordInput:focus{
+        border-color: #ff9900;
+
+    }
+
+	/*検索ボタン*/
+    form input[type="submit"] {
+        border: 0;
+        background: #ff9900;
+        display: block;
+        margin: 20px auto;
+        padding: 15px 10px;
+        width: 90%;
+        outline: none;
+        color: #fff;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+	/*検索ボタンフォーカス*/
+    form input[type="submit"]:hover {
+        background-color: #e68a00;
+    }
