@@ -246,7 +246,7 @@ public class ResaleDAO extends RootDAO {
     }
 
 
-    //キャンセル情報を更新
+    //キャンセル情報を更新..
     public int cancelResale(int rsle_id) throws Exception {
 
     	int check = 0;
