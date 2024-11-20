@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -308,6 +309,7 @@ public class PurchaseDAO extends RootDAO {
 
 		SlotDAO sd = new SlotDAO();
 		FacilityDAO fd = new FacilityDAO();
+		List<Time> time_list = new ArrayList<>();
 
 
 
@@ -330,11 +332,20 @@ public class PurchaseDAO extends RootDAO {
 
 			purchaseexp.setFac_name(f_name);
 
+			//始まりと終わりの時刻所得
+			time_list = sd.getTimes(purchaseexp.getSl_id());
+
+
+			purchaseexp.setStart_time(time_list.get(0));
+			purchaseexp.setEnd_time(time_list.get(1));
+
+
 		    list.add(purchaseexp);
 
 		    //さいご初期化する
 		    sd = new SlotDAO();
 		    fd = new FacilityDAO();
+		    time_list.clear();
 		}
 
 		st.close();
