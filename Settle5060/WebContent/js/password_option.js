@@ -1,3 +1,4 @@
+// パスワード比較
 function validatePassword() {
 	    var password = document.getElementById('password');
 	    var confirmPassword = document.getElementById('confirmPassword');
@@ -14,17 +15,19 @@ function validatePassword() {
 	    document.getElementById('confirmPassword').onkeyup = validatePassword;
 	  }
 
-
-var showPasswordButton = document.getElementByClassName("showPasswordButton");
+//パスワードの表示非表示切り替え
+var showPasswordButton = document.getElementById("showPasswordButton");
 showPasswordButton.addEventListener("click", togglePasswordVisibility);
 
 function togglePasswordVisibility() {
   var passwordInput = document.getElementById("password");
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
+    document.getElementById("confirmPassword").type = "text";
     showPasswordButton.textContent = "非表示";
   } else {
     passwordInput.type = "password";
+    document.getElementById("confirmPassword").type = "password";
     showPasswordButton.textContent = "表示";
   }
 }
