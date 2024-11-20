@@ -169,26 +169,101 @@ public class ResaleDAO extends RootDAO {
 
 
     //会員×施設×日付でメールは何件受けたのか?
-    //public int countTranFlg(int mbr_id,int sl_id) throws Exception {
+    public int countTranFlg(int mbr_id,int sl_id) throws Exception {
 
-    	//int mail_count = 0;
-    	//Connection con = getConnection();
+    	int mail_count = 0;
+    	Connection con = getConnection();
 
 
         //SL_ID→FAC_ID
-        //SlotDAO sd = new SlotDAO();
-        //int fi = sd.slTofac(sl_id);
+        SlotDAO sd = new SlotDAO();
+        int fi = sd.slTofac(sl_id);
 
         //SL_IDから日付とってくる
-        //Date bd = sd.slToBusDate(sl_id);
+        Date bd = sd.slToBusDate(sl_id);
 
 
-        //PreparedStatement st =con.prepareStatement("");
+        PreparedStatement st = con.prepareStatement("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID WHERE MBR_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ? AND FAC_ID = ? AND BUS_DATE = ?");
+        st.setInt(1, mbr_id);
+	    st.setBoolean(2, true);
+	    st.setBoolean(3, false);
+	    st.setInt(4, fi);
+	    st.setDate(5, bd);
+
+	    ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+
+        	mail_count++;
+
+        }
+
+		st.close();
+		con.close();
+
+		return mail_count;
+
+    }
 
 
 
+    //会員×施設×日付で何件キャンセルしたのか
+    public int countCncFlg(int mbr_id,int sl_id) throws Exception {
+
+    	int cancel_count = 0;
+    	Connection con = getConnection();
 
 
-    //}
+        //SL_ID→FAC_ID
+        SlotDAO sd = new SlotDAO();
+        int fi = sd.slTofac(sl_id);
+
+        //SL_IDから日付とってくる
+        Date bd = sd.slToBusDate(sl_id);
+
+
+        PreparedStatement st = con.prepareStatement("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID WHERE MBR_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ? AND FAC_ID = ? AND BUS_DATE = ?");
+
+        st.setInt(1, mbr_id);
+	    st.setBoolean(2, false);
+	    st.setBoolean(3, true);
+	    st.setInt(4, fi);
+	    st.setDate(5, bd);
+
+	    ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+
+        	cancel_count++;
+
+        }
+
+		st.close();
+		con.close();
+
+		return cancel_count;
+
+    }
+
+
+    //キャンセル情報を更新
+    public int cancelResale(int rsle_id) throws Exception {
+
+    	int check = 0;
+    	Connection con = getConnection();
+
+        PreparedStatement st = con.prepareStatement("UPDATE RESALE SET CNC_FLG = ? WHERE RSLE_ID = ?");
+        st.setBoolean(1, true);
+        st.setInt(2, rsle_id);
+
+        check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
+
+    }
+
 
 }

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -179,7 +180,8 @@ public class PurchaseDAO extends RootDAO {
 
 	        // 初期価格と上限人数の取得
 	        int init_price = fd.getInit_price(fi);
-	        int max_num = fd.getMaxNum(fi);
+
+	        int max_num = sd.getSlotMax(sl_id);
 
 
 
@@ -307,6 +309,7 @@ public class PurchaseDAO extends RootDAO {
 
 		SlotDAO sd = new SlotDAO();
 		FacilityDAO fd = new FacilityDAO();
+		List<Time> time_list = new ArrayList<>();
 
 
 
@@ -329,11 +332,20 @@ public class PurchaseDAO extends RootDAO {
 
 			purchaseexp.setFac_name(f_name);
 
+			//始まりと終わりの時刻所得
+			time_list = sd.getTimes(purchaseexp.getSl_id());
+
+
+			purchaseexp.setStart_time(time_list.get(0));
+			purchaseexp.setEnd_time(time_list.get(1));
+
+
 		    list.add(purchaseexp);
 
 		    //さいご初期化する
 		    sd = new SlotDAO();
 		    fd = new FacilityDAO();
+		    time_list.clear();
 		}
 
 		st.close();
@@ -407,13 +419,13 @@ public class PurchaseDAO extends RootDAO {
 
 
         //SL_ID→FAC_ID
-        SlotDAO slotDao = new SlotDAO();
-        int facilityId = slotDao.slTofac(sl_id);
+        //SlotDAO slotDao = new SlotDAO();
+        //int facilityId = slotDao.slTofac(sl_id);
 
 
         //いまの上限はどれくらい？
-        FacilityDAO facilityDao = new FacilityDAO();
-        int maxCapacity = facilityDao.getMaxNum(facilityId);
+        SlotDAO sd = new SlotDAO();
+        int maxCapacity = sd.getSlotMax(sl_id);
 
         int rsvSum = purchasedOneSlotCountRsv(sl_id);
         int grSum = purchasedOneSlotCountGr(sl_id);
@@ -449,7 +461,7 @@ public class PurchaseDAO extends RootDAO {
             }
 
             // タイムスロットの上限更新
-            maxUpdateResult = facilityDao.updateMaxNum(facilityId, num_adlt_tkt + num_chld_tkt);
+            maxUpdateResult = sd.updateSlotMax(sl_id, num_adlt_tkt + num_chld_tkt);
 
 
 
