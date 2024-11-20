@@ -26,7 +26,7 @@
         </div>
         <a href="PasswordResetMailFormDisplay" class="pass_link">▶パスワードを忘れた場合はこちら</a>
         <p class="login-btn"><input type="submit" value="ログイン" class="login-input-btn"></p>
-        <a href="AddNewMemberDisplay" class="new_user_link">新規会員登録</a>
+        <a href="AddNewMemberDisplay" class="new_user_url">新規会員登録</a>
 
     </form>
 </div>
