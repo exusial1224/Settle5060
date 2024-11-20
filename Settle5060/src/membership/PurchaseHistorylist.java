@@ -1,7 +1,6 @@
 package membership;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Membership;
 import bean.PurchaseExp;
 import dao.PurchaseDAO;
-import dao.SlotDAO;
 
 @WebServlet("/membership/Purchaselist")
 public class PurchaseHistorylist extends HttpServlet {
@@ -36,16 +34,8 @@ public class PurchaseHistorylist extends HttpServlet {
             // DAO から入場券一覧を取得
             PurchaseDAO PurchaseDAO = new PurchaseDAO();
             List<PurchaseExp> purchaseList = PurchaseDAO.getPurchaseHistory(mbr_id);
-            List<Time> times = null;
-            System.out.print("値："+purchaseList.get(0));
-            for(int i = 0; i<purchaseList.size(); i++ ){
-
-            	SlotDAO SlotDAO = new SlotDAO();
-                times.addAll(SlotDAO.getTimes(purchaseList.get(i).getSl_id()));
-            }
 
             // リクエストにリセール一覧をセットして JSP に転送
-            request.setAttribute("timesList", times);
             request.setAttribute("purchaseList", purchaseList);
             request.getRequestDispatcher("purchaseHistorylist.jsp").forward(request, response);
 

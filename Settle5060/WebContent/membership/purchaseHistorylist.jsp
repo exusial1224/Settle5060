@@ -21,10 +21,10 @@
                     	<th>施設名</th><td>${purchase.fac_name}</td>
                 	</tr>
                 	<tr>
-                    	<th>枚数</th><td>${purchase.fac_name}</td>
+                    	<th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_adlt_tkt}枚]</td>
                 	</tr>
                 	<tr>
-                    	<th>入場日</th><td>${purchase.fac_name}</td>
+                    	<th>購入日</th><td>${purchase.time_pur}</td>
                 	</tr>
                     <tr>
                         <th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td>
@@ -34,7 +34,7 @@
            </div>
         </c:if>
         <c:if test="${empty purchaseList}">
-            <p>購入一覧はありません。</p>
+           <p>購入一覧はありません。</p>
         </c:if>
 
 
