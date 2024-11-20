@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -319,28 +320,184 @@ public class FacilityDAO extends RootDAO {
 		st.close();
 		con.close();
 
+
+
+
 		return hp;
     }
 
 
-    //キャンセルに伴う上限人数update
-    public int updateMaxNum(int fac_id, int increase) throws Exception {
+    //Adminによる新規施設アカウント情報登録、登録されると1を返す(パスワードはハッシュ済を入れる)
+	public int AddNewFacilityAd(String co_name, String fac_name, String fac_password, String fac_mail,String fac_address, String fac_tel) throws Exception{
 
-    	int check = 0;
-    	Connection con = getConnection();
+		Connection con = getConnection();
+		int line = 0;
 
-    	int current_max_num = getMaxNum(fac_id);
+		PreparedStatement st = con.prepareStatement("INSERT INTO FACILITY(FAC_ID,CO_NAME,FAC_NAME,FAC_PASSWORD,FAC_MAIL,FAC_ADDRESS,FAC_TEL,FAC_REG) VALUES(NULL,?,?,?,?,?,?,?)");
 
-    	PreparedStatement st = con.prepareStatement("UPDATE FACILITY SET MAX_NUM = ? WHERE FAC_ID = ?");
-    	st.setInt(1, current_max_num + increase);
-    	st.setInt(2, fac_id);
+		st.setString(1, co_name);
+		st.setString(2, fac_name);
+		st.setString(3, fac_password);
+		st.setString(4, fac_mail);
+		st.setString(5, fac_address);
+		st.setString(6, fac_tel);
 
-    	check = st.executeUpdate();
+		// 現在時刻のTimestampを取得
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+		st.setTimestamp(7, currentTimestamp);
+
+
+		line = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return line;
+	}
+
+
+	//Adminによる施設アカウント情報変更
+	public int updateFacilityAd(int fac_id, String co_name, String fac_name, String fac_address, String fac_tel) throws Exception {
+
+		int check = 0;
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("UPDATE FACILITY SET CO_NAME = ?, FAC_NAME = ?, FAC_ADDRESS = ?, FAC_TEL = ? WHERE FAC_ID = ?");
+
+		st.setString(1, co_name);
+		st.setString(2, fac_name);
+		st.setString(3, fac_address);
+		st.setString(4, fac_tel);
+	    st.setInt(5, fac_id);
+
+		check = st.executeUpdate();
 
 		st.close();
 		con.close();
 
 		return check;
-    }
+
+	}
+
+
+	//Adminによる施設パスワードの変更
+	public int updatePasswordAd(int fac_id, String fac_password) throws Exception {
+
+		int check = 0;
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("UPDATE FACILITY SET FAC_PASSWORD = ? WHERE FAC_ID = ?");
+
+		st.setString(1, fac_password);
+		st.setInt(2, fac_id);
+
+		check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
+
+	}
+
+
+	//Adminによる施設メールアドレスの変更
+	public int updateMailAd(int fac_id, String fac_mail) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st=con.prepareStatement("UPDATE FACILITY SET FAC_MAIL = ? WHERE FAC_ID = ?");
+
+		st.setString(1, fac_mail);
+		st.setInt(2, fac_id);
+
+		int check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
+
+	}
+
+
+	//入力されたパスワードが正しいのかチェック
+	public boolean checkPasswordAd(int fac_id, String fac_password) throws Exception {
+
+		boolean check = false;
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("SELECT FAC_PASSWORD FROM FACILITY WHERE FAC_ID = ?");
+		st.setInt(1, fac_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		String pass = rs.getString("FAC_PASSWORD");
+
+		if (pass.equals(fac_password)) {
+			check = true;
+		}
+
+		st.close();
+		con.close();
+
+		return check;
+
+	}
+
+
+	//Adminの施設選択における施設名の部分一致検索
+	public List<Facility> getFacilityByKeyAd(String keyword) throws Exception {
+
+		Facility facility = null;
+		List<Facility> list = new ArrayList<>();
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("SELECT * FROM FACILITY WHERE FAC_NAME LIKE ?");
+		st.setString(1, "%" + keyword + "%");
+
+		ResultSet rs = st.executeQuery();
+
+		while (rs.next()) {
+		    facility = new Facility();
+		    facility.setFac_id(rs.getInt("FAC_ID"));
+		    facility.setFac_name(rs.getString("FAC_NAME"));
+			list.add(facility);
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+
+	}
+
+
+	//施設IDに紐づく子ども割引を所得
+	public int getChldDsc(int fac_id) throws Exception {
+
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT SLS_STR FROM FACILITY WHERE FAC_ID = ?");
+    	st.setInt(1, fac_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int ss = rs.getInt("SLS_STR");
+
+		st.close();
+		con.close();
+
+		return ss;
+
+	}
+
+
+
+
 
 }

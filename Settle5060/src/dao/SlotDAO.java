@@ -175,6 +175,47 @@ public class SlotDAO extends RootDAO {
     }
 
 
+    //スロットIDに紐づく上限人数を所得(キャンセル時変動するのはこっち)
+    public int getSlotMax(int sl_id) throws Exception {
+
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT SLOT_MAX FROM SLOT WHERE SL_ID = ?");
+    	st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int sm = rs.getInt("SLOT_MAX");
+
+		st.close();
+		con.close();
+
+		return sm;
+    }
+
+
+    //キャンセルに伴う上限人数update
+    public int updateSlotMax(int sl_id, int increase) throws Exception {
+
+    	int check = 0;
+    	Connection con = getConnection();
+
+    	int current_max_num = getSlotMax(sl_id);
+
+    	PreparedStatement st = con.prepareStatement("UPDATE SLOT SET SLOT_MAX = ? WHERE SL_ID = ?");
+    	st.setInt(1, current_max_num + increase);
+    	st.setInt(2, sl_id);
+
+    	check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
+    }
+
+
 
 
 }

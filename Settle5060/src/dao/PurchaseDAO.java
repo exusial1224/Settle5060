@@ -179,7 +179,8 @@ public class PurchaseDAO extends RootDAO {
 
 	        // 初期価格と上限人数の取得
 	        int init_price = fd.getInit_price(fi);
-	        int max_num = fd.getMaxNum(fi);
+
+	        int max_num = sd.getSlotMax(sl_id);
 
 
 
@@ -407,13 +408,13 @@ public class PurchaseDAO extends RootDAO {
 
 
         //SL_ID→FAC_ID
-        SlotDAO slotDao = new SlotDAO();
-        int facilityId = slotDao.slTofac(sl_id);
+        //SlotDAO slotDao = new SlotDAO();
+        //int facilityId = slotDao.slTofac(sl_id);
 
 
         //いまの上限はどれくらい？
-        FacilityDAO facilityDao = new FacilityDAO();
-        int maxCapacity = facilityDao.getMaxNum(facilityId);
+        SlotDAO sd = new SlotDAO();
+        int maxCapacity = sd.getSlotMax(sl_id);
 
         int rsvSum = purchasedOneSlotCountRsv(sl_id);
         int grSum = purchasedOneSlotCountGr(sl_id);
@@ -449,7 +450,7 @@ public class PurchaseDAO extends RootDAO {
             }
 
             // タイムスロットの上限更新
-            maxUpdateResult = facilityDao.updateMaxNum(facilityId, num_adlt_tkt + num_chld_tkt);
+            maxUpdateResult = sd.updateSlotMax(sl_id, num_adlt_tkt + num_chld_tkt);
 
 
 
