@@ -24,9 +24,10 @@
             <label for="password" class="login-label">パスワード：</label><br>
             <input name="password" type="password" id="password" placeholder="🔒Password" class="login-input-element" required>
         </div>
+        <a href="PasswordResetMailFormDisplay" class="pass_link">▶パスワードを忘れた場合はこちら</a>
         <p class="login-btn"><input type="submit" value="ログイン" class="login-input-btn"></p>
-        <a href="AddNewMemberDisplay" class="btn">新規会員登録</a>
-        <a href="PasswordResetMailFormDisplay" class="btn">パスワードを忘れた場合</a>
+        <a href="AddNewMemberDisplay" class="new_user_url">新規会員登録</a>
+
     </form>
 </div>
 
