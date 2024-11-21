@@ -82,7 +82,7 @@ public class DynamicPricing {
 
 		if (update_price_counter < 0) {
 
-			dec_price = calc_price - 100 * Math.abs(update_price_counter);
+			dec_price = calc_price - 50 * Math.abs(update_price_counter);
 
 		}
 

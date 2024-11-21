@@ -2,23 +2,25 @@
 <%@include file="header.jsp"%>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<link rel="stylesheet" type="text/css" href="../css/member_information.css">
     <title>会員情報</title>
 </head>
 <body>
-    <h1>会員情報</h1>
 
-    <div class="member-info">
-        <table class="memberinfo-table">
+
+    <div class="container">
+    	<h1 class="title-text">会員情報</h1>
+    	<hr>
+        <table border="1" class="memberinfo-table">
             <c:choose>
                 <c:when test="${not empty memberInfo}">
-                    <tr><th class="memberinfo-th">名前</th><td class="memberinfo-td">${memberInfo.mbr_name}</td></tr>
-                    <tr><th class="memberinfo-th">メールアドレス</th><td class="memberinfo-td">${memberInfo.mbr_mail}</td></tr>
-                    <tr><th class="memberinfo-th">電話番号</th><td class="memberinfo-td">${memberInfo.mbr_tel}</td></tr>
-                    <tr><th class="memberinfo-th">住所</th><td class="memberinfo-td">${memberInfo.mbr_address}</td></tr>
-                    <tr><th class="memberinfo-th">生年月日</th><td class="memberinfo-td">${memberInfo.mbr_birth}</td></tr>
-                    <tr><th class="memberinfo-th">登録日</th><td class="memberinfo-td">${memberInfo.mbr_reg}</td></tr>
+                    <tr><th class="text-form">名前</th><td class="memberinfo-td">${memberInfo.mbr_name}</td></tr>
+                    <tr><th class="text-form">メールアドレス</th><td class="memberinfo-td">${memberInfo.mbr_mail}</td></tr>
+                    <tr><th class="text-form">電話番号</th><td class="memberinfo-td">${memberInfo.mbr_tel}</td></tr>
+                    <tr><th class="text-form">住所</th><td class="memberinfo-td">${memberInfo.mbr_address}</td></tr>
+                    <tr><th class="text-form">生年月日</th><td class="memberinfo-td">${memberInfo.mbr_birth}</td></tr>
+                    <tr><th class="text-form">登録日</th><td class="memberinfo-td">${memberInfo.mbr_reg}</td></tr>
                 </c:when>
             </c:choose>
         </table>
