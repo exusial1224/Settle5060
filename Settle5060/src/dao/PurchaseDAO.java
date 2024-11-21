@@ -339,6 +339,11 @@ public class PurchaseDAO extends RootDAO {
 			purchaseexp.setStart_time(time_list.get(0));
 			purchaseexp.setEnd_time(time_list.get(1));
 
+			//営業日付入れる
+			purchaseexp.setBus_date(sd.slToBusDate(purchaseexp.getSl_id()));
+
+
+
 
 		    list.add(purchaseexp);
 
@@ -469,8 +474,11 @@ public class PurchaseDAO extends RootDAO {
 
 
             if (shouldSendResaleMail) {
-                try (PreparedStatement st2 = con.prepareStatement("SELECT MBR_ID FROM RESALE WHERE SL_ID = ?")) {
+                try (PreparedStatement st2 = con.prepareStatement("SELECT MBR_ID FROM RESALE WHERE SL_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ?")) {
                     st2.setInt(1, sl_id);
+                    st2.setBoolean(2, false);
+                    st2.setBoolean(3, false);
+
                     ResultSet rs2 = st2.executeQuery();
 
                     while (rs2.next()) {

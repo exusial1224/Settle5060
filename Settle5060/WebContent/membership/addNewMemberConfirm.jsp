@@ -2,34 +2,37 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/generic.css">
     <title>会員情報登録確認</title>
 </head>
 <body>
     <div class="container">
-        <h1>新規会員登録確認</h1>
+        <h1 class="title-text">新規会員登録確認</h1>
+        <hr>
         <form id="registrationForm" action="AddNewMember" method="post">
-            <p class="form-comment">以下の内容で登録してよろしいですか？</p>
+
             <div class="form-inline">
                 <div class="form-cfm">
-                    <p class="signup-label"><label for="name" class="form-element"> 　氏　　名　　</label></p>
-                    <span class="form-input"><%= request.getParameter("name") %></span>
-                </div>
+                    <p class="text-confirm"><label for="name" class="form-element"> 　氏　　名　　</label></p>
+                    <span class="input-confirm"><%= request.getParameter("name") %></span>
+                </div><hr class="hr-confirm">
                 <div class="form-cfm">
-                    <p class="signup-label"><label for="mail" class="form-element">メールアドレス</label></p>
-                    <span class="form-input"><%= request.getParameter("mail") %></span>
-                </div>
+                    <p class="text-confirm"><label for="mail" class="form-element">メールアドレス</label></p>
+                    <span class="input-confirm"><%= request.getParameter("mail") %></span>
+                </div><hr class="hr-confirm">
                 <div class="form-cfm">
-                    <p class="signup-label"><label for="tel" class="form-element">電　話　番　号</label></p>
-                    <span class="form-input"><%= request.getParameter("tel") %></span>
-                </div>
+                    <p class="text-confirm"><label for="tel" class="form-element">電　話　番　号</label></p>
+                    <span class="input-confirm"><%= request.getParameter("tel") %></span>
+                </div><hr class="hr-confirm">
                 <div class="form-cfm">
-                    <p class="signup-label"><label for="address" class="form-element">住所</label></p>
-                    <span class="form-input"><%= request.getParameter("address") %></span>
-                </div>
+                    <p class="text-confirm"><label for="address" class="form-element">住所</label></p>
+                    <span class="input-confirm"><%= request.getParameter("address") %></span>
+                </div><hr class="hr-confirm">
                 <div class="form-cfm">
-                    <p class="signup-label"><label for="birth" class="form-element">生年月日(8桁)</label></p>
-                    <span class="form-input"><%= request.getParameter("birth") %></span>
-                </div>
+                    <p class="text-confirm"><label for="birth" class="form-element">生年月日(8桁)</label></p>
+                    <span class="input-confirm"><%= request.getParameter("birth") %></span>
+                </div><hr class="hr-confirm">
+                 <p class="title">以下の内容で登録してよろしいですか？</p>
             </div>
 
             <div class="infor-change">

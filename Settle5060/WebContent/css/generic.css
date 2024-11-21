@@ -49,7 +49,7 @@
 		margin-top: 0;
 	}
 
-	/*ラベル前縦線*/
+	/*入力フォームテキスト前縦線*/
 	.text-form::before {
 		 content: "";
 	     display: inline-block;
@@ -109,3 +109,16 @@
     form input[type="submit"]:hover {
         background-color: #e68a00;
     }
+
+	/*確認画面テキスト*/
+	.text-confirm{
+		margin-left:20%;
+	}
+	/*確認画面にゅう*/
+    .input-confirm{
+    	margin-left: 20%;
+    }
+
+	.hr-confirm{
+		width: 70%;
+	}
