@@ -21,7 +21,7 @@
     	  } else {
     	    // チェックボックスがOFFのときの処理
     		target = false;
-			document.getElementById("purchaselist").innerHTML='<div class="purchaselist" id="purchaselist">
+			document.getElementById("purchaselist").innerHTML=<div class="purchaselist" id="purchaselist">
         	<c:forEach var="purchase" items="${purchaseList}">
          	 <input type="checkbox" id="select" onchange="selectlist()">
        	 <label for="select">
