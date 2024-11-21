@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
 </head>
 <body>
-    <div class="login-box">
-    <h1 class="login-title">パスワード変更</h1>
+    <div class="container">
+    	<h1 class="title-text">パスワード変更</h1>
+    	<hr>
     　　<form action="PasswordChangeMail" method="post" >
-			<p class="form-comment">メールアドレスを入力してください。</p>
+			<p class="send-mail-info" style="text-align: center;">メールアドレスを入力してください。</p>
 	        <div class="login-input">
-	            <label for="user-id" class="infochange-input-element">ID(email)</label>
-	            <input name="newMail" type="email" id="email_1" placeholder="✉Mail" class="login-input-element" required>
+	            <label for="user-id" class="text-form">ID(email)</label>
+	            <input name="newMail" type="email" id="email_1" placeholder="✉Mail" class="input-form" required>
 	        </div>
-	            <button type="submit" class="form-change-btn">変更</button>
+	            <input type="submit" value="送信" class="submit-button">
 	        </div>
 　　　　</form>
 	</div>

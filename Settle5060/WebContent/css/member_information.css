@@ -1,0 +1,4 @@
+.memberinfo-table th, .memberinfo-table td{
+    border-right: none !important;
+    border-left: none !important;
+}
