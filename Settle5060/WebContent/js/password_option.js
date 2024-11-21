@@ -15,7 +15,10 @@ function validatePassword() {
 	    document.getElementById('confirmPassword').onkeyup = validatePassword;
 	  }
 
-//パスワードの表示非表示切り替え
+/*
+ * パスワードの表示非表示切り替え
+ * ClassNameで取得したいので後で修正
+ * */
 var showPasswordButton = document.getElementById("showPasswordButton");
 showPasswordButton.addEventListener("click", togglePasswordVisibility);
 
