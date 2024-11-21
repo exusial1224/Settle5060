@@ -1,42 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<%@include file="header.jsp"%>
 </head>
-<script>
-	  function validatePassword() {
-	    var password = document.getElementById('password');
-	    var confirmPassword = document.getElementById('confirm_password');
-
-	    if (password.value !== confirmPassword.value) {
-	      confirmPassword.setCustomValidity('パスワードが一致しません。');
-	    } else {
-	      confirmPassword.setCustomValidity('');
-	    }
-	  }
-
-	  window.onload = function() {
-	    document.getElementById('password').onchange = validatePassword;
-	    document.getElementById('confirm_password').onkeyup = validatePassword;
-	  }
-</script>
 <body>
-    <div class="login-box">
-    <h1 class="login-title">パスワード変更</h1>
+    <div class="container">
+    <h1 class="title-text">パスワード変更</h1>
+    <hr>
     　　<form action="PasswordChange" method="post">
     	<div class="login-input" >
-	            <label for="oldPassword" class="infochange-input-element">旧パスワード</label>
-	            <input name="password" type="password" id="oldPassword" placeholder="🔒Password" class="login-input-element" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
+	            <label for="oldPassword" class="text-form">旧パスワード</label>
+	            <input name="password" type="password" id="oldPassword" placeholder="🔒Password" class="input-form" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
 	            </div>
 	        <div class="login-input" >
-	            <label for="password" class="infochange-input-element">新パスワード</label>
-	            <input name="newPassword" type="password" id="password" placeholder="🔒Password" class="login-input-element" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
+	            <label for="password" class="text-form">新パスワード</label>
+	            <input name="newPassword" type="password" id="password" placeholder="🔒Password" class="input-form" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
 	            </div>
 	            <div class="login-input">
-	            <label for="confirm_password" class="infochange-input-element">新パスワード確認</label>
-	            <input name="confirmPassword" type="password" id="confirm_password" placeholder="🔒Password" class="login-input-element" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
-	            <button type="submit" class="form-change-btn">変更</button>
+	            <label for="confirm_password" class="text-form">新パスワード確認</label>
+	            <input name="confirmPassword" type="password" id="confirmPassword" placeholder="🔒Password" class="input-form" pattern="[!-~]{8,}" title="8文字以上で入力してください。" required>
+	           <input type="submit" value="変更" class="submit-button">
 	        </div>
 	    </form>
+	    <button id="showPasswordButton">表示</button>
 	</div>
 </body>
+<script type="text/javascript" src="../js/password_option.js"></script>
 </html>

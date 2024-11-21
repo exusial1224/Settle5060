@@ -27,10 +27,12 @@ function togglePasswordVisibility() {
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
     document.getElementById("confirmPassword").type = "text";
+    document.getElementById("oldPassword").type = "text";
     showPasswordButton.textContent = "非表示";
   } else {
     passwordInput.type = "password";
     document.getElementById("confirmPassword").type = "password";
+    document.getElementById("oldPassword").type = "password";
     showPasswordButton.textContent = "表示";
   }
 }
