@@ -2,12 +2,15 @@ package DaoTest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.PurchaseDAO;
 
 
 
@@ -20,10 +23,13 @@ public class AokiTest extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 
-			//PurchaseDAO pd = new PurchaseDAO();
-			//int num = pd.
+			PurchaseDAO pd = new PurchaseDAO();
+			List<Integer> list = pd.Purchase(192,2,425,3,0);
 
-			//out.println();
+			//SlotDAO sd = new SlotDAO();
+			//int num = sd.getRemainingSlot(1);
+
+			out.println(list);
 
 
 		} catch(Exception e) {

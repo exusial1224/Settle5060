@@ -8,18 +8,18 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.Slot;
+import bean.SlotExp;
 
 public class SlotDAO extends RootDAO {
 
 
 	//トップ画面のスロット情報所得
-	public List<Slot> getAllSlots(int fac_id, Date bus_date) throws Exception {
+	public List<SlotExp> getAllSlots(int fac_id, Date bus_date) throws Exception {
 
 		Connection con = getConnection();
 
-		Slot slot = null;
-		List<Slot> list = new ArrayList<>();
+		SlotExp slotexp = null;
+		List<SlotExp> list = new ArrayList<>();
 
 		PreparedStatement st = con.prepareStatement("SELECT * FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ?");
 		st.setInt(1, fac_id);
@@ -28,17 +28,21 @@ public class SlotDAO extends RootDAO {
 		ResultSet rs = st.executeQuery();
 
 		while (rs.next()) {
-			slot = new Slot();
-			slot.setSl_id(rs.getInt("SL_ID"));
-			slot.setFac_id(rs.getInt("FAC_ID"));
-			slot.setBus_date(rs.getDate("BUS_DATE"));
-			slot.setStart_time(rs.getTime("START_TIME"));
-			slot.setEnd_time(rs.getTime("END_TIME"));
-			slot.setSl_price(rs.getInt("SL_PRICE"));
-			//slot.setPrice_counter(rs.getInt("PRICE_COUNTER"));
-			//slot.setNum_adlt_tkt_sm(rs.getInt("NUM_ADLT_TKT_SM"));
-			//slot.setNum_chld_tkt_sm(rs.getInt("NUM_CHLD_TKT_SM"));
-			list.add(slot);
+			slotexp = new SlotExp();
+			slotexp.setSl_id(rs.getInt("SL_ID"));
+			//slotexp.setFac_id(rs.getInt("FAC_ID"));
+			slotexp.setBus_date(rs.getDate("BUS_DATE"));
+			slotexp.setStart_time(rs.getTime("START_TIME"));
+			slotexp.setEnd_time(rs.getTime("END_TIME"));
+			slotexp.setSl_price(rs.getInt("SL_PRICE"));
+			//slotexp.setPrice_counter(rs.getInt("PRICE_COUNTER"));
+			//slotexp.setNum_adlt_tkt_sm(rs.getInt("NUM_ADLT_TKT_SM"));
+			//slotexp.setNum_chld_tkt_sm(rs.getInt("NUM_CHLD_TKT_SM"));
+
+			slotexp.setRemain(slotexp.getSl_id());
+
+
+			list.add(slotexp);
 		}
 
 		st.close();
@@ -214,6 +218,31 @@ public class SlotDAO extends RootDAO {
 
 		return check;
     }
+
+
+    //指定されたタイムスロットの残り枠数を返す
+    public int getRemainingSlot(int sl_id) throws Exception {
+
+    	PurchaseDAO pd = new PurchaseDAO();
+    	int rsv_sum = pd.purchasedOneSlotCountRsv(sl_id);
+    	int gr_sum = pd.purchasedOneSlotCountGr(sl_id);
+
+    	//↓今のタイムスロットの購入者合計
+    	int sum = rsv_sum + gr_sum;
+
+    	//↓1タイムスロットごとのタイムスロットの上限人数
+    	int fi = slTofac(sl_id);
+
+    	FacilityDAO fd = new FacilityDAO();
+    	int max_num = fd.getMaxNum(fi);
+
+
+    	return max_num - sum;
+
+    }
+
+
+
 
 
 
