@@ -39,7 +39,7 @@ public class SlotDAO extends RootDAO {
 			//slotexp.setNum_adlt_tkt_sm(rs.getInt("NUM_ADLT_TKT_SM"));
 			//slotexp.setNum_chld_tkt_sm(rs.getInt("NUM_CHLD_TKT_SM"));
 
-			slotexp.setRemain(slotexp.getSl_id());
+			slotexp.setRemain(getRemainingSlot(slotexp.getSl_id()));
 
 
 			list.add(slotexp);
@@ -230,19 +230,33 @@ public class SlotDAO extends RootDAO {
     	//↓今のタイムスロットの購入者合計
     	int sum = rsv_sum + gr_sum;
 
-    	//↓1タイムスロットごとのタイムスロットの上限人数
-    	int fi = slTofac(sl_id);
-
-    	FacilityDAO fd = new FacilityDAO();
-    	int max_num = fd.getMaxNum(fi);
-
+    	//↓1タイムスロットごとのタイムスロットの上限人数(キャンセル分抜き)
+    	int max_num = getSlotMaxCancelOut(sl_id);
 
     	return max_num - sum;
 
     }
 
+    //キャンセル枚数を省いたSLOT_MAX所得
+    public int getSlotMaxCancelOut(int sl_id) throws Exception {
+
+    	//↓キャンセル枚数をプラスしたslot_max
+    	int before_slot_max = getSlotMax(sl_id);
 
 
+    	PurchaseDAO pd = new PurchaseDAO();
+
+    	//予約券キャンセル枚数
+    	int rsv_cancel = pd.countCancelRsvBySlot(sl_id);
+
+    	//団体キャンセル枚数
+    	int gr_cancel = pd.countCancelGrBySlot(sl_id);
+
+    	int one_slot_cancel = rsv_cancel + gr_cancel;
+
+    	return before_slot_max - one_slot_cancel;
+
+    }
 
 
 

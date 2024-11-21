@@ -114,6 +114,55 @@ public class PurchaseDAO extends RootDAO {
 	}
 
 
+	//1つのタイムスロットのキャンセル枚数省いた購入枚数返す(一般予約券)
+	public int purchasedOneSlotCountOnlyPurRsv(int sl_id) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement
+			("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE WHERE SL_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0");
+		st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT)");
+		int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT)");
+
+		int sum = sum_adlt + sum_chld;
+
+		st.close();
+		con.close();
+
+		return sum;
+
+	}
+
+
+	//1つのタイムスロットのキャンセル枚数省いた購入枚数返す(団体)
+	public int purchasedOneSlotCountOnlyPurGr(int sl_id) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement
+			("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE WHERE SL_ID = ? AND NUM_ADLT_TKT_GR >= 0 AND NUM_CHLD_TKT_GR >= 0");
+		st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT_GR)");
+		int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT_GR)");
+
+		int sum = sum_adlt + sum_chld;
+
+		st.close();
+		con.close();
+
+		return sum;
+	}
+
+
 	//購入情報追加
 	public List<Integer> Purchase(int mbr_id, int sl_id, int pur_price, int num_adlt_tkt, int num_chld_tkt) throws Exception {
 
@@ -163,9 +212,9 @@ public class PurchaseDAO extends RootDAO {
 
 
 
-	        // 購入後スロット購入者数を取得し、合計をall_sumに設定
-	        int rsv_sum = purchasedOneSlotCountRsv(sl_id);
-	        int gr_sum = purchasedOneSlotCountGr(sl_id);
+	        // 購入後スロット購入者数(キャンセル抜き)を取得し、合計をall_sumに設定
+	        int rsv_sum = purchasedOneSlotCountOnlyPurRsv(sl_id);
+	        int gr_sum = purchasedOneSlotCountOnlyPurGr(sl_id);
 	        int all_sum = rsv_sum + gr_sum;
 
 
@@ -302,7 +351,7 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ?");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0");
 		st.setInt(1, mbr_id);
 
 		ResultSet rs = st.executeQuery();
@@ -360,7 +409,7 @@ public class PurchaseDAO extends RootDAO {
 	}
 
 
-	//購入情報から大人入場券購入枚数をとってくる
+	//購入情報から大人入場券購入枚数またはキャンセル枚数をとってくる
     public int getAdltTkt(int pur_id) throws Exception {
 
     	Connection con = getConnection();
@@ -383,7 +432,7 @@ public class PurchaseDAO extends RootDAO {
     }
 
 
-    //購入情報から大人入場券購入枚数をとってくる
+    //購入情報から大人入場券購入枚数またはキャンセル枚数をとってくる
     public int getChldTkt(int pur_id) throws Exception {
 
     	Connection con = getConnection();
@@ -428,9 +477,9 @@ public class PurchaseDAO extends RootDAO {
         //int facilityId = slotDao.slTofac(sl_id);
 
 
-        //いまの上限はどれくらい？
+        //いまの上限(キャンセルout)はどれくらい？
         SlotDAO sd = new SlotDAO();
-        int maxCapacity = sd.getSlotMax(sl_id);
+        int maxCapacity = sd.getSlotMaxCancelOut(sl_id);
 
         int rsvSum = purchasedOneSlotCountRsv(sl_id);
         int grSum = purchasedOneSlotCountGr(sl_id);
@@ -517,6 +566,26 @@ public class PurchaseDAO extends RootDAO {
 
 		return pp;
 
+    }
+
+
+    //スロットIDに紐づくタイムスロットの一般予約券キャンセル枚数を所得
+    public int countCancelRsvBySlot(int sl_id) throws Exception {
+
+    	int a = purchasedOneSlotCountRsv(sl_id);
+    	int b = purchasedOneSlotCountOnlyPurRsv(sl_id);
+
+    	return b - a;
+    }
+
+
+    //スロットIDに紐づくタイムスロットの団体キャンセル枚数を所得
+    public int countCancelGrBySlot(int sl_id) throws Exception {
+
+    	int a = purchasedOneSlotCountGr(sl_id);
+    	int b = purchasedOneSlotCountOnlyPurGr(sl_id);
+
+    	return b - a;
     }
 
 
