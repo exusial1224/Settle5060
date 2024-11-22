@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +80,7 @@ public class FacilityDAO extends RootDAO {
 		return list;
 	}
 
-	//
+	//施設選択画面における施設のカテゴリ検索
 	public List<Facility> getFacilityByCategory(int category) throws Exception {
 
 	    Facility facility = null;
@@ -328,7 +329,7 @@ public class FacilityDAO extends RootDAO {
 
 
     //Adminによる新規施設アカウント情報登録、登録されると1を返す(パスワードはハッシュ済を入れる)
-	public int AddNewFacilityAd(String co_name, String fac_name, String fac_password, String fac_mail,String fac_address, String fac_tel) throws Exception{
+	public int AddNewFacilityAd(String co_name, String fac_name, String fac_password, String fac_mail, String fac_address, String fac_tel) throws Exception {
 
 		Connection con = getConnection();
 		int line = 0;
@@ -493,6 +494,42 @@ public class FacilityDAO extends RootDAO {
 		con.close();
 
 		return ss;
+
+	}
+
+
+	//施設詳細情報設定
+	public int updateFacilityDetail(int fac_id, Time open_time, Time close_time, int sls_str, int max_num, int low_price, int high_price, int init_price, int sd_tkt_price, String rg_hol,int chld_dsc,int category) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("UPDATE FACILITY SET OPEN_TIME = ?,CLOSE_TIME = ?,SLS_STR = ?,MAX_NUM = ?,LOW_PRICE = ?,HIGH_PRICE = ?,INIT_PRICE = ?,SD_TKT_PRICE = ?,RG_HOL = ?,CHLD_DSC = ?,CATEGORY = ?,FAC_MOD = ? WHERE FAC_ID = ?");
+
+		st.setTime(1, open_time);
+		st.setTime(2, close_time);
+		st.setInt(3, sls_str);
+		st.setInt(4, max_num);
+		st.setInt(5, low_price);
+		st.setInt(6, high_price);
+		st.setInt(7, init_price);
+		st.setInt(8, sd_tkt_price);
+		st.setString(9, rg_hol);
+		st.setInt(10, chld_dsc);
+		st.setInt(11, category);
+
+		// 現在時刻のTimestampを取得
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+		st.setTimestamp(12, currentTimestamp);
+		st.setInt(13, fac_id);
+
+
+		int check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
 
 	}
 
