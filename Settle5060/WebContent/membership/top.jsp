@@ -43,10 +43,7 @@
 
 <div class="container">
     <div class="title">入場券購入</div>
-    <div class="facility">
-        <%= session.getAttribute("facilityName") %>
-        <button onclick="changeFacility()">選択施設を変更</button>
-    </div>
+    <div class="facility">${facilityName} <button onclick="history.back()">選択施設を変更</button></div>
     <form id="dateForm" action="DateSelect" method="post">
         <label for="dateSelect">日付を選択</label>
         <select id="dateSelect" name="selectedDate">
@@ -56,13 +53,20 @@
     </form>
 <%
     java.util.List<bean.Slot> timeSlots = (java.util.List<bean.Slot>) session.getAttribute("timeSlots");
-    java.sql.Date selectedDate = (java.sql.Date) session.getAttribute("selectedDate");
+    String selectedDateStr = (String) session.getAttribute("selectedDate"); // String型で取得
+
+    java.sql.Date selectedDate = null;
+    if (selectedDateStr != null) {
+        selectedDate = java.sql.Date.valueOf(selectedDateStr); // Stringをjava.sql.Dateに変換
+    }
 
     if (timeSlots != null && selectedDate != null) {
 %>
         <form action="SlotSelect" method="post">
+
         <h3>選択した施設名: <%= session.getAttribute("facilityName") %></h3>
-        <h3>選択した日付: <%= session.getAttribute("selectedDate") %></h3>
+        <h3>選択した日付: <%= selectedDate %></h3>
+        <input type="submit" value="決定">
 
         <h4>時間帯を選択してください</h4>
         <table border="1">
@@ -82,7 +86,6 @@
             <% } %>
         </table>
 
-        <input type="submit" value="決定">
     </form>
 <%
     } else {
@@ -91,6 +94,7 @@
 <%
     }
 %>
+
 
     <div class="button-group">
         <a href="Resalelist" class="button">リセール一覧</a>

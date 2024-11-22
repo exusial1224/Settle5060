@@ -30,6 +30,13 @@ public class FacilitySelect extends HttpServlet {
             // セッション管理
             HttpSession session = request.getSession();
 
+            // ユーザーが選択した施設のIDと名前をセッションに保存
+            if (!facilityList.isEmpty()) {
+                Facility selectedFacility = facilityList.get(0); // 仮に最初の施設を選択
+                session.setAttribute("facilityId", selectedFacility.getFac_id());
+                session.setAttribute("facilityName", selectedFacility.getFac_name());
+            }
+
             // セッションにカテゴリIDを保存
             List<Integer> selectedCategories = (List<Integer>) session.getAttribute("selectedCategories");
             if (selectedCategories == null) {
@@ -51,11 +58,9 @@ public class FacilitySelect extends HttpServlet {
             // JSPにフォワード
             request.getRequestDispatcher("top.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            // カテゴリIDが無効な場合のエラー処理
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         } catch (Exception e) {
-            // その他のエラー処理
             e.printStackTrace();
             response.sendRedirect("error.jsp");
         }

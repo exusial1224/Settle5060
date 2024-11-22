@@ -11,26 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FacilityDAO;
+import dao.PurchaseDAO;
 import dao.SlotDAO;
 
 @WebServlet("/membership/SlotSelect")
 public class SlotSelect extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
+
             // リクエストから選択されたスロットIDを取得
             String selectedSlotIdStr = request.getParameter("selectedSlotId");
             if (selectedSlotIdStr == null || selectedSlotIdStr.isEmpty()) {
                 response.sendRedirect("error.jsp");
                 return;
             }
-            int selectedSlotId = Integer.parseInt(selectedSlotIdStr);
+            int slotId = Integer.parseInt(selectedSlotIdStr);
 
-            // DAOを使用して開始時刻と終了時刻を取得
-            SlotDAO dao = new SlotDAO();
-            List<Time> times = dao.getTimes(selectedSlotId);
+            // セッションから施設IDと施設名を取得
+            int facilityId = (int) session.getAttribute("facilityId");
+            String facilityName = (String) session.getAttribute("facilityName");
+
+            // DAOを使用してスロット情報を取得
+            SlotDAO slotDao = new SlotDAO();
+            List<Time> times = slotDao.getTimes(slotId);
             if (times == null || times.size() < 2) {
                 response.sendRedirect("error.jsp");
                 return;
@@ -38,15 +45,37 @@ public class SlotSelect extends HttpServlet {
             Time startTime = times.get(0);
             Time endTime = times.get(1);
 
-            // セッションにスロット情報を保存
-            HttpSession session = request.getSession();
-            session.setAttribute("selectedSlotId", selectedSlotId);
+            // 大人料金を取得
+            int adultPrice = slotDao.getSlotPrice(slotId);
+
+            // 子供割引率を取得
+            FacilityDAO facilityDao = new FacilityDAO();
+            int childDiscount = facilityDao.getChldDsc(facilityId);
+
+            // 子供料金を計算
+            int childPrice = (int) (adultPrice * ((100 - childDiscount) * 0.01));
+
+            // スロットの残り人数を計算
+            PurchaseDAO purchaseDao = new PurchaseDAO();
+            int purchasedRsvCount = purchaseDao.purchasedOneSlotCountRsv(slotId);
+            int purchasedGrCount = purchaseDao.purchasedOneSlotCountGr(slotId);
+            int totalPurchasedCount = purchasedRsvCount + purchasedGrCount;
+
+            int maxNum = facilityDao.getMaxNum(facilityId);
+            int remainingNum = maxNum - totalPurchasedCount;
+
+            if (remainingNum < 0) remainingNum = 0;
+
+            // セッションに情報を保存
+            session.setAttribute("slotId", slotId);
             session.setAttribute("startTime", startTime);
             session.setAttribute("endTime", endTime);
+            session.setAttribute("remainingNum", remainingNum);
+            session.setAttribute("adultPrice", adultPrice);
+            session.setAttribute("childPrice", childPrice);
 
-            // 確認画面にフォワード
-            request.getRequestDispatcher("slotConfirmation.jsp").forward(request, response);
-
+            // JSPにフォワード
+            request.getRequestDispatcher("purchase.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
