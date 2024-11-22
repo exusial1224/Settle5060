@@ -12,15 +12,15 @@
     <div class="container">
     	<h1 class="title-text">会員情報</h1>
     	<hr>
-        <table border="1" class="memberinfo-table">
+        <table class="memberinfo-table">
             <c:choose>
                 <c:when test="${not empty memberInfo}">
-                    <tr><th class="text-form">名前</th><td class="memberinfo-td">${memberInfo.mbr_name}</td></tr>
-                    <tr><th class="text-form">メールアドレス</th><td class="memberinfo-td">${memberInfo.mbr_mail}</td></tr>
-                    <tr><th class="text-form">電話番号</th><td class="memberinfo-td">${memberInfo.mbr_tel}</td></tr>
-                    <tr><th class="text-form">住所</th><td class="memberinfo-td">${memberInfo.mbr_address}</td></tr>
-                    <tr><th class="text-form">生年月日</th><td class="memberinfo-td">${memberInfo.mbr_birth}</td></tr>
-                    <tr><th class="text-form">登録日</th><td class="memberinfo-td">${memberInfo.mbr_reg}</td></tr>
+                    <tr><th align="left" class="text">名前</th><td class="memberinfo-td">${memberInfo.mbr_name}</td></tr>
+                    <tr><th align="left" class="text">メールアドレス</th><td class="memberinfo-td">${memberInfo.mbr_mail}</td></tr>
+                    <tr><th align="left" class="text">電話番号</th><td class="memberinfo-td">${memberInfo.mbr_tel}</td></tr>
+                    <tr><th align="left" class="text">住所</th><td class="memberinfo-td">${memberInfo.mbr_address}</td></tr>
+                    <tr><th align="left" class="text">生年月日</th><td class="memberinfo-td">${memberInfo.mbr_birth}</td></tr>
+                    <tr><th align="left" class="text">登録日</th><td class="memberinfo-td">${memberInfo.mbr_reg}</td></tr>
                 </c:when>
             </c:choose>
         </table>

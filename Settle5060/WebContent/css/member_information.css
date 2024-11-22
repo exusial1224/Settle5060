@@ -1,4 +1,12 @@
-.memberinfo-table th, .memberinfo-table td{
-    border-right: none !important;
-    border-left: none !important;
+.memberinfo-table{
+
+}
+
+.container{
+	background: linear-gradient(45deg, #B67B03 0%, #DAAF08 45%, #FEE9A0 70%, #DAAF08 85%, #B67B03 90% 100%);
+}
+
+//テーブル書式
+.memberinfo-table{
+	width: 10%;
 }
