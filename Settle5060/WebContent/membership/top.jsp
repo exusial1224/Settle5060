@@ -70,21 +70,27 @@
 
         <h4>時間帯を選択してください</h4>
         <table border="1">
-            <tr>
-                <th>時間帯</th>
-                <th>価格</th>
-                <th>選択</th>
-            </tr>
-            <% for (bean.Slot slot : timeSlots) { %>
-                <tr>
-                    <td><%= slot.getStart_time() %> ～ <%= slot.getEnd_time() %></td>
-                    <td><%= slot.getSl_price() %>円</td>
-                    <td>
-                        <input type="radio" name="selectedSlotId" value="<%= slot.getSl_id() %>">
-                    </td>
-                </tr>
-            <% } %>
-        </table>
+		    <tr>
+		        <th>時間帯</th>
+		        <th>価格</th>
+		        <th>残り枚数</th>
+		        <th>選択</th>
+		    </tr>
+		    <% for (Object obj : timeSlots) {
+		        bean.SlotExp slot = (bean.SlotExp) obj; // 明示的にキャスト
+		    %>
+		        <tr>
+		            <td><%= slot.getStart_time() %> ～ <%= slot.getEnd_time() %></td>
+		            <td><%= slot.getSl_price() %>円</td>
+		            <td><%= slot.getRemain() %>枚</td>
+		            <td>
+		                <input type="radio" name="selectedSlotId" value="<%= slot.getSl_id() %>" <%= slot.getRemain() == 0 ? "disabled" : "" %>>
+		            </td>
+		        </tr>
+		    <% } %>
+</table>
+
+
 
     </form>
 <%
