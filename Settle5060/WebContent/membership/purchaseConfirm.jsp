@@ -34,9 +34,6 @@
 
 
         <form action="PurchaseComplete" method="post">
-            <input type="hidden" name="facilityName" value="${facilityName}">
-            <input type="hidden" name="startTime" value="${startTime}">
-            <input type="hidden" name="endTime" value="${endTime}">
             <input type="hidden" name="adultCount" value="${adultCount}">
             <input type="hidden" name="childCount" value="${childCount}">
             <input type="hidden" name="adultPrice" value="${adultPrice}">

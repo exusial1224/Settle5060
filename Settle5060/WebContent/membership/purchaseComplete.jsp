@@ -5,6 +5,9 @@
 <head>
 </head>
 <body>
-    <p>購入完了</p>
+    <p>購入完了しました。</p>
+    <form action="TopDisplay" method="post">
+            <button type="submit">トップ画面に戻る</button>
+        </form>
 </body>
 </html>
