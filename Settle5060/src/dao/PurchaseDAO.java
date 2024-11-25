@@ -352,7 +352,7 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0 AND RSV_ADMITTED = ?");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0 AND RSV_ADMITTED != ?");
 		st.setInt(1, mbr_id);
 		st.setNull(2, Types.BOOLEAN);
 
