@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -351,8 +352,9 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0 AND RSV_ADMITTED = ?");
 		st.setInt(1, mbr_id);
+		st.setNull(2, Types.BOOLEAN);
 
 		ResultSet rs = st.executeQuery();
 
@@ -451,6 +453,25 @@ public class PurchaseDAO extends RootDAO {
 
 		return ct;
 
+    }
+
+
+    //キャンセル前処理、purcahseでキャンセル識別
+    public int updateNull(int pur_id) throws Exception {
+
+    	int check = 0;
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("UPDATE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
+    	st.setNull(1, Types.BOOLEAN);
+    	st.setInt(2, pur_id);
+
+    	check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
     }
 
 
@@ -587,6 +608,43 @@ public class PurchaseDAO extends RootDAO {
 
     	return b - a;
     }
+
+
+    //購入情報返す
+    public PurchaseExp getOneTkt(int pur_id) throws Exception {
+
+    	PurchaseExp purchaseexp = null;
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT * FROM PURCHASE JOIN SLOT ON  PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PUR_ID = ?");
+    	st.setInt(1, pur_id);
+
+    	ResultSet rs = st.executeQuery();
+
+    	rs.next();
+    	purchaseexp = new PurchaseExp();
+		purchaseexp.setPur_id(rs.getInt("PUR_ID"));
+		purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+		purchaseexp.setSl_id(rs.getInt("SL_ID"));
+		purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
+		purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+		purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR"));
+		purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+		purchaseexp.setFac_name(rs.getString("FAC_NAME"));
+
+		purchaseexp.setStart_time(rs.getTime("START_TIME"));
+		purchaseexp.setEnd_time(rs.getTime("END_TIME"));
+
+		purchaseexp.setBus_date(rs.getDate("BUS_DATE"));
+
+
+		st.close();
+		con.close();
+
+		return purchaseexp;
+    }
+
 
 
 
