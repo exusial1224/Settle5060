@@ -13,11 +13,11 @@
     function targeted(){
     	let tselect = document.querySelector("#targetselect")
     	if (tselect.checked) {
-    		document.getElementById("purchaselist").innerHTML='<div class="purchaselist" id="purchaselist"><c:forEach var="purchase" items="${purchaseList}"><c:if test="${purchase.rsv_admitted == false}"><a href="PurchaseTicket?"PurchaseTicket?fac_name=${purchase.fac_name}&time_pur=${purchase.time_pur}&num_adlt_tkt=${purchase.num_adlt_tkt}&num_chld_tkt=${purchase.num_chld_tkt}&start_time=${purchase.start_time}&end_time=${purchase.end_time}"><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:if></c:forEach></div>';
+    		document.getElementById("purchaselist").innerHTML='<div class="purchaselist" id="purchaselist"><c:forEach var="purchase" items="${purchaseList}"><c:if test="${purchase.rsv_admitted == false}"><a href="PurchaseTicket?pur_id=${purchase.pur_id}"><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:if></c:forEach></div>';
 
     	  } else {
     	    // チェックボックスがOFFのときの処理
-  			document.getElementById("purchaselist").innerHTML='<div class="purchaselist" id="purchaselist"><c:forEach var="purchase" items="${purchaseList}"><c:choose><c:when test="${purchase.rsv_admitted == false}"><a href="PurchaseTicket?fac_name=${purchase.fac_name}&time_pur=${purchase.time_pur}&num_adlt_tkt=${purchase.num_adlt_tkt}&num_chld_tkt=${purchase.num_chld_tkt}&start_time=${purchase.start_time}&end_time=${purchase.end_time}"><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:when><c:otherwise><a href="PurchaseTicket?fac_name=${purchase.fac_name}&time_pur=${purchase.time_pur}&num_adlt_tkt=${purchase.num_adlt_tkt}&num_chld_tkt=${purchase.num_chld_tkt}&start_time=${purchase.start_time}&end_time=${purchase.end_time}"><p id = "admitted">使用済み</p><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:otherwise></c:choose></c:forEach></div>';
+  			document.getElementById("purchaselist").innerHTML='<div class="purchaselist" id="purchaselist"><c:forEach var="purchase" items="${purchaseList}"><c:choose><c:when test="${purchase.rsv_admitted == false}"><a href="PurchaseTicket?pur_id=${purchase.pur_id}"><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:when><c:otherwise><a href="PurchaseTicket?pur_id=${purchase.pur_id}"><p id = "admitted">使用済み</p><table border="1"><tr><th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td></tr><tr><th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td></tr></table></a></c:otherwise></c:choose></c:forEach></div>';
     	  }
     }
 
@@ -46,7 +46,7 @@
               </a>
               </c:when>
               <c:otherwise>
-              <a href="PurchaseTicket?fac_name=${purchase.fac_name}&time_pur=${purchase.time_pur}&num_adlt_tkt=${purchase.num_adlt_tkt}&num_chld_tkt=${purchase.num_chld_tkt}&start_time=${purchase.start_time}&end_time=${purchase.end_time}">
+              <a href="PurchaseTicket?pur_id=${purchase.pur_id}">
               <p id = "admitted">使用済み</p>
             	<table border="1">
                 	<tr>
@@ -72,9 +72,9 @@
 
 		<p style=color.black>${target}</p>
 
-        <a href="購入ページへのリンク">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
+        <a href="top.jsp">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
     </div>
 
 </body>
 </html>
-<!--<%@include  file="footer.jsp"%>-->
+<%@include  file="footer.jsp"%>

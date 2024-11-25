@@ -10,11 +10,6 @@
 <body>
     <div class="container">
         <h2>入場券情報</h2>
-        <c:if test="${not empty ticket}">
-        <p><label for="targetselect">入場前のみ表示する</label><input type="checkbox" id="targetselect" onclick="targeted()"><label for="down">降順</label><input type="radio" id="down" name="updown" checked><label for="up">昇順</label><input type="radio" id="up" name="updown"></p>
-        <p><select>
-        <option>施設名</option>
-        </select><input type="text"><button>検索</button></p>
         <div class="ticketinfo" id="ticketinfo">
             	<table border="1">
                 	<tr>
@@ -24,22 +19,14 @@
                     	<th>枚数</th><td>[大人：${ticket.num_adlt_tkt}枚][小人：${ticket.num_chld_tkt}枚]</td><th>入場時間</th><td>${ticket.start_time}～${ticket.end_time}</td>
                 	</tr>
                 </table>
-              </a>
-
         </div>
+        <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
-
-        </c:if>
-        <c:if test="${empty ticket}">
-           <p id="nullmessage">入場券の購入一覧はありません。</p>
-        </c:if>
-
-
 		<p style=color.black>${target}</p>
 
-        <a href="購入ページへのリンク">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
+        <a href="Purchaselist">戻る</a><a href="Purchasecansel">入場券キャンセル</a><p>購入履歴は使用後数ヶ月で削除</p>
     </div>
 
 </body>
 </html>
-<!--<%@include  file="footer.jsp"%>-->
+<%@include  file="footer.jsp"%>
