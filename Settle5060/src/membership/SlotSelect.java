@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.FacilityDAO;
-import dao.PurchaseDAO;
 import dao.SlotDAO;
 
 @WebServlet("/membership/SlotSelect")
@@ -56,13 +55,14 @@ public class SlotSelect extends HttpServlet {
             int childPrice = (int) (adultPrice * ((100 - childDiscount) * 0.01));
 
             // スロットの残り人数を計算
-            PurchaseDAO purchaseDao = new PurchaseDAO();
-            int purchasedRsvCount = purchaseDao.purchasedOneSlotCountRsv(slotId);
-            int purchasedGrCount = purchaseDao.purchasedOneSlotCountGr(slotId);
-            int totalPurchasedCount = purchasedRsvCount + purchasedGrCount;
+            SlotDAO sd = new SlotDAO();
+            //PurchaseDAO purchaseDao = new PurchaseDAO();
+            //int purchasedRsvCount = purchaseDao.purchasedOneSlotCountRsv(slotId);
+            //int purchasedGrCount = purchaseDao.purchasedOneSlotCountGr(slotId);
+            //int totalPurchasedCount = purchasedRsvCount + purchasedGrCount;
 
-            int maxNum = facilityDao.getMaxNum(facilityId);
-            int remainingNum = maxNum - totalPurchasedCount;
+            //int maxNum = facilityDao.getMaxNum(facilityId);
+            int remainingNum = sd.getRemainingSlot(slotId);//maxNum - totalPurchasedCount;
 
             if (remainingNum < 0) remainingNum = 0;
 

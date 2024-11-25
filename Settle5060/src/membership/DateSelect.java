@@ -40,6 +40,7 @@ public class DateSelect extends HttpServlet {
             int facilityId = (int) session.getAttribute("facilityId");
             List<SlotExp> timeSlots = slotDao.getAllSlots(facilityId, selectedDate);
 
+
             session.setAttribute("timeSlots", timeSlots);
 
             request.getRequestDispatcher("top.jsp").forward(request, response);

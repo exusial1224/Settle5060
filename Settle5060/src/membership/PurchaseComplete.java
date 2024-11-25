@@ -14,28 +14,48 @@ import javax.servlet.http.HttpSession;
 
 import bean.Membership;
 import dao.PurchaseDAO;
+import dao.SlotDAO;
 
 @WebServlet("/membership/PurchaseComplete")
 public class PurchaseComplete extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+
+        @SuppressWarnings("unchecked")
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
+        if (membershipIds == null || membershipIds.isEmpty()) {
+            session.setAttribute("errorMessage", "セッションエラー: ログイン情報が見つかりません。");
+            response.sendRedirect("/Settle5060/membership/error1.jsp");
+            return;
+        }
 
         Membership membership = membershipIds.get(0); // ログイン中の会員を取得
         int memberId = membership.getMbr_id();
+
         try {
-            //購入情報を取得
-            int slotId = Integer.parseInt(session.getAttribute("slotId").toString());
-            String adultCountStr = request.getParameter("adultCount");
-            int adultCount = Integer.parseInt(adultCountStr);
+            // セッションからスロットID取得
+        	int slotId = (int) session.getAttribute("slotId");
 
-            String childCountStr = request.getParameter("childCount");
-            int childCount = Integer.parseInt(childCountStr);
+            // 購入情報を取得
+            int adultCount = Integer.parseInt(request.getParameter("adultCount"));
+            int childCount = Integer.parseInt(request.getParameter("childCount"));
+            int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 
-            String totalPriceStr = request.getParameter("totalPrice");
-            int totalPrice = Integer.parseInt(totalPriceStr);
+            // 残り枚数の確認
+            SlotDAO slotDAO = new SlotDAO();
+            int remainingNum = slotDAO.getRemainingSlot(slotId);
+
+            if (adultCount + childCount > remainingNum) {
+                // 枚数オーバーの場合のエラーメッセージ設定
+                request.setAttribute("errorMessage", "選択した枚数が残り枚数を超えています。購入処理を中断しました。");
+                request.setAttribute("remainingNum", remainingNum);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("purchase.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
 
             // 購入処理を実行
             PurchaseDAO purchaseDAO = new PurchaseDAO();
@@ -69,8 +89,12 @@ public class PurchaseComplete extends HttpServlet {
         } catch (NullPointerException | NumberFormatException e) {
             // セッションに必要な情報が存在しない場合
             e.printStackTrace();
-            session.setAttribute("errorMessage", "セッションエラー");
-            response.sendRedirect("/Settle5060/membership/error.jsp");
+            session.setAttribute("errorMessage", "セッションエラー: 購入情報が正しくありません。");
+            response.sendRedirect("/Settle5060/membership/error2.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("errorMessage", "予期しないエラーが発生しました: " + e.getMessage());
+            response.sendRedirect("/Settle5060/membership/error3.jsp");
         }
     }
 }
