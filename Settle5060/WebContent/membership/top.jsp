@@ -45,7 +45,7 @@
     <div class="title">入場券購入</div>
     <div class="facility">
     ${facilityName}
-    <button onclick="location.href='ClearFacilitySelection'">選択施設を変更</button>
+    <button onclick="location.href='ChangeFacility'">選択施設を変更</button>
 	</div>
 
     <form id="dateForm" action="DateSelect" method="post">
@@ -70,7 +70,7 @@
 
         <h3>選択した施設名: <%= session.getAttribute("facilityName") %></h3>
         <h3>選択した日付: <%= selectedDate %></h3>
-        <input type="submit" value="決定">
+
 
         <h4>時間帯を選択してください</h4>
         <table border="1">
@@ -92,11 +92,9 @@
 		            </td>
 		        </tr>
 		    <% } %>
-</table>
-
-
-
-    </form>
+		</table>
+		<input type="submit" value="決定">
+    	</form>
 <%
     } else {
 %>

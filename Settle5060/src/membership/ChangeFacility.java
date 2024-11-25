@@ -20,6 +20,6 @@ public class ChangeFacility extends HttpServlet {
         session.removeAttribute("facilityName");
 
         // 施設選択画面にリダイレクト
-        response.sendRedirect("FacilitySelection.jsp");
+        response.sendRedirect("categorySelect.jsp");
     }
 }
