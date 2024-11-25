@@ -462,7 +462,7 @@ public class PurchaseDAO extends RootDAO {
     	int check = 0;
     	Connection con = getConnection();
 
-    	PreparedStatement st = con.prepareStatement("UPDATE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
+    	PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
     	st.setNull(1, Types.BOOLEAN);
     	st.setInt(2, pur_id);
 

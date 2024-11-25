@@ -28,6 +28,9 @@ public class AokiTest extends HttpServlet {
 			//List<Integer> list = pd.Purchase(192,1,400,1,0);
 			List<PurchaseExp> list = pd1.getPurchaseHistory(192);
 
+			int num = pd1.updateNull(12);
+			out.println(num);
+
 			//SlotDAO sd = new SlotDAO();
 			//int num = sd.getSlotMaxCancelOut(2);
 
@@ -44,9 +47,9 @@ public class AokiTest extends HttpServlet {
 			//out.println(pd.getRsv_admitted());
 
 
-			for (PurchaseExp p : list) {
-				out.println(p.getFac_name());
-			}
+			//for (PurchaseExp p : list) {
+			//	out.println(p.getFac_name());
+			//}
 
 
 			//out.println(pd.getStart_time());
