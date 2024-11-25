@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.Membership;
 import bean.PurchaseExp;
+import dao.PurchaseDAO;
 
 @WebServlet("/membership/PurchaseTicket")
 public class PurchaseTicket extends HttpServlet {
@@ -26,18 +27,15 @@ public class PurchaseTicket extends HttpServlet {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
             }
+            //URLからpur_idの値を取得
+            int pur_id = Integer.parseInt(request.getParameter("pur_id"));
 
-           String fac_name= (String) request.getParameter("fac_name");
-           String time_pur= (String) request.getParameter("time_pur");
-           String start_time= (String) request.getParameter("fac_name");
-           String end_time= (String) request.getParameter("fac_name");
-
-
-           PurchaseExp purchaseList = new PurchaseExp();
-           purchaseList.setFac_name(fac_name);
-            // リクエストにリセール一覧をセットして JSP に転送
-            request.setAttribute("purchaseList", purchaseList);
-            request.getRequestDispatcher("purchaseHistorylist.jsp").forward(request, response);
+            // DAO から入場券情報を取得
+            PurchaseDAO PurchaseDAO = new PurchaseDAO();
+            PurchaseExp ticket = PurchaseDAO.getOneTkt(pur_id);
+            // リクエストに入場券情報をセットして JSP に転送
+            request.setAttribute("purchaseList", ticket);
+            request.getRequestDispatcher("purchaseTicket.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

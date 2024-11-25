@@ -10,7 +10,6 @@
 <body>
     <script >
     var target = false;
-    alert(target)
     function targeted(){
     	let tselect = document.querySelector("#targetselect")
     	if (tselect.checked) {
@@ -35,7 +34,7 @@
         	<c:forEach var="purchase" items="${purchaseList}">
         	<c:choose>
         	<c:when test="${purchase.rsv_admitted == false}">
-          	 <a href="PurchaseTicket?fac_name=${purchase.fac_name}&time_pur=${purchase.time_pur}&num_adlt_tkt=${purchase.num_adlt_tkt}&num_chld_tkt=${purchase.num_chld_tkt}&start_time=${purchase.start_time}&end_time=${purchase.end_time}">
+          	 <a href="PurchaseTicket?pur_id=${purchase.pur_id}">
             	<table border="1">
                 	<tr>
                     	<th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td>
@@ -67,12 +66,13 @@
         </c:if>
         <c:if test="${empty purchaseList}">
            <p id="nullmessage">入場券の購入一覧はありません。</p>
+           <hr>
         </c:if>
 
 
 		<p style=color.black>${target}</p>
 
-        <a href="購入ページへのリンク">戻る</a>
+        <a href="購入ページへのリンク">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
     </div>
 
 </body>
