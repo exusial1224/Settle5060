@@ -20,11 +20,17 @@
                 	</tr>
                 </table>
         </div>
+        <c:choose>
+        <c:when test="${ticket.rsv_admitted == false }">
         <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
-		<p style=color.black>${target}</p>
-
-        <a href="Purchaselist">戻る</a><a href="Purchasecansel">入場券キャンセル</a><p>購入履歴は使用後数ヶ月で削除</p>
+        <a href="Purchaselist">戻る</a><a href="Ticketcancel?pur_id=${ticket.pur_id }">入場券キャンセル</a>
+        </c:when>
+        <c:otherwise>
+        <hr>
+        <a href="Purchaselist">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
+        </c:otherwise>
+        </c:choose>
     </div>
 
 </body>
