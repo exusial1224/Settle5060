@@ -38,7 +38,6 @@ public class Purchase extends HttpServlet {
         // 合計金額を計算
         int totalPrice = (adultPrice * adultCount) + (childPrice * childCount);
 
-        // リクエストスコープにデータをセット
         request.setAttribute("facilityName", facilityName);
         request.setAttribute("startTime", formattedStartTime);
         request.setAttribute("endTime", formattedEndTime);

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="header.jsp" %>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -43,7 +43,11 @@
 
 <div class="container">
     <div class="title">入場券購入</div>
-    <div class="facility">${facilityName} <button onclick="history.back()">選択施設を変更</button></div>
+    <div class="facility">
+    ${facilityName}
+    <button onclick="location.href='ClearFacilitySelection'">選択施設を変更</button>
+	</div>
+
     <form id="dateForm" action="DateSelect" method="post">
         <label for="dateSelect">日付を選択</label>
         <select id="dateSelect" name="selectedDate">
@@ -77,7 +81,7 @@
 		        <th>選択</th>
 		    </tr>
 		    <% for (Object obj : timeSlots) {
-		        bean.SlotExp slot = (bean.SlotExp) obj; // 明示的にキャスト
+		        bean.SlotExp slot = (bean.SlotExp) obj;
 		    %>
 		        <tr>
 		            <td><%= slot.getStart_time() %> ～ <%= slot.getEnd_time() %></td>

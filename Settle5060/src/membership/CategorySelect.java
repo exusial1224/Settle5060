@@ -18,17 +18,14 @@ public class CategorySelect extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // カテゴリIDを取得
+
             int category = Integer.parseInt(request.getParameter("category"));
 
-            // DAOから該当カテゴリの施設リストを取得
             FacilityDAO dao = new FacilityDAO();
             List<Facility> facilities = dao.getFacilityByCategory(category);
 
-            // リクエストスコープに施設リストを設定
             request.setAttribute("facilityList", facilities);
 
-            // facilitySelect.jspにフォワード
             request.getRequestDispatcher("facilitySelect.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

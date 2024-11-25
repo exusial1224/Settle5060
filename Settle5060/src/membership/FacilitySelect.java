@@ -9,26 +9,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FacilityDAO;
+
 @WebServlet("/membership/FacilitySelect")
 public class FacilitySelect extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String facilityIdParam = request.getParameter("facilityId");
+        if (facilityIdParam == null || facilityIdParam.isEmpty()) {
+            response.sendRedirect("error.jsp?message=Invalid facility ID");
+            return;
+        }
+
         try {
-            // 施設IDを取得
-            int facilityId = Integer.parseInt(request.getParameter("facilityId"));
+            int facilityId = Integer.parseInt(facilityIdParam);
+            FacilityDAO facilityDao = new FacilityDAO();
 
+            String facilityName = facilityDao.getFacilityName(facilityId);
+            if (facilityName == null) {
+                response.sendRedirect("error.jsp?message=Facility not found");
+                return;
+            }
 
-            // セッションに施設IDを保存
             HttpSession session = request.getSession();
             session.setAttribute("facilityId", facilityId);
+            session.setAttribute("facilityName", facilityName);
 
-
-            // top.jspへリダイレクト
             response.sendRedirect("top.jsp");
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("error.jsp?message=Facility ID must be a number");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp?message=An unexpected error occurred");
         }
     }
 }

@@ -23,7 +23,7 @@ public class SlotSelect extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            // リクエストから選択されたスロットIDを取得
+            // スロットIDを取得
             String selectedSlotIdStr = request.getParameter("selectedSlotId");
             if (selectedSlotIdStr == null || selectedSlotIdStr.isEmpty()) {
                 response.sendRedirect("error.jsp");
@@ -35,7 +35,7 @@ public class SlotSelect extends HttpServlet {
             int facilityId = (int) session.getAttribute("facilityId");
             String facilityName = (String) session.getAttribute("facilityName");
 
-            // DAOを使用してスロット情報を取得
+            // スロット情報を取得
             SlotDAO slotDao = new SlotDAO();
             List<Time> times = slotDao.getTimes(slotId);
             if (times == null || times.size() < 2) {
@@ -66,7 +66,6 @@ public class SlotSelect extends HttpServlet {
 
             if (remainingNum < 0) remainingNum = 0;
 
-            // セッションに情報を保存
             session.setAttribute("slotId", slotId);
             session.setAttribute("startTime", startTime);
             session.setAttribute("endTime", endTime);
@@ -74,7 +73,6 @@ public class SlotSelect extends HttpServlet {
             session.setAttribute("adultPrice", adultPrice);
             session.setAttribute("childPrice", childPrice);
 
-            // JSPにフォワード
             request.getRequestDispatcher("purchase.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

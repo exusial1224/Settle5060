@@ -37,16 +37,15 @@ public class PurchaseComplete extends HttpServlet {
             String totalPriceStr = request.getParameter("totalPrice");
             int totalPrice = Integer.parseInt(totalPriceStr);
 
-            // DAOを利用して購入処理を実行
+            // 購入処理を実行
             PurchaseDAO purchaseDAO = new PurchaseDAO();
-            boolean isSuccess = false; // 購入成功フラグ
-            String message = ""; // 処理結果メッセージ
+            boolean isSuccess = false;
+            String message = "";
 
             try {
                 // 購入処理の実行
                 List<Integer> result = purchaseDAO.Purchase(memberId, slotId, totalPrice, adultCount, childCount);
 
-                // チェック結果を確認
                 if (result.get(0) > 0) { // 最初の値が 1 以上なら購入成功
                     isSuccess = true;
                     message = "購入が正常に完了しました。";
@@ -61,18 +60,16 @@ public class PurchaseComplete extends HttpServlet {
                 message = "予期しないエラーが発生しました: " + e.getMessage();
             }
 
-            // リクエストスコープにメッセージを設定
             request.setAttribute("isSuccess", isSuccess);
             request.setAttribute("message", message);
 
-            // 結果画面にフォワード
             RequestDispatcher dispatcher = request.getRequestDispatcher("purchaseComplete.jsp");
             dispatcher.forward(request, response);
 
         } catch (NullPointerException | NumberFormatException e) {
             // セッションに必要な情報が存在しない場合
             e.printStackTrace();
-            session.setAttribute("errorMessage", "セッション情報が不完全です。もう一度最初からやり直してください。");
+            session.setAttribute("errorMessage", "セッションエラー");
             response.sendRedirect("/Settle5060/membership/error.jsp");
         }
     }
