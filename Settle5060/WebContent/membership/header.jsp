@@ -6,9 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
     <title>SETTLE</title>
 </head>
-
 <header class="cust-header">
 	<div class="header">
 		<ul>
@@ -23,6 +23,5 @@
 		</ul>
 	</div>
 </header>
-
 </html>
 
