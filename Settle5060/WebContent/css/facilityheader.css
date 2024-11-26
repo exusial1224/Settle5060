@@ -1,0 +1,37 @@
+html,body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  position: relative;
+
+}
+
+header {
+	height: 70px;
+    position: sticky;
+}
+.header {
+    width: 100%;
+    background-color: #174A5C;
+    padding-top: 5px;
+    box-sizing: border-box;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.fici-wrapper {
+    display: flex;
+    position: fixed;
+    right: 0%;
+    height: 0;
+}
+li {
+    list-style: none;
+}
+a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-right: 35px;
+}

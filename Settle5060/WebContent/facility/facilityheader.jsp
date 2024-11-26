@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/facilityheader.css">
 <title>SETTLE施設管理</title>
 </head>
 <body>
@@ -12,7 +12,9 @@
 	<div class="header">
 		<div class="header-logo">
 			<li class="nav__item"><a href="top">SETTLE施設管理</a></li>
-			
+		</div>
+		<div class="faci-wrapper">
+			<li class="nav__item"><a href="Logout">ログアウト</a></li>
 		</div>
 	</div>
 </header>

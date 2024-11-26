@@ -5,8 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
-    <link rel="stylesheet" type="text/css" href="../css/generic.css">
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/facilitylogin.css">
 </head>
 <body>
 
@@ -16,7 +15,7 @@
     <hr>
     <form action="facilityLogin" method="post" class="login-form">
 
-            <p class="text-form"><label for="mail" class="login-label">メールアドレス：</label></p>
+            <div class="loginform-group"><label for="mail" class="login-label">メールアドレス</label></div>
             <input name="mail" type="email" id="user-id" placeholder="Mail" class="input-form" required>
 
             <p class="text-form"><label for="password" class="login-label">パスワード：</label></p>
