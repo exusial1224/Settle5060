@@ -12,7 +12,7 @@
         <h2>入場券情報</h2>
         <form id="TicketcancelComplete" action="TicketcancelComplete" method="post" class="signup-form">
         <div class="ticketcancel" id="ticketcancel">
-
+				<input type="hidden" name="pur_id" value="${ticket.pur_id}">
             	<table border="1">
                 	<tr>
                     	<th>施設名</th><td>${ticket.fac_name}</td>
@@ -23,9 +23,9 @@
                 	<tr>
                 	<th>キャンセルする枚数(大人)</th>
                 	<td>
-                	<select id="num_adlt_tkt">
+                	<select name="cancel_adlt_tkt" id="cancel_num_adlt_tkt">
 						<c:forEach begin="0" end="${ticket.num_adlt_tkt}" step="1" varStatus="cancel_num_adlt_tkt">
-							<option>${cancel_num_adlt_tkt.index}</option>
+							<option value="${cancel_num_adlt_tkt.index}">${cancel_num_adlt_tkt.index}</option>
 						</c:forEach>
                 	</select>
                 	<p>現在：${ticket.num_adlt_tkt}枚</p>
@@ -34,9 +34,9 @@
                 	<tr>
                 	<th>キャンセルする枚数(小人)</th>
                 	<td>
-                	<select id="num_chld_tkt">
+                	<select name="cancel_chld_tkt" id="cancel_num_chld_tkt">
 						<c:forEach begin="0" end="${ticket.num_chld_tkt}" step="1" varStatus="cancel_num_chld_tkt">
-							<option>${cancel_num_chld_tkt.index}</option>
+							<option value="${cancel_num_chld_tkt.index}">${cancel_num_chld_tkt.index}</option>
 						</c:forEach>
                 	</select>
                 	<p>現在：${ticket.num_chld_tkt}枚</p>
