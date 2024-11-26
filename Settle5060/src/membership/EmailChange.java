@@ -24,12 +24,12 @@ public class EmailChange extends HttpServlet {
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
 
         if (membershipIds == null || membershipIds.isEmpty()) {
-            response.sendRedirect("error1.jsp"); // ログインページへリダイレクト
+            response.sendRedirect("error1.jsp");
             return;
         }
 
         // 現在のユーザーの ID を取得
-        Membership membership = membershipIds.get(0);  // リストの最初の会員を取得
+        Membership membership = membershipIds.get(0);  // リストの最初の会員
         int userId = membership.getMbr_id();
 
         try {

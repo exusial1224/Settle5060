@@ -43,33 +43,27 @@ public class AddNewMember extends HttpServlet {
         System.out.println("address (session): " + request.getSession().getAttribute("address"));
         System.out.println("birth (session): " + request.getSession().getAttribute("birth"));
 
-
-
-
-        // コンテキストパスの取得
         String contextPath = request.getContextPath();
 
         try {
-            // メール認証用のリンクを生成 (メールをURLエンコードしてリンクに含める)
+            // メール認証用のリンクを生成
             String encodedMail = URLEncoder.encode(mail, "UTF-8");
             String encodedSession = URLEncoder.encode(request.getSession().getId(), "UTF-8");
             String verificationLink = "http://" + request.getServerName() + ":" + request.getServerPort() +
                     contextPath + "/membership/AddNewMemberComplete?email=" + encodedMail + "&set=" +encodedSession;
 
-            // メール内容が書かれています
+            // メール内容
             String subject = "会員登録の確認";
             String content = "以下のリンクをクリックして会員登録を完了させてください。\n" + verificationLink;
 
             // メール送信
             EmailUtility.sendEmail(mail, subject, content);
 
-            // 仮登録完了ページへリダイレクト
-         // 仮登録完了ページへフォワード
+            // 仮登録完了ページへフォワード
             request.getRequestDispatcher("/membership/addNewMemberComplete.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            // エラーページへリダイレクト
             response.sendRedirect(contextPath + "/membership/error.jsp");
         }
     }

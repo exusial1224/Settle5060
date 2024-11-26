@@ -20,7 +20,7 @@ public class MemberInformation extends HttpServlet {
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
 
         if (membershipIds == null || membershipIds.isEmpty()) {
-            response.sendRedirect("error1.jsp");
+            response.sendRedirect("error.jsp");
             return;
         }
 
@@ -34,7 +34,7 @@ public class MemberInformation extends HttpServlet {
             request.getRequestDispatcher("/membership/memberInformation.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.getRequestDispatcher("/error2.jsp").forward(request, response);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 }

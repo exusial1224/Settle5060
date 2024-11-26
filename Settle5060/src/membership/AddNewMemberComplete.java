@@ -30,7 +30,7 @@ public class AddNewMemberComplete extends HttpServlet {
             System.out.println("セッションが正常に作成されました。");
         }
 
-        // セッションからデータを取得しています
+        // セッションからデータを取得
         String email = (String) session.getAttribute("mail");
         String name = (String) session.getAttribute("name");
         String password = (String) session.getAttribute("password");

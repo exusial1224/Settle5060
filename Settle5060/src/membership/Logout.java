@@ -22,7 +22,6 @@ public class Logout extends HttpServlet {
             session.invalidate();
         }
 
-        // ログアウト後にユーザーをリダイレクトするページ（例えばログインページなど）
         response.sendRedirect("./login.jsp");
     }
 }

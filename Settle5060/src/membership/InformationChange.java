@@ -23,19 +23,17 @@ public class InformationChange extends HttpServlet {
 
         // セッションから会員情報を取得
         HttpSession session = request.getSession();
-     // セッションから会員情報リストを取得
+        // セッションから会員情報リストを取得
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
 
-        // セッションに会員情報が存在しない場合、エラーページへリダイレクト
+        // セッションに会員情報が存在しない場合、エラーページへ
         if (membershipIds == null || membershipIds.isEmpty()) {
             response.sendRedirect("error1.jsp");
             return;
         }
 
-        // 会員情報リストから現在のユーザーに対応するMembershipオブジェクトを取得
-        Membership membership = membershipIds.get(0); // 必要に応じてユーザー特定のロジックを追加
+        Membership membership = membershipIds.get(0);
 
-        // 取得した情報で会員オブジェクトを更新
         String name = request.getParameter("name");
         String tel = request.getParameter("tel");
         String address = request.getParameter("address");
@@ -73,7 +71,7 @@ public class InformationChange extends HttpServlet {
                 request.getRequestDispatcher("/membership/informationChangeSuccess.jsp").forward(request, response);
             } else {
                 // 更新失敗
-                response.sendRedirect("/baseball/customer/changeFailure.jsp");
+                response.sendRedirect("/baseball/customer/error.jsp");
             }
         } catch (Exception e) {
             e.printStackTrace();
