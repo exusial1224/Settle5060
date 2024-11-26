@@ -23,8 +23,10 @@ public class ResaleDAO extends RootDAO {
 		List<ResaleExp> list = new ArrayList<>();
 
 		PreparedStatement st = con.prepareStatement
-			("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE MBR_ID = ?");
+			("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE MBR_ID = ? AND CNC_FLG = ? AND TRAN_FLG = ?");
 		st.setInt(1, mbr_id);
+		st.setBoolean(2, false);
+		st.setBoolean(3, false);
 
 		ResultSet rs = st.executeQuery();
 
