@@ -3,11 +3,13 @@
 
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<link rel="stylesheet" type="text/css" href="../css/test.css">
 </head>
 <body>
-    <p>購入完了しました。</p>
-    <form action="TopDisplay" method="get">
-            <button type="submit">トップ画面に戻る</button>
-        </form>
+	<div class="container">
+	    <p class="title-text">購入完了しました。</p>
+	    <a href="./top.jsp" class="link-test">トップ画面へ戻る</a>
+	</div>
 </body>
 </html>

@@ -4,12 +4,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
     <meta charset="UTF-8">
     <title>予約確認</title>
 </head>
 <body>
     <div class="container">
-        <h2>予約確認画面</h2>
+        <h2 class="title-text">予約確認画面</h2>
+        <hr>
         <table border="1">
             <tr>
                 <td>選択した施設名</td>
@@ -48,4 +50,4 @@
     </div>
 </body>
 </html>
-<%@ include file="footer.jsp" %>
+

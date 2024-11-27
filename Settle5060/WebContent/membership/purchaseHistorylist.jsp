@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<link rel="stylesheet" type="text/css" href="../css/test.css">
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>
 </head>
@@ -30,8 +32,8 @@
     }
     </script>
     <div class="container">
-        <h2>入場券購入一覧</h2>
-
+        <h2 class="title-text">入場券購入一覧</h2>
+		<hr>
         <c:if test="${not empty purchaseList}">
         <p><label for="targetselect">入場前のみ表示する</label><input type="checkbox" id="targetselect" onclick="targeted()"><label for="down">降順</label><input type="radio" id="down" name="updown" checked><label for="up">昇順</label><input type="radio" id="up" name="updown"></p>
         <p><select>
@@ -79,7 +81,7 @@
 
 		<p style=color.black>${target}</p>
 
-        <a href="top.jsp">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
+        <a href="top.jsp">戻る</a><p>※購入履歴は使用後数ヶ月で削除</p>
     </div>
 
 </body>

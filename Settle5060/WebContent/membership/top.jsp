@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+
     <meta charset="UTF-8">
     <title>入場券購入</title>
     <script>
@@ -41,7 +43,8 @@
 <body>
 
 <div class="container">
-    <div class="title">入場券購入</div>
+    <div class="title-text">入場券購入</div>
+    <hr>
     <div class="facility">
     ${facilityName}
     <button onclick="location.href='ChangeFacility'">選択施設を変更</button>
@@ -111,4 +114,3 @@
 
 </body>
 </html>
-<%@ include file="footer.jsp" %>
