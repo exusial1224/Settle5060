@@ -29,7 +29,13 @@ header {
 li {
     list-style: none;
 }
-a {
+.header-logo a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-right: 35px;
+}
+.cust__wrapper a{
     display: block;
     text-decoration: none;
     color: white;
