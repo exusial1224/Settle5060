@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 	    <p class="title-text">購入完了しました。</p>
-	    <a href="./top.jsp" class="link-test">トップ画面へ戻る</a>
+	    <a href="TopDisplay" class="link-test">トップ画面へ戻る</a>
 	</div>
 </body>
 </html>
