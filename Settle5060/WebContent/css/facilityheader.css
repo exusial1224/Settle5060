@@ -7,31 +7,47 @@ html,body{
 }
 
 header {
-	height: 70px;
+	height: 100px;
     position: sticky;
 }
 .header {
     width: 100%;
-    background-color: #174A5C;
+    background-color: #fffff0;
     padding-top: 5px;
     box-sizing: border-box;
-
     position: fixed;
     top: 0;
     left: 0;
 }
-.fici-wrapper {
+.header-line hr{
+
+}
+.faci-wrapper {
+	position: absolute;
     display: flex;
-    position: fixed;
+
     right: 0%;
     height: 0;
 }
 li {
     list-style: none;
 }
-a {
+.header-logo a {
+	font-family: arial, sans-serif;
     display: block;
+    position: relative;
+    z-index=0;
     text-decoration: none;
-    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    color: black;
     margin-right: 35px;
+}
+.faci-wrapper a{
+	display: block;
+	position: absolute;
+	z-index=1;
+    color: black;
+    margin-right: 35px;
+
 }

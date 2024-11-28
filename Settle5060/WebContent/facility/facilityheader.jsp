@@ -17,4 +17,5 @@
 			<li class="nav__item"><a href="Logout">ログアウト</a></li>
 		</div>
 	</div>
+	<hr class="header-line">
 </header>
