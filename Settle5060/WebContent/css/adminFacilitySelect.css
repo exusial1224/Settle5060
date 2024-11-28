@@ -1,0 +1,11 @@
+/* 管理者の施設選択専用CSSファイル */
+.facility-box {
+  width: 70vh;                /* 横幅を70vhに指定 */
+  height: 500px;               /* 縦幅を500pxに指定 */
+  border: 1px solid #000;      /* わかりやすくボーダーを引く */
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+.facility-box table{
+	width:100%;
+	fontsize:30px;
+}

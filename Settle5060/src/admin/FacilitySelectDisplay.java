@@ -19,11 +19,10 @@ public class FacilitySelectDisplay extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             FacilityDAO facilityDao = new FacilityDAO();
-
             List<Facility> all_fac= facilityDao.getFacilityInfos();
-
+            System.out.println(all_fac);
             request.setAttribute("all_fac", all_fac);
-            request.getRequestDispatcher("/admin/facilitySelect.jsp");
+            request.getRequestDispatcher("/admin/facilitySelect.jsp").forward(request, response);;
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp?message=Facility ID must be a number");

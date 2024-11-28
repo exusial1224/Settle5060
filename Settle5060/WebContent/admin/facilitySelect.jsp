@@ -5,17 +5,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../css/adminFacilitySelect.css">
 <title>Insert title here</title>
 </head>
 <body>
 <p>施設を選択してください。</p>
+	<input type="text" id="fac_search" name="fac_search"><input type="submit" value="検索">
 	<c:choose>
 	<c:when test="${not empty all_fac}">
-		<table>
+		<div class="facility-box">
+		<table border="1">
 		<c:forEach var="fac" items="${all_fac}">
-			<a href="FacilitySelectComp?fac_id=${fac.fac_id}"><th>${fac.fac_name}</th></a>
+			<tr><th><a href="FacilitySelectComp?fac_id=${fac.fac_id}">${fac.fac_name}</a></th></tr>
 		</c:forEach>
 		</table>
+		</div>
 	</c:when>
 	<c:otherwise>
 		<p>施設がありません。</p>
