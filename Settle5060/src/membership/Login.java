@@ -41,11 +41,11 @@ public class Login extends HttpServlet {
                 // 会員IDをセッションに保存
                 membershipIds.add(membership);
                 session.setAttribute("membershipIds", membershipIds);
-                response.sendRedirect("/Settle5060/membership/categorySelect.jsp");
+                response.sendRedirect("./categorySelect.jsp");
             } else {
                 // ログイン失敗時の処理
                 request.setAttribute("loginError", "無効なメールアドレスまたはパスワードです。");
-                request.getRequestDispatcher("/settle/membership/loginError.jsp").forward(request, response);
+                request.getRequestDispatcher("./login.jsp").forward(request, response);
             }
         } catch (Exception e) {
             throw new ServletException(e);

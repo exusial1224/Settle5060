@@ -119,6 +119,13 @@
     	margin-left: 20%;
     }
 
+	/*確認下線*/
 	.hr-confirm{
 		width: 70%;
+	}
+
+	/*入力値エラー 赤色*/
+	.input-error{
+		outline:solid 2px red;
+		background-color: pink;
 	}
