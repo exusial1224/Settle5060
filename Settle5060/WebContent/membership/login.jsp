@@ -1,5 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
@@ -10,16 +11,21 @@
 </head>
 <body>
 	<div class="container">
-	    <!--  <h1 class="login-title">-->
-	    <p class=title-text> SETTLEにログイン</p>
+		<!--  <h1 class="login-title">-->
+		<p class=title-text> SETTLEにログイン</p>
 	    <hr>
 	    <form action="Login" method="post" class="login-form">
 
-	            <p class="text-form"><label for="mail" class="login-label">メールアドレス：</label></p>
-	            <input name="mail" type="email" id="user-id" placeholder="✉Mail" class="input-form" required>
+	    	<p class="text-form"><label for="mail" class="login-label">メールアドレス：</label></p>
+	    	<input name="mail" type="email" id="user-id" placeholder="✉Mail" class="input-form" required>
 
-	            <p class="text-form"><label for="password" class="login-label">パスワード：</label></p>
-	            <input name="password" type="password" id="password" placeholder="🔒Password" class="input-form" required>
+	    	<p class="text-form"><label for="password" class="login-label">パスワード：</label></p>
+	    	<input name="password" type="password" id="password" placeholder="🔒Password" class="input-form" required>
+
+			<c:if test ="${loginError != null}">
+  		   		<div class="error-text">パスワードまたはメールアドレスが無効です。</div>
+			</c:if>
+
 
 	        <a href="PasswordResetMailFormDisplay" class="pass_link">▶パスワードを忘れた場合はこちら</a>
 	        <p class="login-btn"><input type="submit" value="ログイン" class="login-input-btn"></p>
