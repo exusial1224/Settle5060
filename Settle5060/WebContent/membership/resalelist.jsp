@@ -26,6 +26,12 @@
                         <td>${resale.bus_date}</td>
                         <td>${resale.start_time}</td>
                         <td>${resale.end_time}</td>
+                        <td>
+                            <form action="ResaleCancel" method="post">
+                            	<input type="hidden" name="rsle_id" value="${resale.rsle_id}" />
+                                <input type="submit" value="キャンセル" />
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -35,10 +41,7 @@
             <p>リセール一覧はありません。</p>
         </c:if>
 
-
-
-
-        <a href="購入ページへのリンク">戻る</a>
+        <a href="TopDisplay.java">戻る</a>
     </div>
 </body>
 </html>
