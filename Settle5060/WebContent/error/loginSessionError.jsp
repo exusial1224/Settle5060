@@ -8,7 +8,7 @@
 <body>
 	<div class="container">
     	<p>もう一度ログインし直してください。</p>
-    	<a href="../membership/login.jsp">ログインする</a>
+    	<a href="../membership/login.jsp">ログインする。</a>
 	</div>
 </body>
 </html>

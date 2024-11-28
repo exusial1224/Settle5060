@@ -20,7 +20,7 @@ public class MemberInformation extends HttpServlet {
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
 
         if (membershipIds == null || membershipIds.isEmpty()) {
-            response.sendRedirect("../error/loginSessionError.jsp");
+            response.sendRedirect("../error/loginSessionError.jsp");//ログインセッションが無い場合の遷移
             return;
         }
 
