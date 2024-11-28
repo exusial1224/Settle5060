@@ -18,7 +18,7 @@
 				<li class="nav__item"><a href="Logout">ログアウト</a></li>
 			</div>
 			<div class="header-logo">
-				<li class="nav__item"><a href="top">SETTLE</a></li>
+				<li class="nav__item"><a href="./top.jsp">SETTLE</a></li>
 			</div>
 		</ul>
 	</div>
