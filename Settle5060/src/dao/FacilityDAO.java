@@ -534,6 +534,24 @@ public class FacilityDAO extends RootDAO {
 	}
 
 
+	//定期休館情報返す
+	public String getRgHol(int fac_id) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("SELECT RG_HOL FROM FACILITY WHERE FAC_ID = ?");
+		st.setInt(1, fac_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		String hol = rs.getString("RG_HOL");
+
+		st.close();
+		con.close();
+
+		return hol;
+	}
 
 
 }

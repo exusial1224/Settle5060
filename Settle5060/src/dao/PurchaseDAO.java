@@ -646,6 +646,26 @@ public class PurchaseDAO extends RootDAO {
     }
 
 
+    //一般予約入場券を入場済みにする
+    public int updateRsvAdmitted(int pur_id) throws Exception {
+
+    	int check = 0;
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
+    	st.setBoolean(1, true);
+    	st.setInt(2, pur_id);
+
+    	check = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return check;
+
+    }
+
+
 
 
 }

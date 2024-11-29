@@ -11,6 +11,7 @@ public class OrganizationPurchase implements Serializable {
 	private int num_chld_tkt_gr;
 	private String org_tel;
 	private boolean gr_tkt_admitted = false;
+	private boolean gr_cnc_flg = false;
 
 
 	public int getOrg_pur_id() {
@@ -60,6 +61,12 @@ public class OrganizationPurchase implements Serializable {
 	}
 	public void setGr_tkt_admitted(boolean gr_tkt_admitted) {
 		this.gr_tkt_admitted = gr_tkt_admitted;
+	}
+	public boolean isGr_cnc_flg() {
+		return gr_cnc_flg;
+	}
+	public void setGr_cnc_flg(boolean gr_cnc_flg) {
+		this.gr_cnc_flg = gr_cnc_flg;
 	}
 
 
