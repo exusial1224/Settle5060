@@ -43,7 +43,7 @@ public class DateSelect extends HttpServlet {
 
             session.setAttribute("timeSlots", timeSlots);
 
-            request.getRequestDispatcher("top.jsp").forward(request, response);
+            request.getRequestDispatcher("top2.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

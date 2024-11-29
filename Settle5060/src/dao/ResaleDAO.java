@@ -75,7 +75,7 @@ public class ResaleDAO extends RootDAO {
 		int check = 0;
 		Connection con = getConnection();
 
-		PreparedStatement st = con.prepareStatement("INSERT INTO VALUES(NULL,?,?,?,?,?)");
+		PreparedStatement st = con.prepareStatement("INSERT INTO RESALE VALUES(NULL,?,?,?,?,?)");
 		st.setInt(1, mbr_id);
 		st.setInt(2, sl_id);
 

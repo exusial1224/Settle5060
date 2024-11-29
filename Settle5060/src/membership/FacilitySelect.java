@@ -36,7 +36,7 @@ public class FacilitySelect extends HttpServlet {
             session.setAttribute("facilityId", facilityId);
             session.setAttribute("facilityName", facilityName);
 
-            response.sendRedirect("top.jsp");
+            response.sendRedirect("top2.jsp");
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp?message=Facility ID must be a number");
