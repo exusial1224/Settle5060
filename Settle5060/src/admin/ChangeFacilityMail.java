@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import bean.Facility;
 import dao.FacilityDAO;
 
-@WebServlet("/admin/ChangeFacilityInfoDisplay")
+@WebServlet("/admin/ChangeFacilityMail")
 public class ChangeFacilityMail extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
