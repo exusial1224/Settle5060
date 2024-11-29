@@ -17,10 +17,10 @@
 		<p>電話番号<input type="text" name="fac_tel" value="${fac_info.fac_tel}"></p>
 	</div>
 	<div class="linkbutton">
-		<a href="#">パスワード変更</a>
+		<a href="ChangeFacilityPassword">パスワード変更</a>
 	</div>
 		<div class="linkbutton">
-		<a href="#">メールアドレス変更</a>
+		<a href="ChangeFacilityMail">メールアドレス変更</a>
 	</div>
 	<a href="adminTop.jsp">戻る</a><button>変更</button>
 </form>
