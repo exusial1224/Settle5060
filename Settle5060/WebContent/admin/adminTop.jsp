@@ -8,7 +8,7 @@
   <c:when test="${not empty facilityName}">
   <!-- facilityに値がある場合は、メニューを有効化 -->
    	<p>${facilityName}</p><a href="FacilitySelect">施設を変更</a>
-   	<a href="ChangeFacilityInfo" id="menu-button">施設情報変更</a>
+   	<a href="ChangeFacilityInfoDisplay" id="menu-button">施設情報変更</a>
   </c:when>
   <c:otherwise>
    <!-- facilityに値がない場合は、メニューを無効化 -->

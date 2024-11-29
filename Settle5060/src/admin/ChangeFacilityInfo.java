@@ -10,27 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Facility;
-import dao.FacilityDAO;
 
 @WebServlet("/admin/ChangeFacilityInfo")
 public class ChangeFacilityInfo extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	   HttpSession session = request.getSession();
-        try {
-        	int fac_id = (int) session.getAttribute("facilityId");
-            FacilityDAO facilityDao = new FacilityDAO();
-            Facility fac_info = facilityDao.getOneFacility(fac_id);
-            System.out.println(fac_info);
-            request.setAttribute("fac_info", fac_info);
-            request.getRequestDispatcher("/admin/changeFacilityInfo.jsp").forward(request, response);;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp?message=Facility ID must be a number");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp?message=An unexpected error occurred");
-        }
+
+
+        	String co_name = request.getParameter("co_name");
+        	String fac_name = request.getParameter("fac_name");
+        	String fac_address = request.getParameter("fac_address");
+        	String fac_tel = request.getParameter("fac_tel");
+
+        	Facility fac_info = new Facility();
+        	fac_info.setCo_name(co_name);
+        	fac_info.setFac_name(fac_name);
+        	fac_info.setFac_address(fac_address);
+        	fac_info.setFac_tel(fac_tel);
+
+        	request.setAttribute("fac_info", fac_info);
+        	request.getRequestDispatcher("/admin/changeFacilityInfoConfirm.jsp").forward(request, response);
+
     }
 }

@@ -3,7 +3,7 @@
 <%@ include file="adminhead.jsp" %>
 <body>
 <div class="form-group">
-<form id="ChangeFacilityInfoComplete" action="ChangeFacilityInfoComplete" method="post">
+<form id="ChangeFacilityInfo" action="ChangeFacilityInfo" method="post">
 	<div class="textinput">
 		<p>企業名<input type="text" name="co_name" value="${fac_info.co_name}"></p>
 	</div>
@@ -22,7 +22,7 @@
 		<div class="linkbutton">
 		<a href="#">メールアドレス変更</a>
 	</div>
-	<button>変更</button>
+	<a href="adminTop.jsp">戻る</a><button>変更</button>
 </form>
 </div>
 </body>
