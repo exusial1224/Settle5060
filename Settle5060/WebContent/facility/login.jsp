@@ -53,7 +53,7 @@ $(window, document, undefined).ready(function() {
     		<label>メールアドレス</label>
   		</div>
         <div class="group">
-    		<input name="password" type="password" id="password" placeholder="Password" required><span class="highlight"></span><span class="bar"></span>
+    		<input name="password" type="password" id="password" required><span class="highlight"></span><span class="bar"></span>
     		<label>パスワード</label>
   		</div>
         <a href="PasswordResetMailFormDisplay" class="pass_link">▶新規登録またはパスワードを忘れた場合はこちら</a>

@@ -16,7 +16,7 @@ public class FacilitySelect extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String facilityIdParam = request.getParameter("facilityId");
+        String facilityIdParam = request.getParameter("fac_id");
         if (facilityIdParam == null || facilityIdParam.isEmpty()) {
             response.sendRedirect("error.jsp?message=Invalid facility ID");
             return;
@@ -36,7 +36,7 @@ public class FacilitySelect extends HttpServlet {
             session.setAttribute("facilityId", facilityId);
             session.setAttribute("facilityName", facilityName);
 
-            response.sendRedirect("top.jsp");
+            response.sendRedirect("adminTop.jsp");
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp?message=Facility ID must be a number");
