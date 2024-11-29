@@ -16,7 +16,7 @@
 		<div class="facility-box">
 		<table border="1">
 		<c:forEach var="fac" items="${all_fac}">
-			<tr><th><a href="FacilitySelectComp?fac_id=${fac.fac_id}">${fac.fac_name}</a></th></tr>
+			<tr><th><a href="FacilitySelectComplete?fac_id=${fac.fac_id}">${fac.fac_name}</a></th></tr>
 		</c:forEach>
 		</table>
 		</div>

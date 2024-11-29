@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.FacilityDAO;
 
-@WebServlet("/admin/FacilitySelectComp")
+@WebServlet("/admin/FacilitySelectComplete")
 public class FacilitySelect extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
