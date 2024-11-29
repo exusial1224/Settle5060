@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/membership/Logout")
+@WebServlet("/admin/Logout")
 public class Logout extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -22,6 +22,6 @@ public class Logout extends HttpServlet {
             session.invalidate();
         }
 
-        response.sendRedirect("./login.jsp");
+        response.sendRedirect("/Settle5060/facility/LoginDisplay");
     }
 }
