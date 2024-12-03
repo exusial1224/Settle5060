@@ -201,7 +201,7 @@ public class Facility implements Serializable {
 		} else if (this.category == 2) {
 			strCategory = "博物館";
 		} else if (this.category == 3) {
-			strCategory = "スキー場";
+			strCategory = "植物園";
 		} else if (this.category == 4) {
 			strCategory = "水族館";
 		} else if (this.category == 5) {

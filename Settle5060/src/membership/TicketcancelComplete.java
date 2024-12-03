@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.PurchaseExp;
 import dao.PurchaseDAO;
 
 @WebServlet("/membership/TicketcancelComplete")
@@ -26,9 +25,11 @@ public class TicketcancelComplete extends HttpServlet {
 
         	// DAO から入場券情報を取得
         	PurchaseDAO PurchaseDAO = new PurchaseDAO();
-        	PurchaseExp ticket = PurchaseDAO.getOneTkt(pur_id);
-    		int can =PurchaseDAO.updateNull(pur_id);
-        	List<Integer> cancelcomp = PurchaseDAO.Cancel(ticket.getMbr_id(), ticket.getSl_id(), ticket.getPur_price(), cancel_num_adlt_tkt, cancel_num_chld_tkt);
+        	//PurchaseExp ticket = PurchaseDAO.getOneTkt(pur_id);
+    		//int can =PurchaseDAO.updateNull(pur_id);
+        	//List<Integer> cancelcomp = PurchaseDAO.Cancel(ticket.getMbr_id(), ticket.getSl_id(), ticket.getPur_price(), cancel_num_adlt_tkt, cancel_num_chld_tkt);
+
+        	List<Integer> cancelcomp = PurchaseDAO.Cancel(pur_id, cancel_num_adlt_tkt, cancel_num_chld_tkt);
 
         	request.setAttribute("cancelcomp",cancelcomp);
             request.getRequestDispatcher("/membership/ticketcancelComplete.jsp").forward(request, response);

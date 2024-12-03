@@ -14,6 +14,7 @@ public class Slot implements Serializable {
 	private int price_counter;
 	private int num_adlt_tkt_sm;
 	private int num_chld_tkt_sm;
+	private int slot_max;
 
 
 	public int getSl_id() {
@@ -69,6 +70,12 @@ public class Slot implements Serializable {
 	}
 	public void setNum_chld_tkt_sm(int num_chld_tkt_sm) {
 		this.num_chld_tkt_sm = num_chld_tkt_sm;
+	}
+	public int getSlot_max() {
+		return slot_max;
+	}
+	public void setSlot_max(int slot_max) {
+		this.slot_max = slot_max;
 	}
 
 

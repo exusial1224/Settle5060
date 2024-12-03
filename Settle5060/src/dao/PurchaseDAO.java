@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,53 +16,53 @@ public class PurchaseDAO extends RootDAO {
 
 
 	//引数の施設ID,日付に紐づくタイムスロットの合計購入者数を返す
-	public int purchasedCountRsv(int fac_id, Date bus_date) throws Exception {
+	//public int purchasedCountRsv(int fac_id, Date bus_date) throws Exception {
 
-		Connection con = getConnection();
+	//	Connection con = getConnection();
 
-		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE JOIN ORGANIZATION_PURCHASE ON PURCHASE.SL_ID = ORGANIZATION_PURCHASE.SL_ID JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUS_DATE = ?");
-		st.setInt(1, fac_id);
-		st.setDate(2, bus_date);
+	//	PreparedStatement st = con.prepareStatement
+	//		("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE JOIN ORGANIZATION_PURCHASE ON PURCHASE.SL_ID = ORGANIZATION_PURCHASE.SL_ID JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUS_DATE = ?");
+	//	st.setInt(1, fac_id);
+	//	st.setDate(2, bus_date);
 
-		ResultSet rs = st.executeQuery();
+	//	ResultSet rs = st.executeQuery();
 
-		rs.next();
-		int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT)");
-		int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT)");
+	//	rs.next();
+	//	int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT)");
+	//	int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT)");
 
-		int sum = sum_adlt + sum_chld;
+	//	int sum = sum_adlt + sum_chld;
 
-		st.close();
-		con.close();
+	//	st.close();
+	//	con.close();
 
-		return sum;
-	}
+	//	return sum;
+	//}
 
 
 	//引数の施設ID,日付に紐づくタイムスロットの団体来場者の合計購入者数を返す
-	public int purchasedCountGr(int fac_id, Date bus_date) throws Exception {
+	//public int purchasedCountGr(int fac_id, Date bus_date) throws Exception {
 
-		Connection con = getConnection();
+	//	Connection con = getConnection();
 
-		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE JOIN SLOT ON ORGANIZATION_PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUS_DATE = ?");
-		st.setInt(1, fac_id);
-		st.setDate(2, bus_date);
+	//	PreparedStatement st = con.prepareStatement
+	//		("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE JOIN SLOT ON ORGANIZATION_PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUS_DATE = ?");
+	//	st.setInt(1, fac_id);
+	//	st.setDate(2, bus_date);
 
-		ResultSet rs = st.executeQuery();
+	//	ResultSet rs = st.executeQuery();
 
-		rs.next();
-		int sum_adlt_gr = rs.getInt("SUM(NUM_ADLT_TKT_GR)");
-		int sum_chld_gr = rs.getInt("SUM(NUM_CHLD_TKT_GR)");
+	//	rs.next();
+	//	int sum_adlt_gr = rs.getInt("SUM(NUM_ADLT_TKT_GR)");
+	//	int sum_chld_gr = rs.getInt("SUM(NUM_CHLD_TKT_GR)");
 
-		int sum = sum_adlt_gr + sum_chld_gr;
+	//	int sum = sum_adlt_gr + sum_chld_gr;
 
-		st.close();
-		con.close();
+	//	st.close();
+	//	con.close();
 
-		return sum;
-	}
+	//	return sum;
+	//}
 
 
 	//1つのタイムスロットの一般購入者数をreturn
@@ -72,14 +71,14 @@ public class PurchaseDAO extends RootDAO {
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE WHERE SL_ID = ?");
+			("SELECT SUM(NUM_ADLT_TKT) - SUM(CNC_RSV_ADLT), SUM(NUM_CHLD_TKT) - SUM(CNC_RSV_CHLD) FROM PURCHASE WHERE SL_ID = ?");
 		st.setInt(1, sl_id);
 
 		ResultSet rs = st.executeQuery();
 
 		rs.next();
-		int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT)");
-		int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT)");
+		int sum_adlt = rs.getInt("SUM(NUM_ADLT_TKT) - SUM(CNC_RSV_ADLT)");
+		int sum_chld = rs.getInt("SUM(NUM_CHLD_TKT) - SUM(CNC_RSV_CHLD)");
 
 		int sum = sum_adlt + sum_chld;
 
@@ -97,14 +96,14 @@ public class PurchaseDAO extends RootDAO {
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE WHERE SL_ID = ?");
+			("SELECT SUM(NUM_ADLT_TKT_GR) - SUM(CNC_GR_ADLT), SUM(NUM_CHLD_TKT_GR) - SUM(CNC_GR_CHLD) FROM ORGANIZATION_PURCHASE WHERE SL_ID = ?");
 		st.setInt(1, sl_id);
 
 		ResultSet rs = st.executeQuery();
 
 		rs.next();
-		int sum_adlt_gr = rs.getInt("SUM(NUM_ADLT_TKT_GR)");
-		int sum_chld_gr = rs.getInt("SUM(NUM_CHLD_TKT_GR)");
+		int sum_adlt_gr = rs.getInt("SUM(NUM_ADLT_TKT_GR) - SUM(CNC_GR_ADLT)");
+		int sum_chld_gr = rs.getInt("SUM(NUM_CHLD_TKT_GR) - SUM(CNC_GR_CHLD)");
 
 		int sum = sum_adlt_gr + sum_chld_gr;
 
@@ -121,7 +120,7 @@ public class PurchaseDAO extends RootDAO {
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE WHERE SL_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0");
+			("SELECT SUM(NUM_ADLT_TKT), SUM(NUM_CHLD_TKT) FROM PURCHASE WHERE SL_ID = ?");
 		st.setInt(1, sl_id);
 
 		ResultSet rs = st.executeQuery();
@@ -146,7 +145,7 @@ public class PurchaseDAO extends RootDAO {
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement
-			("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE WHERE SL_ID = ? AND NUM_ADLT_TKT_GR >= 0 AND NUM_CHLD_TKT_GR >= 0");
+			("SELECT SUM(NUM_ADLT_TKT_GR), SUM(NUM_CHLD_TKT_GR) FROM ORGANIZATION_PURCHASE WHERE SL_ID = ?");
 		st.setInt(1, sl_id);
 
 		ResultSet rs = st.executeQuery();
@@ -198,7 +197,7 @@ public class PurchaseDAO extends RootDAO {
 
 	        // 購入
 	        try (PreparedStatement st = con.prepareStatement(
-	                "INSERT INTO PURCHASE VALUES(NULL,?,?,?,?,?,?,FALSE)")) {
+	                "INSERT INTO PURCHASE(MBR_ID, SL_ID, PUR_PRICE, NUM_ADLT_TKT, NUM_CHLD_TKT, TIME_PUR) VALUES(?,?,?,?,?,?)")) {
 	            st.setInt(1, mbr_id);
 	            st.setInt(2, sl_id);
 	            st.setInt(3, pur_price);
@@ -352,9 +351,8 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT >= 0 AND NUM_CHLD_TKT >= 0 AND RSV_ADMITTED IS NOT NULL");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT AND NUM_CHLD_TKT != CNC_RSV_CHLD");
 		st.setInt(1, mbr_id);
-		//st.setNull(2, Types.BOOLEAN);
 
 		ResultSet rs = st.executeQuery();
 
@@ -371,7 +369,9 @@ public class PurchaseDAO extends RootDAO {
 			purchaseexp.setSl_id(rs.getInt("SL_ID"));
 			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
 			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
 			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
 			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR"));
 			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
 
@@ -411,19 +411,19 @@ public class PurchaseDAO extends RootDAO {
 	}
 
 
-	//購入情報から大人入場券購入枚数またはキャンセル枚数をとってくる
+	//購入情報から大人入場券購入枚数をとってくる
     public int getAdltTkt(int pur_id) throws Exception {
 
     	Connection con = getConnection();
 
-    	PreparedStatement st = con.prepareStatement("SELECT NUM_ADLT_TKT FROM PURCHASE WHERE PUR_ID = ?");
+    	PreparedStatement st = con.prepareStatement("SELECT NUM_ADLT_TKT - CNC_RSV_ADLT FROM PURCHASE WHERE PUR_ID = ?");
     	st.setInt(1, pur_id);
 
     	ResultSet rs = st.executeQuery();
 
 
 		rs.next();
-		int ad = rs.getInt("NUM_ADLT_TKT");
+		int ad = rs.getInt("NUM_ADLT_TKT - CNC_RSV_ADLT");
 
 
 		st.close();
@@ -434,18 +434,18 @@ public class PurchaseDAO extends RootDAO {
     }
 
 
-    //購入情報から大人入場券購入枚数またはキャンセル枚数をとってくる
+    //購入情報から子ども入場券購入枚数をとってくる
     public int getChldTkt(int pur_id) throws Exception {
 
     	Connection con = getConnection();
 
-    	PreparedStatement st = con.prepareStatement("SELECT NUM_CHLD_TKT FROM PURCHASE WHERE PUR_ID = ?");
+    	PreparedStatement st = con.prepareStatement("SELECT NUM_CHLD_TKT - CNC_RSV_CHLD FROM PURCHASE WHERE PUR_ID = ?");
     	st.setInt(1, pur_id);
 
     	ResultSet rs = st.executeQuery();
 
 		rs.next();
-		int ct = rs.getInt("NUM_CHLD_TKT");
+		int ct = rs.getInt("NUM_CHLD_TKT - CNC_RSV_CHLD");
 
 
 		st.close();
@@ -457,27 +457,27 @@ public class PurchaseDAO extends RootDAO {
 
 
     //キャンセル前処理、purcahseでキャンセル識別
-    public int updateNull(int pur_id) throws Exception {
+    //public int updateNull(int pur_id) throws Exception {
 
-    	int check = 0;
-    	Connection con = getConnection();
+    //	int check = 0;
+    //	Connection con = getConnection();
 
-    	PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
-    	st.setNull(1, Types.BOOLEAN);
-    	st.setInt(2, pur_id);
+    //	PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET RSV_ADMITTED = ? WHERE PUR_ID = ?");
+    //	st.setNull(1, Types.BOOLEAN);
+    //	st.setInt(2, pur_id);
 
-    	check = st.executeUpdate();
+    //	check = st.executeUpdate();
 
-		st.close();
-		con.close();
+	//	st.close();
+	//	con.close();
 
-		return check;
-    }
+	//	return check;
+    //}
 
 
 
     //購入をキャンセル + スロットの上限人数の更新
-    public List<Integer> Cancel(int mbr_id, int sl_id, int pur_price, int num_adlt_tkt, int num_chld_tkt) throws Exception {
+    public List<Integer> Cancel(int pur_id, int cnc_rsv_adlt, int cnc_rsv_chld) throws Exception {
 
 
         List<Integer> list = new ArrayList<>();
@@ -485,7 +485,7 @@ public class PurchaseDAO extends RootDAO {
         //リセールメールの送信精査をするかどうか
         boolean shouldSendResaleMail = false;
 
-        //正しくキャンセル情報が追加されたのかチェック(listの最初に入ってる)
+        //正しくキャンセル情報が更新されたのかチェック(listの最初に入ってる)
         int cancelInsertResult = 0;
 
         //上限の更新に成功したのかチェック(listの2番目)
@@ -493,17 +493,17 @@ public class PurchaseDAO extends RootDAO {
 
 
 
-        //SL_ID→FAC_ID
-        //SlotDAO slotDao = new SlotDAO();
-        //int facilityId = slotDao.slTofac(sl_id);
+        PurchaseExp pe = getOneTkt(pur_id);
+
+
 
 
         //いまの上限(キャンセルout)はどれくらい？
         SlotDAO sd = new SlotDAO();
-        int maxCapacity = sd.getSlotMaxCancelOut(sl_id);
+        int maxCapacity = sd.getSlotMaxCancelOut(pe.getSl_id());
 
-        int rsvSum = purchasedOneSlotCountRsv(sl_id);
-        int grSum = purchasedOneSlotCountGr(sl_id);
+        int rsvSum = purchasedOneSlotCountRsv(pe.getSl_id());
+        int grSum = purchasedOneSlotCountGr(pe.getSl_id());
         //↓これ購入枚数合計1スロットにおける
         int currentTotal = rsvSum + grSum;
 
@@ -521,22 +521,19 @@ public class PurchaseDAO extends RootDAO {
 
 
             // キャンセル情報をinsert
-            try (PreparedStatement st = con.prepareStatement("INSERT INTO PURCHASE VALUES(NULL,?,?,?,?,?,?,NULL)")) {
+            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, SET CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
 
 
-                st.setInt(1, mbr_id);
-                st.setInt(2, sl_id);
-                st.setInt(3, pur_price);
-                st.setInt(4, -num_adlt_tkt);
-                st.setInt(5, -num_chld_tkt);
-                st.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+                st.setInt(1, cnc_rsv_adlt);
+                st.setInt(2, cnc_rsv_chld);
+                st.setInt(3, pur_id);
 
                 cancelInsertResult = st.executeUpdate();
                 list.add(cancelInsertResult);
             }
 
             // タイムスロットの上限更新
-            maxUpdateResult = sd.updateSlotMax(sl_id, num_adlt_tkt + num_chld_tkt);
+            maxUpdateResult = sd.updateSlotMax(pe.getSl_id(), cnc_rsv_adlt + cnc_rsv_chld);
 
 
 
@@ -545,7 +542,7 @@ public class PurchaseDAO extends RootDAO {
 
             if (shouldSendResaleMail) {
                 try (PreparedStatement st2 = con.prepareStatement("SELECT MBR_ID FROM RESALE WHERE SL_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ?")) {
-                    st2.setInt(1, sl_id);
+                    st2.setInt(1, pe.getSl_id());
                     st2.setBoolean(2, false);
                     st2.setBoolean(3, false);
 
@@ -628,7 +625,9 @@ public class PurchaseDAO extends RootDAO {
 		purchaseexp.setSl_id(rs.getInt("SL_ID"));
 		purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
 		purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+		purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
 		purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+		purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
 		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR"));
 		purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
 		purchaseexp.setFac_name(rs.getString("FAC_NAME"));

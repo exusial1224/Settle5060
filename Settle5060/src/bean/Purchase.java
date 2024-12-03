@@ -9,7 +9,9 @@ public class Purchase implements Serializable {
 	private int sl_id;
 	private int pur_price;
 	private int num_adlt_tkt;
+	private int cnc_rsv_adlt = 0;
 	private int num_chld_tkt;
+	private int cnc_rsv_chld = 0;
 	private Timestamp time_pur;
 	private boolean rsv_admitted = false;
 
@@ -61,6 +63,31 @@ public class Purchase implements Serializable {
 	}
 	public void setRsv_admitted(boolean rsv_admitted) {
 		this.rsv_admitted = rsv_admitted;
+	}
+	public int getCnc_rsv_adlt() {
+		return cnc_rsv_adlt;
+	}
+	public void setCnc_rsv_adlt(int cnc_rsv_adlt) {
+		this.cnc_rsv_adlt = cnc_rsv_adlt;
+	}
+	public int getCnc_rsv_chld() {
+		return cnc_rsv_chld;
+	}
+	public void setCnc_rsv_chld(int cnc_rsv_chld) {
+		this.cnc_rsv_chld = cnc_rsv_chld;
+	}
+
+
+
+	//現在の大人券は何枚なのか
+	public int current_adlt_tkt() {
+		return this.num_adlt_tkt - this.cnc_rsv_adlt;
+	}
+
+
+	//現在の子ども券は何枚なのか
+	public int current_chld_tkt() {
+		return this.num_chld_tkt - this.cnc_rsv_chld;
 	}
 
 

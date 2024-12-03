@@ -32,6 +32,7 @@ public class IrregularClosureDAO extends RootDAO {
 
 
 
+    //不定休館情報追加
 	public int insertIrregularClosure(int fac_id, Date irr_hol) throws Exception {
 
 		Connection con = getConnection();
