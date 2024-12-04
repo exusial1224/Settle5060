@@ -227,8 +227,13 @@ public class SlotDAO extends RootDAO {
     	int rsv_sum = pd.purchasedOneSlotCountRsv(sl_id);
     	int gr_sum = pd.purchasedOneSlotCountGr(sl_id);
 
+    	//当日券も
+    	int sm = getTktSm(sl_id);
+
+
+
     	//↓今のタイムスロットの購入者合計
-    	int sum = rsv_sum + gr_sum;
+    	int sum = rsv_sum + gr_sum + sm;
 
     	//↓1タイムスロットごとのタイムスロットの上限人数(キャンセル分抜き)
     	int max_num = getSlotMaxCancelOut(sl_id);
@@ -255,6 +260,51 @@ public class SlotDAO extends RootDAO {
     	int one_slot_cancel = rsv_cancel + gr_cancel;
 
     	return before_slot_max - one_slot_cancel;
+
+    }
+
+
+    //1タイムスロットの当日券購入者を所得する
+    public int getTktSm(int sl_id) throws Exception {
+
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT NUM_ADLT_TKT_SM, NUM_CHLD_TKT_SM FROM SLOT WHERE SL_ID = ?");
+    	st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+	    int adlt = rs.getInt("NUM_ADLT_TKT_SM");
+	    int chld = rs.getInt("NUM_CHLD_TKT_SM");
+
+	    int sum = adlt + chld;
+
+		st.close();
+		con.close();
+
+		return sum;
+
+    }
+
+
+    //当日券購入者数更新
+    public int SamedayPurchase(int sl_id, int num_adlt_tkt_sm, int num_chld_tkt_sm) throws Exception {
+
+    	int check = 0;
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("UPDATE SLOT SET NUM_ADLT_TKT_SM = ?, NUM_CHLD_TKT_SM = ? WHERE SL_ID = ?");
+    	st.setInt(1, num_adlt_tkt_sm);
+    	st.setInt(2, num_chld_tkt_sm);
+    	st.setInt(3, sl_id);
+
+    	check = st.executeUpdate();
+
+    	st.close();
+    	con.close();
+
+    	return check;
 
     }
 

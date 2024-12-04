@@ -554,4 +554,26 @@ public class FacilityDAO extends RootDAO {
 	}
 
 
+
+
+	//当日券価格返す
+	public int getSdTktPrice(int fac_id) throws Exception {
+
+		Connection con = getConnection();
+
+		PreparedStatement st = con.prepareStatement("SELECT SD_TKT_PRICE FROM FACILITY WHERE FAC_ID = ?");
+		st.setInt(1, fac_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int stp = rs.getInt("SD_TKT_PRICE");
+
+		st.close();
+		con.close();
+
+		return stp;
+	}
+
+
 }

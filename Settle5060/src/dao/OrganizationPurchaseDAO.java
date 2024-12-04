@@ -32,7 +32,9 @@ public class OrganizationPurchaseDAO extends RootDAO {
 		    ope.setOrg_name(rs.getString("ORG_NAME"));
 		    ope.setRep_name(rs.getString("REP_NAME"));
 		    ope.setNum_adlt_tkt_gr(rs.getInt("NUM_ADLT_TKT_GR"));
+		    ope.setCnc_gr_adlt(rs.getInt("CNC_GR_ADLT"));
 		    ope.setNum_chld_tkt_gr(rs.getInt("NUM_CHLD_TKT_GR"));
+		    ope.setCnc_gr_chld(rs.getInt("CNC_GR_CHLD"));
 		    ope.setOrg_tel(rs.getString("ORG_TEL"));
 		    ope.setGr_tkt_admitted(rs.getBoolean("GR_TKT_ADMITTED"));
 		    //ope.setGr_cnc_flg(rs.getBoolean("GR_CNC_FLG"));

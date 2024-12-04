@@ -77,4 +77,16 @@ public class OrganizationPurchase implements Serializable {
 	}
 
 
+	//現在の大人券は何枚なのか
+	public int current_adlt_tkt() {
+		return this.num_adlt_tkt_gr - this.cnc_gr_adlt;
+	}
+
+
+	//現在の子ども券は何枚なのか
+	public int current_chld_tkt() {
+		return this.num_chld_tkt_gr - this.cnc_gr_chld;
+	}
+
+
 }

@@ -520,7 +520,7 @@ public class PurchaseDAO extends RootDAO {
 
 
 
-            // キャンセル情報をinsert
+            // キャンセル情報を更新
             try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, SET CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
 
 

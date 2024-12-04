@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.PurchaseDAO;
+import dao.SlotDAO;
 
 
 
@@ -22,8 +22,8 @@ public class AokiTest extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 
-			PurchaseDAO pd = new PurchaseDAO();
-			int num = pd.countCancelRsvBySlot(5);
+			SlotDAO sd = new SlotDAO();
+			int num = sd.getRemainingSlot(5);
 
 
 			out.println(num);
