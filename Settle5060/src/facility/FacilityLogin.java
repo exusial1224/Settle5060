@@ -23,21 +23,21 @@ public class FacilityLogin extends HttpServlet {
 
         String admin_mail= "settle5060@gmail.com";
         String admin_pass= "020e5e47501be103bb0367269fb0fd1845a2f763c041cc26601849359479483d";
-       FacilityDAO facilityDAO = new FacilityDAO();
+        FacilityDAO facilityDAO = new FacilityDAO();
 
         try {
             String hashedPassword = hashPassword(password);
-            int fac_id = 0;
-            fac_id = facilityDAO.loginFacility(mail, hashedPassword);
+            int facilityId = 0;
+            facilityId = facilityDAO.loginFacility(mail, hashedPassword);
 
             HttpSession session = request.getSession();
-            if (fac_id != 0) {
+            if (facilityId != 0) {
                 // 施設IDをセッションに保存
-                session.setAttribute("fac_id",fac_id );
+                session.setAttribute("facilityId",facilityId );
                 response.sendRedirect("/Settle5060/facility/facilityTop.jsp");
             } else {
             	if(mail.equals(admin_mail) && hashedPassword.equals(admin_pass)){
-            		session.setAttribute("fac_id",fac_id);
+            		session.setAttribute("facilityId",facilityId);
             		response.sendRedirect("/Settle5060/admin/adminTop.jsp");
             	}else{
                 // ログイン失敗時の処理
