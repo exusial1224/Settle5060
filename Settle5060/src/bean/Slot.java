@@ -1,15 +1,15 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Slot implements Serializable {
 	private int sl_id;
 	private int fac_id;
-	private Date bus_date;
-	private Time start_time;
-	private Time end_time;
+	private LocalDate bus_date;
+	private LocalTime start_time;
+	private LocalTime end_time;
 	private int sl_price;
 	private int price_counter;
 	private int num_adlt_tkt_sm;
@@ -29,22 +29,22 @@ public class Slot implements Serializable {
 	public void setFac_id(int fac_id) {
 		this.fac_id = fac_id;
 	}
-	public Date getBus_date() {
+	public LocalDate getBus_date() {
 		return bus_date;
 	}
-	public void setBus_date(Date bus_date) {
+	public void setBus_date(LocalDate bus_date) {
 		this.bus_date = bus_date;
 	}
-	public Time getStart_time() {
+	public LocalTime getStart_time() {
 		return start_time;
 	}
-	public void setStart_time(Time start_time) {
+	public void setStart_time(LocalTime start_time) {
 		this.start_time = start_time;
 	}
-	public Time getEnd_time() {
+	public LocalTime getEnd_time() {
 		return end_time;
 	}
-	public void setEnd_time(Time end_time) {
+	public void setEnd_time(LocalTime end_time) {
 		this.end_time = end_time;
 	}
 	public int getSl_price() {

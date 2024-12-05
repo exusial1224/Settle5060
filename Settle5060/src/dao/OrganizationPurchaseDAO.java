@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class OrganizationPurchaseDAO extends RootDAO {
 
 
 	//特定の施設ID、日付の団体来場者を所得
-	public List<OrganizationPurchaseExp> getOrganization(int fac_id, java.time.LocalDate bus_date) throws Exception {
+	public List<OrganizationPurchaseExp> getOrganization(int fac_id, LocalDate bus_date) throws Exception {
 
 		List<OrganizationPurchaseExp> list = new ArrayList<>();
 		OrganizationPurchaseExp ope = null;
@@ -38,9 +39,9 @@ public class OrganizationPurchaseDAO extends RootDAO {
 		    ope.setOrg_tel(rs.getString("ORG_TEL"));
 		    ope.setGr_tkt_admitted(rs.getBoolean("GR_TKT_ADMITTED"));
 		    //ope.setGr_cnc_flg(rs.getBoolean("GR_CNC_FLG"));
-		    ope.setBus_date(rs.getDate("BUS_DATE"));
-		    ope.setStart_time(rs.getTime("START_TIME"));
-		    ope.setEnd_time(rs.getTime("END_TIME"));
+		    ope.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+		    ope.setStart_time(rs.getTime("START_TIME").toLocalTime());
+		    ope.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 			list.add(ope);
 		}
 

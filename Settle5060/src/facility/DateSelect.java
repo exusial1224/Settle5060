@@ -1,4 +1,4 @@
-package membership;
+package facility;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -15,14 +15,13 @@ import bean.SlotExp;
 import dao.SlotDAO;
 
 
-@WebServlet("/membership/DateSelect")
+@WebServlet("/facility/DateSelect")
 public class DateSelect extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-
             // 選択された日付を取得
             String selectedDateStr = request.getParameter("selectedDate");
             if (selectedDateStr == null || selectedDateStr.isEmpty()) {
@@ -34,16 +33,15 @@ public class DateSelect extends HttpServlet {
 
             Date selectedDate = Date.valueOf(selectedDateStr);
 
-
             // スロット情報を取得
             SlotDAO slotDao = new SlotDAO();
             int facilityId = (int) session.getAttribute("facilityId");
             List<SlotExp> timeSlots = slotDao.getAllSlots(facilityId, selectedDate.toLocalDate());
 
-
+            session.setAttribute("facilityId", facilityId);
             session.setAttribute("timeSlots", timeSlots);
 
-            request.getRequestDispatcher("top.jsp").forward(request, response);
+            request.getRequestDispatcher("organizationPurchaseInfo.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

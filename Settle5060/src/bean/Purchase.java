@@ -1,7 +1,7 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Purchase implements Serializable {
 	private int pur_id;
@@ -12,7 +12,7 @@ public class Purchase implements Serializable {
 	private int cnc_rsv_adlt = 0;
 	private int num_chld_tkt;
 	private int cnc_rsv_chld = 0;
-	private Timestamp time_pur;
+	private LocalDateTime time_pur;
 	private boolean rsv_admitted = false;
 
 
@@ -52,10 +52,10 @@ public class Purchase implements Serializable {
 	public void setNum_chld_tkt(int num_chld_tkt) {
 		this.num_chld_tkt = num_chld_tkt;
 	}
-	public Timestamp getTime_pur() {
+	public LocalDateTime getTime_pur() {
 		return time_pur;
 	}
-	public void setTime_pur(Timestamp time_pur) {
+	public void setTime_pur(LocalDateTime time_pur) {
 		this.time_pur = time_pur;
 	}
 	public boolean isRsv_admitted() {
