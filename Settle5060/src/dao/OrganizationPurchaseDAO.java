@@ -13,7 +13,7 @@ public class OrganizationPurchaseDAO extends RootDAO {
 
 
 	//特定の施設ID、日付の団体来場者を所得
-	public List<OrganizationPurchaseExp> getOrganization(int fac_id, Date bus_date) throws Exception {
+	public List<OrganizationPurchaseExp> getOrganization(int fac_id, java.time.LocalDate bus_date) throws Exception {
 
 		List<OrganizationPurchaseExp> list = new ArrayList<>();
 		OrganizationPurchaseExp ope = null;
@@ -21,7 +21,7 @@ public class OrganizationPurchaseDAO extends RootDAO {
 
 	    PreparedStatement st = con.prepareStatement("SELECT * FROM ORGANIZATION_PURCHASE JOIN SLOT ON ORGANIZATION_PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUD_DATE = ?");
 	    st.setInt(1, fac_id);
-	    st.setDate(2, bus_date);
+	    st.setDate(2, Date.valueOf(bus_date));
 
 	    ResultSet rs = st.executeQuery();
 

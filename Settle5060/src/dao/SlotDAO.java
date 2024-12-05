@@ -14,7 +14,7 @@ public class SlotDAO extends RootDAO {
 
 
 	//トップ画面のスロット情報所得
-	public List<SlotExp> getAllSlots(int fac_id, Date bus_date) throws Exception {
+	public List<SlotExp> getAllSlots(int fac_id, java.time.LocalDate bus_date) throws Exception {
 
 		Connection con = getConnection();
 
@@ -23,7 +23,8 @@ public class SlotDAO extends RootDAO {
 
 		PreparedStatement st = con.prepareStatement("SELECT * FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ?");
 		st.setInt(1, fac_id);
-		st.setDate(2, bus_date);
+		//sql.Dateに
+		st.setDate(2, Date.valueOf(bus_date));
 
 		ResultSet rs = st.executeQuery();
 
