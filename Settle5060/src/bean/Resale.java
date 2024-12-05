@@ -1,13 +1,13 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Resale implements Serializable {
 	private int rsle_id;
 	private int mbr_id;
 	private int sl_id;
-	private Timestamp posting;
+	private LocalDateTime posting;
 	private boolean tran_flg = false;
 	private boolean cnc_flg = false;
 
@@ -30,10 +30,10 @@ public class Resale implements Serializable {
 	public void setSl_id(int sl_id) {
 		this.sl_id = sl_id;
 	}
-	public Timestamp getPosting() {
+	public LocalDateTime getPosting() {
 		return posting;
 	}
-	public void setPosting(Timestamp posting) {
+	public void setPosting(LocalDateTime posting) {
 		this.posting = posting;
 	}
 	public boolean isTran_flg() {

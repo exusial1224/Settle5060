@@ -38,7 +38,7 @@ public class DateSelect extends HttpServlet {
             // スロット情報を取得
             SlotDAO slotDao = new SlotDAO();
             int facilityId = (int) session.getAttribute("facilityId");
-            List<SlotExp> timeSlots = slotDao.getAllSlots(facilityId, selectedDate);
+            List<SlotExp> timeSlots = slotDao.getAllSlots(facilityId, selectedDate.toLocalDate());
 
 
             session.setAttribute("timeSlots", timeSlots);

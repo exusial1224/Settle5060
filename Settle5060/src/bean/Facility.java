@@ -1,8 +1,8 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +14,8 @@ public class Facility implements Serializable {
 	private String fac_mail;
 	private String fac_address;
 	private String fac_tel;
-	private Time open_time;
-	private Time close_time;
+	private LocalTime open_time;
+	private LocalTime close_time;
 	private int sls_str;
 	private int max_num;
 	private int low_price;
@@ -25,8 +25,8 @@ public class Facility implements Serializable {
 	private String rg_hol;
 	private int chld_dsc;
 	private int category;
-	private Timestamp fac_reg;
-	private Timestamp fac_mod;
+	private LocalDateTime fac_reg;
+	private LocalDateTime fac_mod;
 
 
 	public int getFac_id() {
@@ -71,16 +71,16 @@ public class Facility implements Serializable {
 	public void setFac_tel(String fac_tel) {
 		this.fac_tel = fac_tel;
 	}
-	public Time getOpen_time() {
+	public LocalTime getOpen_time() {
 		return open_time;
 	}
-	public void setOpen_time(Time open_time) {
+	public void setOpen_time(LocalTime open_time) {
 		this.open_time = open_time;
 	}
-	public Time getClose_time() {
+	public LocalTime getClose_time() {
 		return close_time;
 	}
-	public void setClose_time(Time close_time) {
+	public void setClose_time(LocalTime close_time) {
 		this.close_time = close_time;
 	}
 	public int getSls_str() {
@@ -137,16 +137,16 @@ public class Facility implements Serializable {
 	public void setCategory(int category) {
 		this.category = category;
 	}
-	public Timestamp getFac_reg() {
+	public LocalDateTime getFac_reg() {
 		return fac_reg;
 	}
-	public void setFac_reg(Timestamp fac_reg) {
+	public void setFac_reg(LocalDateTime fac_reg) {
 		this.fac_reg = fac_reg;
 	}
-	public Timestamp getFac_mod() {
+	public LocalDateTime getFac_mod() {
 		return fac_mod;
 	}
-	public void setFac_mod(Timestamp fac_mod) {
+	public void setFac_mod(LocalDateTime fac_mod) {
 		this.fac_mod = fac_mod;
 	}
 

@@ -68,7 +68,7 @@ public class AddNewMemberComplete extends HttpServlet {
             System.out.println("変換後:"+birthDate);
             // データベースに登録
             MembershipDAO membershipDAO = new MembershipDAO();
-            int result = membershipDAO.AddNewMember(name, hashedPassword, email, tel, address,birthDate);
+            int result = membershipDAO.AddNewMember(name, hashedPassword, email, tel, address,birthDate.toLocalDate());
 
             if (result > 0) {
                 response.sendRedirect(request.getContextPath() + "/membership/addNewMemberPerfect.jsp");

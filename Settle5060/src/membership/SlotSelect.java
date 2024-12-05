@@ -1,7 +1,7 @@
 package membership;
 
 import java.io.IOException;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,13 +36,13 @@ public class SlotSelect extends HttpServlet {
 
             // スロット情報を取得
             SlotDAO slotDao = new SlotDAO();
-            List<Time> times = slotDao.getTimes(slotId);
+            List<LocalTime> times = slotDao.getTimes(slotId);
             if (times == null || times.size() < 2) {
                 response.sendRedirect("error.jsp");
                 return;
             }
-            Time startTime = times.get(0);
-            Time endTime = times.get(1);
+            LocalTime startTime = times.get(0);
+            LocalTime endTime = times.get(1);
 
             // 大人料金を取得
             int adultPrice = slotDao.getSlotPrice(slotId);

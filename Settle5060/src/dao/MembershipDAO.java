@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import bean.Membership;
 
@@ -35,7 +36,7 @@ public class MembershipDAO extends RootDAO {
 
 
 //	新規会員登録、登録されると1を返す(パスワードはハッシュ済を入れる)
-	public int AddNewMember(String mbr_name, String mbr_password, String mbr_mail, String mbr_tel,String mbr_address, Date mbr_birth) throws Exception{
+	public int AddNewMember(String mbr_name, String mbr_password, String mbr_mail, String mbr_tel,String mbr_address, LocalDate mbr_birth) throws Exception{
 
 		Connection con=getConnection();
 		int line=0;
@@ -48,7 +49,7 @@ public class MembershipDAO extends RootDAO {
 		st.setString(3, mbr_mail);
 		st.setString(4, mbr_tel);
 		st.setString(5, mbr_address);
-		st.setDate(6, mbr_birth);
+		st.setDate(6, Date.valueOf(mbr_birth));
 
 		// 現在時刻のTimestampを取得
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
@@ -86,9 +87,9 @@ public class MembershipDAO extends RootDAO {
 				membership.setMbr_mail(rs.getString("MBR_MAIL"));
 				membership.setMbr_tel(rs.getString("MBR_TEL"));
 				membership.setMbr_address(rs.getString("MBR_ADDRESS"));
-				membership.setMbr_birth(rs.getDate("MBR_BIRTH"));
-				membership.setMbr_reg(rs.getTimestamp("MBR_REG"));
-				membership.setMbr_mod(rs.getTimestamp("MBR_MOD"));
+				membership.setMbr_birth(rs.getDate("MBR_BIRTH").toLocalDate());
+				membership.setMbr_reg(rs.getTimestamp("MBR_REG").toLocalDateTime());
+				membership.setMbr_mod(rs.getTimestamp("MBR_MOD").toLocalDateTime());
 			}
 
 			st.close();
@@ -98,7 +99,7 @@ public class MembershipDAO extends RootDAO {
 
 
 	//会員情報の変更
-	public int changeMemberInfo(int mbr_id,String mbr_name,String mbr_tel,String mbr_address, Date mbr_birth) throws Exception{
+	public int changeMemberInfo(int mbr_id,String mbr_name,String mbr_tel,String mbr_address, LocalDate mbr_birth) throws Exception{
 
 		Connection con = getConnection();
 
@@ -107,7 +108,7 @@ public class MembershipDAO extends RootDAO {
 		st.setString(1, mbr_name);
 		st.setString(2, mbr_tel);
 		st.setString(3, mbr_address);
-		st.setDate(4, mbr_birth);
+		st.setDate(4, Date.valueOf(mbr_birth));
 
 		// 現在時刻のTimestampを取得
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
@@ -151,9 +152,9 @@ public class MembershipDAO extends RootDAO {
 				membership.setMbr_mail(rs.getString("MBR_MAIL"));
 				membership.setMbr_tel(rs.getString("MBR_TEL"));
 				membership.setMbr_address(rs.getString("MBR_ADDRESS"));
-				membership.setMbr_birth(rs.getDate("MBR_BIRTH"));
-				membership.setMbr_reg(rs.getTimestamp("MBR_REG"));
-				membership.setMbr_mod(rs.getTimestamp("MBR_MOD"));
+				membership.setMbr_birth(rs.getDate("MBR_BIRTH").toLocalDate());
+				membership.setMbr_reg(rs.getTimestamp("MBR_REG").toLocalDateTime());
+				membership.setMbr_mod(rs.getTimestamp("MBR_MOD").toLocalDateTime());
 			}
 
 			st.close();

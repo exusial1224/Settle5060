@@ -5,8 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -258,7 +258,9 @@ public class PurchaseDAO extends RootDAO {
 	            }
 
 	            // 日付を取得
-	            Date d = sd.slToBusDate(sl_id);
+	            Date d = Date.valueOf(sd.slToBusDate(sl_id));
+
+
 
 
 
@@ -358,7 +360,7 @@ public class PurchaseDAO extends RootDAO {
 
 		SlotDAO sd = new SlotDAO();
 		FacilityDAO fd = new FacilityDAO();
-		List<Time> time_list = new ArrayList<>();
+		List<LocalTime> time_list = new ArrayList<>();
 
 
 
@@ -372,7 +374,7 @@ public class PurchaseDAO extends RootDAO {
 			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
 			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
 			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
-			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR"));
+			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
 			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
 
 			//SL_IDからFAC_IDを所得
@@ -628,14 +630,14 @@ public class PurchaseDAO extends RootDAO {
 		purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
 		purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
 		purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
-		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR"));
+		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
 		purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
 		purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
-		purchaseexp.setStart_time(rs.getTime("START_TIME"));
-		purchaseexp.setEnd_time(rs.getTime("END_TIME"));
+		purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
+		purchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 
-		purchaseexp.setBus_date(rs.getDate("BUS_DATE"));
+		purchaseexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
 
 
 		st.close();
