@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class SlotDAO extends RootDAO {
 
 
 	//トップ画面のスロット情報所得
-	public List<SlotExp> getAllSlots(int fac_id, java.time.LocalDate bus_date) throws Exception {
+	public List<SlotExp> getAllSlots(int fac_id, LocalDate bus_date) throws Exception {
 
 		Connection con = getConnection();
 
@@ -31,14 +33,14 @@ public class SlotDAO extends RootDAO {
 		while (rs.next()) {
 			slotexp = new SlotExp();
 			slotexp.setSl_id(rs.getInt("SL_ID"));
-			//slotexp.setFac_id(rs.getInt("FAC_ID"));
-			slotexp.setBus_date(rs.getDate("BUS_DATE"));
-			slotexp.setStart_time(rs.getTime("START_TIME"));
-			slotexp.setEnd_time(rs.getTime("END_TIME"));
+			slotexp.setFac_id(rs.getInt("FAC_ID"));
+			slotexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+			slotexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
+			slotexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 			slotexp.setSl_price(rs.getInt("SL_PRICE"));
-			//slotexp.setPrice_counter(rs.getInt("PRICE_COUNTER"));
-			//slotexp.setNum_adlt_tkt_sm(rs.getInt("NUM_ADLT_TKT_SM"));
-			//slotexp.setNum_chld_tkt_sm(rs.getInt("NUM_CHLD_TKT_SM"));
+			slotexp.setPrice_counter(rs.getInt("PRICE_COUNTER"));
+			slotexp.setNum_adlt_tkt_sm(rs.getInt("NUM_ADLT_TKT_SM"));
+			slotexp.setNum_chld_tkt_sm(rs.getInt("NUM_CHLD_TKT_SM"));
 
 			slotexp.setRemain(getRemainingSlot(slotexp.getSl_id()));
 
@@ -54,10 +56,10 @@ public class SlotDAO extends RootDAO {
 
 
     //タイムスロットの開始時刻、終了時刻をlistで返す
-	public List<Time> getTimes(int sl_id) throws Exception {
+	public List<LocalTime> getTimes(int sl_id) throws Exception {
 
 		Connection con = getConnection();
-		List<Time> list = new ArrayList<>();
+		List<LocalTime> list = new ArrayList<>();
 
 		PreparedStatement st = con.prepareStatement("SELECT START_TIME,END_TIME FROM SLOT WHERE SL_ID = ?");
 		st.setInt(1, sl_id);
@@ -68,8 +70,8 @@ public class SlotDAO extends RootDAO {
 		Time ot = rs.getTime("START_TIME");
 		Time et = rs.getTime("END_TIME");
 
-		list.add(ot);
-		list.add(et);
+		list.add(ot.toLocalTime());
+		list.add(et.toLocalTime());
 
 		st.close();
 		con.close();
@@ -100,7 +102,7 @@ public class SlotDAO extends RootDAO {
 
 
     //営業日付所得
-	public Date getBusDate(int sl_id) throws Exception {
+	public LocalDate getBusDate(int sl_id) throws Exception {
 
 		Connection con = getConnection();
 
@@ -115,7 +117,7 @@ public class SlotDAO extends RootDAO {
 		st.close();
 		con.close();
 
-		return bs;
+		return bs.toLocalDate();
 	}
 
 
@@ -161,7 +163,7 @@ public class SlotDAO extends RootDAO {
 
 
     //スロットIDを日付に変換
-    public Date slToBusDate(int sl_id) throws Exception {
+    public LocalDate slToBusDate(int sl_id) throws Exception {
 
     	Connection con = getConnection();
 
@@ -176,7 +178,7 @@ public class SlotDAO extends RootDAO {
 		st.close();
 		con.close();
 
-		return bd;
+		return bd.toLocalDate();
     }
 
 
@@ -289,15 +291,60 @@ public class SlotDAO extends RootDAO {
     }
 
 
+    //当日大人券返す
+    public int getTktAdltSm(int sl_id) throws Exception {
+
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT NUM_ADLT_TKT_SM FROM SLOT WHERE SL_ID = ?");
+    	st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int asm = rs.getInt("NUM_ADLT_TKT_SM");
+
+		st.close();
+		con.close();
+
+		return asm;
+
+    }
+
+
+    //当日子ども券返す
+    public int getTktChldSm(int sl_id) throws Exception {
+
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT NUM_CHLD_TKT_SM FROM SLOT WHERE SL_ID = ?");
+    	st.setInt(1, sl_id);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int csm = rs.getInt("NUM_CHLD_TKT_SM");
+
+		st.close();
+		con.close();
+
+		return csm;
+
+    }
+
+
     //当日券購入者数更新
     public int SamedayPurchase(int sl_id, int num_adlt_tkt_sm, int num_chld_tkt_sm) throws Exception {
 
     	int check = 0;
     	Connection con = getConnection();
 
+    	int current_asm = getTktAdltSm(sl_id);
+        int current_csm = getTktChldSm(sl_id);
+
     	PreparedStatement st = con.prepareStatement("UPDATE SLOT SET NUM_ADLT_TKT_SM = ?, NUM_CHLD_TKT_SM = ? WHERE SL_ID = ?");
-    	st.setInt(1, num_adlt_tkt_sm);
-    	st.setInt(2, num_chld_tkt_sm);
+    	st.setInt(1, current_asm + num_adlt_tkt_sm);
+    	st.setInt(2, current_csm + num_chld_tkt_sm);
     	st.setInt(3, sl_id);
 
     	check = st.executeUpdate();

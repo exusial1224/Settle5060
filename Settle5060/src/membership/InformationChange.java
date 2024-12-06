@@ -48,7 +48,7 @@ public class InformationChange extends HttpServlet {
         // 生年月日（StringからDateに変換）
         if (birth != null && !birth.isEmpty()) {
             try {
-                membership.setMbr_birth(Date.valueOf(birth));  // yyyy-MM-dd形式で送信されると仮定
+                membership.setMbr_birth(Date.valueOf(birth).toLocalDate());  // yyyy-MM-dd形式で送信されると仮定
             } catch (IllegalArgumentException e) {
                 request.setAttribute("errorMessage", "生年月日の形式が不正です。");
                 request.getRequestDispatcher("/membership/informationChange.jsp").forward(request, response);

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class FacilityDAO extends RootDAO {
 		rs.next();
 		facility = new Facility();
 		facility.setFac_tel(rs.getString("FAC_TEL"));
-		facility.setOpen_time(rs.getTime("OPEN_TIME"));
-		facility.setClose_time(rs.getTime("CLOSE_TIME"));
+		facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
+		facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
 
 		st.close();
 		con.close();
@@ -184,8 +185,8 @@ public class FacilityDAO extends RootDAO {
 		facility.setFac_mail(rs.getString("FAC_MAIL"));
 		facility.setFac_address(rs.getString("FAC_ADDRESS"));
 		facility.setFac_tel(rs.getString("FAC_TEL"));
-		facility.setOpen_time(rs.getTime("OPEN_TIME"));
-		facility.setClose_time(rs.getTime("CLOSE_TIME"));
+		facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
+		facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
 		facility.setSls_str(rs.getInt("SLS_STR"));
 		facility.setMax_num(rs.getInt("MAX_NUM"));
 		facility.setLow_price(rs.getInt("LOW_PRICE"));
@@ -195,8 +196,8 @@ public class FacilityDAO extends RootDAO {
 		facility.setRg_hol(rs.getString("RG_HOL"));
 		facility.setChld_dsc(rs.getInt("CHLD_DSC"));
 		facility.setCategory(rs.getInt("CATEGORY"));
-		facility.setFac_reg(rs.getTimestamp("FAC_REG"));
-		facility.setFac_mod(rs.getTimestamp("FAC_MOD"));
+		facility.setFac_reg(rs.getTimestamp("FAC_REG").toLocalDateTime());
+		facility.setFac_mod(rs.getTimestamp("FAC_MOD").toLocalDateTime());
 
 		st.close();
 		con.close();
@@ -499,14 +500,14 @@ public class FacilityDAO extends RootDAO {
 
 
 	//施設詳細情報設定
-	public int updateFacilityDetail(int fac_id, Time open_time, Time close_time, int sls_str, int max_num, int low_price, int high_price, int init_price, int sd_tkt_price, String rg_hol,int chld_dsc,int category) throws Exception {
+	public int updateFacilityDetail(int fac_id, LocalTime open_time, LocalTime close_time, int sls_str, int max_num, int low_price, int high_price, int init_price, int sd_tkt_price, String rg_hol,int chld_dsc,int category) throws Exception {
 
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement("UPDATE FACILITY SET OPEN_TIME = ?,CLOSE_TIME = ?,SLS_STR = ?,MAX_NUM = ?,LOW_PRICE = ?,HIGH_PRICE = ?,INIT_PRICE = ?,SD_TKT_PRICE = ?,RG_HOL = ?,CHLD_DSC = ?,CATEGORY = ?,FAC_MOD = ? WHERE FAC_ID = ?");
 
-		st.setTime(1, open_time);
-		st.setTime(2, close_time);
+		st.setTime(1, Time.valueOf(open_time));
+		st.setTime(2, Time.valueOf(close_time));
 		st.setInt(3, sls_str);
 		st.setInt(4, max_num);
 		st.setInt(5, low_price);

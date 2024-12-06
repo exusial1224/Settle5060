@@ -1,8 +1,9 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class Membership implements Serializable{
 	private int mbr_id;
@@ -11,9 +12,9 @@ public class Membership implements Serializable{
 	private String mbr_mail;
 	private String mbr_tel;
 	private String mbr_address;
-	private Date mbr_birth;
-	private Timestamp mbr_reg;
-	private Timestamp mbr_mod;
+	private LocalDate mbr_birth;
+	private LocalDateTime mbr_reg;
+	private LocalDateTime mbr_mod;
 
 
 	public int getMbr_id() {
@@ -52,22 +53,22 @@ public class Membership implements Serializable{
 	public void setMbr_address(String mbr_address) {
 		this.mbr_address = mbr_address;
 	}
-	public Date getMbr_birth() {
+	public LocalDate getMbr_birth() {
 		return mbr_birth;
 	}
-	public void setMbr_birth(Date mbr_birth) {
+	public void setMbr_birth(LocalDate mbr_birth) {
 		this.mbr_birth = mbr_birth;
 	}
-	public Timestamp getMbr_reg() {
+	public LocalDateTime getMbr_reg() {
 		return mbr_reg;
 	}
-	public void setMbr_reg(Timestamp mbr_reg) {
+	public void setMbr_reg(LocalDateTime mbr_reg) {
 		this.mbr_reg = mbr_reg;
 	}
-	public Timestamp getMbr_mod() {
+	public LocalDateTime getMbr_mod() {
 		return mbr_mod;
 	}
-	public void setMbr_mod(Timestamp mbr_mod) {
+	public void setMbr_mod(LocalDateTime mbr_mod) {
 		this.mbr_mod = mbr_mod;
 	}
 

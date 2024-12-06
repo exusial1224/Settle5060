@@ -36,9 +36,9 @@ public class ResaleDAO extends RootDAO {
 			re.setMbr_id(rs.getInt("MBR_ID"));
 			re.setSl_id(rs.getInt("SL_ID"));
 			re.setFac_name(rs.getString("FAC_NAME"));
-			re.setBus_date(rs.getDate("BUS_DATE"));
-			re.setStart_time(rs.getTime("START_TIME"));
-			re.setEnd_time(rs.getTime("END_TIME"));
+			re.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+			re.setStart_time(rs.getTime("START_TIME").toLocalTime());
+			re.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 			list.add(re);
 		}
 
@@ -111,7 +111,7 @@ public class ResaleDAO extends RootDAO {
         int fi = sd.slTofac(sl_id);
 
         //SL_IDから日付とってくる
-        Date bd = sd.slToBusDate(sl_id);
+        Date bd = Date.valueOf(sd.slToBusDate(sl_id));
 
 
         PreparedStatement st = con.prepareStatement("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID WHERE MBR_ID = ? AND FAC_ID = ? AND BUS_DATE = ? AND TRAN_FLG = ? AND CNC_FLG = ?");
@@ -159,7 +159,7 @@ public class ResaleDAO extends RootDAO {
 		resale.setRsle_id(rs.getInt("RSLE_ID"));
 		resale.setMbr_id(rs.getInt("MBR_ID"));
 		resale.setSl_id(rs.getInt("SL_ID"));
-		resale.setPosting(rs.getTimestamp("POSTING"));
+		resale.setPosting(rs.getTimestamp("POSTING").toLocalDateTime());
 		resale.setTran_flg(rs.getBoolean("TRAN_FLG"));
 		resale.setCnc_flg(rs.getBoolean("CNC_FLG"));
 
@@ -182,7 +182,8 @@ public class ResaleDAO extends RootDAO {
         int fi = sd.slTofac(sl_id);
 
         //SL_IDから日付とってくる
-        Date bd = sd.slToBusDate(sl_id);
+        Date bd =  Date.valueOf(sd.slToBusDate(sl_id));
+
 
 
         PreparedStatement st = con.prepareStatement("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID WHERE MBR_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ? AND FAC_ID = ? AND BUS_DATE = ?");
@@ -221,7 +222,7 @@ public class ResaleDAO extends RootDAO {
         int fi = sd.slTofac(sl_id);
 
         //SL_IDから日付とってくる
-        Date bd = sd.slToBusDate(sl_id);
+        Date bd = Date.valueOf(sd.slToBusDate(sl_id));
 
 
         PreparedStatement st = con.prepareStatement("SELECT * FROM RESALE JOIN SLOT ON RESALE.SL_ID = SLOT.SL_ID WHERE MBR_ID = ? AND TRAN_FLG = ? AND CNC_FLG = ? AND FAC_ID = ? AND BUS_DATE = ?");
