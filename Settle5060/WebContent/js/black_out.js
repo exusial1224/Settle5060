@@ -37,7 +37,6 @@ $(document).ready(function () {
                 return;
             }
 
-            //入力フォームに追加
             $("#dateInput").val(selectedDate);
             hidePopup();
         });

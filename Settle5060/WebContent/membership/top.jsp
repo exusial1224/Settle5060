@@ -52,7 +52,7 @@
         if (timeSlots != null && selectedDate != null) {
     %>
     <form action="SlotSelect" method="post">
-        <h4>時間帯を選択してください</h4>
+        <h4>時間帯を選択してくださいa</h4>
         <div class="sel-slot-scroll">
             <table border="1" id="sel-slot-table">
                 <tr>
