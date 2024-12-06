@@ -1,9 +1,7 @@
-   $(document).ready(function () {
-
-
+$(document).ready(function () {
         //ポップアップイン
         function showPopup() {
-            populatePopupDateSelect(); //リスト更新
+            populatePopupDateSelect(); //ここでリスト更新
             $("#blackout").fadeIn();
             $("#popup").fadeIn();
         }
@@ -14,14 +12,15 @@
             $("#popup").fadeOut();
         }
 
-        //ポップアップリスト
+        //日付リスト生成
         function populatePopupDateSelect() {
             const $dateSelect = $("#popupDateSelect");
-            $dateSelect.empty(); // リストをクリア
+            $dateSelect.empty();
             const currentDate = new Date();
             const twoMonthsLater = new Date();
             twoMonthsLater.setMonth(currentDate.getMonth() + 2);
 
+            //二か月 青木がDAO変えたら販売開始日参照に変更
             while (currentDate <= twoMonthsLater) {
                 const dateValue = currentDate.toISOString().split("T")[0];
                 $dateSelect.append(
@@ -31,7 +30,6 @@
             }
         }
 
-        //確定ボタン
         $("#popupSubmit").on("click", function () {
             const selectedDate = $("#popupDateSelect").val();
             if (!selectedDate) {
@@ -39,33 +37,16 @@
                 return;
             }
 
-            //日付を入力フォームに追加
-            $("#dateSelect").val(selectedDate);
+            //入力フォームに追加
+            $("#dateInput").val(selectedDate);
             hidePopup();
         });
 
-        //キャンセルボタン
         $("#popupCancel").on("click", function () {
             hidePopup();
         });
 
-        //ドロップダウン生成
-        function populateDateSelect() {
-            const $dateSelect = $("#dateSelect");
-            const currentDate = new Date();
-            const twoMonthsLater = new Date();
-            twoMonthsLater.setMonth(currentDate.getMonth() + 2);
-
-            while (currentDate <= twoMonthsLater) {
-                const dateValue = currentDate.toISOString().split("T")[0];
-                $dateSelect.append(
-                    $("<option>").val(dateValue).text(dateValue)
-                );
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-        }
-
-        //初期化
-        populateDateSelect(); //元のドロップダウンを更新
-        $("#dateSelect").on("click", showPopup); //ポップアップ表示
+        $("#dateInput").on("click", function () {
+            showPopup();
+        });
     });

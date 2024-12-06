@@ -3,35 +3,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/top.css">
     <meta charset="UTF-8">
     <title>入場券購入</title>
-    <style>
-        /* ポップアップ関連のスタイル */
-        #blackout {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-        #popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .popup-buttons button {
-            margin: 5px;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -41,17 +17,7 @@
     <div class="popup-content">
         <select id="popupDateSelect" name="popupDateSelect">
             <option value="">--日付を選択--</option>
-            <%-- サーバーサイドから日付リストを取得して埋め込み --%>
-            <%
-                java.util.List<String> availableDates = (java.util.List<String>) session.getAttribute("availableDates");
-                if (availableDates != null) {
-                    for (String date : availableDates) {
-            %>
-            <option value="<%= date %>"><%= date %></option>
-            <%
-                    }
-                }
-            %>
+
         </select>
     </div>
     <div class="popup-buttons">
@@ -125,32 +91,6 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    function showPopup() {
-        $("#blackout").fadeIn();
-        $("#popup").fadeIn();
-    }
-
-    function closePopup() {
-        $("#popup").fadeOut();
-        $("#blackout").fadeOut();
-    }
-
-    $(document).ready(function () {
-        $("#popupCancel").click(function () {
-            closePopup();
-        });
-
-        $("#popupSubmit").click(function () {
-            const selectedDate = $("#popupDateSelect").val();
-            if (selectedDate) {
-                $("#dateInput").val(selectedDate); // 入力フィールドに反映
-                closePopup();
-            } else {
-                alert("日付を選択してください。");
-            }
-        });
-    });
-</script>
+<script type="text/javascript" src="../js/black_out.js"></script>
 </body>
 </html>
