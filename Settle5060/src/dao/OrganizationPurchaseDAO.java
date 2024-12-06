@@ -20,7 +20,7 @@ public class OrganizationPurchaseDAO extends RootDAO {
 		OrganizationPurchaseExp ope = null;
 		Connection con = getConnection();
 
-	    PreparedStatement st = con.prepareStatement("SELECT * FROM ORGANIZATION_PURCHASE JOIN SLOT ON ORGANIZATION_PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUD_DATE = ?");
+	    PreparedStatement st = con.prepareStatement("SELECT * FROM ORGANIZATION_PURCHASE JOIN SLOT ON ORGANIZATION_PURCHASE.SL_ID = SLOT.SL_ID WHERE FAC_ID = ? AND BUS_DATE = ?");
 	    st.setInt(1, fac_id);
 	    st.setDate(2, Date.valueOf(bus_date));
 
