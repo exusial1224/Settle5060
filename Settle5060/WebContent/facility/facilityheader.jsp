@@ -9,13 +9,10 @@
 </head>
 <body>
 <header class="faci-header">
-	<div class="header">
 		<div class="header-logo">
-			<li class="nav__item"><a href="top">SETTLE施設管理</a></li>
+			<a href="top">SETTLE施設管理</a>
 		</div>
-		<div class="faci-wrapper">
-			<li class="nav__item"><a href="Logout">ログアウト</a></li>
-		</div>
-	</div>
+		<a href="Logout" class="logout_area">ログアウト</a>
+
 	<hr class="header-line">
 </header>
