@@ -35,7 +35,7 @@ public class OrgEntry extends HttpServlet {
 
     	//団体者の入場処理
 		try {
-			//opDao.updateGrTktAdmitted(org_pur_id);
+			opDao.updateGrTktAdmitted(org_pur_id);
 		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class OrgEntry extends HttpServlet {
 		//メッセージで表示する
 		session.setAttribute("message", "当日券の購入処理が正常に終了しました。");
     	//EntryDisplayへ
-		response.sendRedirect("EntryDisplay");
+		request.getRequestDispatcher("EntryDisplay").forward(request, response);
     }
 }
 

@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="facilityheader.jsp" %>
+
+<%-- start======================== アラート表示用隠しパラメータ ========================start --%>
+<c:if test="${ticket != null}">
+	<hidden></hidden>
+</c:if>
+<%-- end======================== アラート表示用隠しパラメータ ========================end --%>
+
 <div class="contair">
 <%-- start======================== システムメッセージ ========================start --%>
 <c:if test="${message != null}">
 	<div>${message}</div>
 </c:if>
 <%-- end======================== システムメッセージ ========================end --%>
-
 
 <%-- start======================== 当日券の購入Form ========================start --%>
 <div>
@@ -54,6 +60,8 @@
 </div>
 <%-- end======================== 団体者表示 ========================end --%>
 
+<canvas id="canvas" hidden></canvas><%-- カメラ映像表示 --%>
+
 </div><%-- contair --%>
 
 <%-- start======================== 団体者用隠しForm ========================start --%>
@@ -62,7 +70,17 @@
 </form>
 <%-- end======================== 団体者用隠しForm ========================end --%>
 
+<%-- start======================== QRコード読み取り時用隠しForm ========================start --%>
+<form action="Entry" id="entryForm" method="get" name="entryForm">
+	<input type="hidden" name="pur_id" value="">
+</form>
+<%-- end======================== 団体者用隠しForm ========================end --%>
+
 <%-- ======================== JS読み込み ======================== --%>
 <script type="text/javascript" src="../js/facilityEntry.js"></script>
+<script type="text/javascript" src="../js/jsQR.js"></script>
+<script type="text/javascript" src="../js/ticketEntry.js"></script>
+
+
 </body>
 </html>

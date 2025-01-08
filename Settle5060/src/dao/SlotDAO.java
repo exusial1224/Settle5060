@@ -233,8 +233,6 @@ public class SlotDAO extends RootDAO {
     	//当日券も
     	int sm = getTktSm(sl_id);
 
-
-
     	//↓今のタイムスロットの購入者合計
     	int sum = rsv_sum + gr_sum + sm;
 

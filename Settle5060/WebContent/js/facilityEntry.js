@@ -3,3 +3,4 @@ function orgEntry(orgId){
 	form1.org_pur_id.value = orgId;
 	form1.submit();
 }
+

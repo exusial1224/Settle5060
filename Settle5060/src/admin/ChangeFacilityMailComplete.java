@@ -11,20 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import dao.FacilityDAO;
 
-@WebServlet("/admin/ChangeFacilityInfoComplete")
-public class ChangeFacilityInfoComplete extends HttpServlet {
+@WebServlet("/admin/ChangeFacilityMailComplete")
+public class ChangeFacilityMailComplete extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	   HttpSession session = request.getSession();
         try {
         	int fac_id = (int) session.getAttribute("facilityId");
-        	String co_name = request.getParameter("co_name");
-        	String fac_name = request.getParameter("fac_name");
-        	String fac_address = request.getParameter("fac_address");
-        	String fac_tel = request.getParameter("fac_tel");
+        	String new_mail = request.getParameter("new_mail");
             FacilityDAO facilityDao = new FacilityDAO();
-            int change_result = facilityDao.updateFacilityAd(fac_id,co_name,fac_name,fac_address,fac_tel);
+            int change_result = facilityDao.updateMailAd(fac_id,new_mail);
             request.setAttribute("change_result", change_result);
             request.getRequestDispatcher("/admin/changeFacilityComplete.jsp").forward(request, response);
         } catch (Exception e) {

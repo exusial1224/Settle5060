@@ -54,7 +54,7 @@ public class BuySameDayTicket extends HttpServlet {
 
     	//団体者の入場処理
 		try {
-			//slotDao.SamedayPurchase(Integer.parseInt(session.getAttribute("fac_id").toString()),adultNum,childNum);
+			slotDao.SamedayPurchase(Integer.parseInt(session.getAttribute("fac_id").toString()),adultNum,childNum);
 			//メッセージで表示する
 			session.setAttribute("message", "当日券の購入処理が正常に終了しました。");
 	    	//EntryDisplayへ
