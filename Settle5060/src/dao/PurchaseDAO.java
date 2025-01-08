@@ -667,6 +667,30 @@ public class PurchaseDAO extends RootDAO {
     }
 
 
+//	引数と同じ購入IDを持つ場合true、ない場合falseをreturn
+	public boolean searchPurId(int pur_id) throws Exception {
+
+			boolean search = false;
+			Connection con=getConnection();
+
+			PreparedStatement st = con.prepareStatement("SELECT PUR_ID FROM PURCHASE");
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				if(pur_id == rs.getInt("PUR_ID")) {
+					search = true;
+				}
+
+			}
+
+			st.close();
+			con.close();
+			return search;
+		}
+
+
 
 
 }

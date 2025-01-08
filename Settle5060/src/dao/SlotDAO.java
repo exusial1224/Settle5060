@@ -358,5 +358,36 @@ public class SlotDAO extends RootDAO {
 
 
 
+    //施設IDからタイムスロットの残り枠数を返す
+    //public int getRemainingSlot2(int fac_id) throws Exception {
+
+    //	LocalDate today = LocalDate.now();
+    //	LocalTime now = LocalTime.now();
+
+    //	PurchaseDAO pd = new PurchaseDAO();
+    	//int rsv_sum = pd.purchasedOneSlotCountRsv(sl_id);
+    	//int gr_sum = pd.purchasedOneSlotCountGr(sl_id);
+
+    	//当日券も
+    	//int sm = getTktSm(sl_id);
+
+
+
+    	//↓今のタイムスロットの購入者合計
+    	//int sum = rsv_sum + gr_sum + sm;
+
+    	//↓1タイムスロットごとのタイムスロットの上限人数(キャンセル分抜き)
+    	//int max_num = getSlotMaxCancelOut(sl_id);
+
+    	//return max_num - sum;
+
+    //}
+
+
+
+
+
+
+
 
 }
