@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/facility/OrganizationPurchase")
 public class OrganizationPurchase extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     	HttpSession session = request.getSession();
     	int facilityId = (int) session.getAttribute("facilityId");

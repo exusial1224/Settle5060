@@ -30,6 +30,7 @@ public class DateSelect extends HttpServlet {
                 SlotDAO slotDao = new SlotDAO();
             	List<SlotExp> slotdata = slotDao.getAllSlots(fac_id, bus_date);
             	request.setAttribute("slotdata",slotdata);
+            	request.setAttribute("selectdate",bus_date);
     			} catch (ParseException e) {
     				e.printStackTrace();
     			} catch (Exception e) {
