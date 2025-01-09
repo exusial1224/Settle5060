@@ -1,7 +1,8 @@
 package facility;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,34 +18,24 @@ import dao.SlotDAO;
 
 @WebServlet("/facility/DateSelect")
 public class DateSelect extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            // 選択された日付を取得
-            String selectedDateStr = request.getParameter("selectedDate");
-            if (selectedDateStr == null || selectedDateStr.isEmpty()) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-
-            session.setAttribute("selectedDate", selectedDateStr);
-
-            Date selectedDate = Date.valueOf(selectedDateStr);
+            //セッションからfac_idを取得
+                int fac_id= (int) session.getAttribute("facilityId");
+             // 選択された日付を取得
+                LocalDate bus_date =  LocalDate.parse(request.getParameter("selectedDate"));
 
             // スロット情報を取得
-            SlotDAO slotDao = new SlotDAO();
-            int facilityId = (int) session.getAttribute("facilityId");
-            List<SlotExp> timeSlots = slotDao.getAllSlots(facilityId, selectedDate.toLocalDate());
-
-            session.setAttribute("facilityId", facilityId);
-            session.setAttribute("timeSlots", timeSlots);
+                SlotDAO slotDao = new SlotDAO();
+            	List<SlotExp> slotdata = slotDao.getAllSlots(fac_id, bus_date);
+            	request.setAttribute("slotdata",slotdata);
+    			} catch (ParseException e) {
+    				e.printStackTrace();
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
 
             request.getRequestDispatcher("organizationPurchaseInfo.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
     }
 }

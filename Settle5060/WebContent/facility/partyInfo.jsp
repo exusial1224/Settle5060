@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="facilityheader.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <input type="date" id="party_visit" name="party_visit">
 <div id="datetime-list">
+<table border=1>
+<c:forEach var="slotdata" items="${slotdatalist}">
+	<th>${slotdatalist.start_time}～${slotdatalist.end_time}</th>
+</c:forEach>
+</table>
 </div>
 
 </body>
@@ -18,5 +24,8 @@
     const field = document.getElementById("party_visit");
     field.value = data;
     field.setAttribute("min", data);
+
+
+
     </script>
 </html>
