@@ -27,9 +27,9 @@ public class OrganizationPurchaseComplete extends HttpServlet{
             System.out.println(String.valueOf(slotId)+","+groupName+","+representativeName+","+phoneNumber+","+String.valueOf(adultsCount)+","+String.valueOf(childrenCount));
             PurchaseDAO purchaseDao = new PurchaseDAO();
             int result = purchaseDao.OrganizationPurchase(slotId,groupName,representativeName,adultsCount,childrenCount,phoneNumber);
-            String message ="購入処理に失敗しました。もう一度お試しください。";
+            String message ="登録に失敗しました。もう一度お試しください。";
             if (result > 0) { // 最初の値が 1 以上なら購入成功
-                message = "購入が正常に完了しました。";
+                message = "団体登録が正常に完了しました。";
             }
 
 
