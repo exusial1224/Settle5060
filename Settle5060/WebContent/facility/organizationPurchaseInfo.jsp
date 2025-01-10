@@ -37,7 +37,7 @@
 			            <td>${slotdatalist.start_time} ～ ${slotdatalist.end_time}</td>
 			            <td>${slotdatalist.remain}枚</td>
 			            <td>
-			                <input type="radio" name="selectedSlotId" value="${slotdatalist.sl_id}" ${slotdatalist.remain} ? "disabled" : "" %>>
+			                <input type="radio" name="selectedSlotId" value="${slotdatalist.sl_id}" >
 			            </td>
 			         </c:forEach>
 			        </tr>

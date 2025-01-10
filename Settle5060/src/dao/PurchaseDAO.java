@@ -342,6 +342,37 @@ public class PurchaseDAO extends RootDAO {
 	    return list;
 	}
 
+	//団体購入情報追加
+	public int OrganizationPurchase(int sl_id, String org_name, String rep_name,int num_adlt_tkt, int num_chld_tkt, String org_tel) throws Exception {
+	    //購入のinsertが正しく行われたのかチェック(listの最初)
+	    int check = 0;
+
+	    try (Connection con = getConnection()) {
+
+
+	        // トランザクションの開始
+	        con.setAutoCommit(false);
+	        // 購入
+	        try (PreparedStatement st = con.prepareStatement(
+	              "INSERT INTO ORGANIZATION_PURCHASE(SL_ID, ORG_NAME, REP_NAME,NUM_ADLT_TKT_GR, NUM_CHLD_TKT_GR, ORG_TEL) VALUES(?,?,?,?,?,?)")) {
+	            st.setInt(1, sl_id);
+	            st.setString(2, org_name);
+	            st.setString(3, rep_name);
+	            st.setInt(4, num_adlt_tkt);
+	            st.setInt(5, num_chld_tkt);
+	            st.setString(6, org_tel);
+
+	            check = st.executeUpdate();
+
+	        		}
+
+	        	// トランザクションのコミット
+	        	con.commit();
+	    		} catch (Exception e) {
+	    			throw e;
+	    		}
+	    	return check;
+	        }
 
 	//会員の購入履歴を全件所得
 	public List<PurchaseExp> getPurchaseHistory(int mbr_id) throws Exception {
