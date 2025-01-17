@@ -651,25 +651,26 @@ public class PurchaseDAO extends RootDAO {
 
     	ResultSet rs = st.executeQuery();
 
-    	rs.next();
     	purchaseexp = new PurchaseExp();
-		purchaseexp.setPur_id(rs.getInt("PUR_ID"));
-		purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
-		purchaseexp.setSl_id(rs.getInt("SL_ID"));
-		purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
-		purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
-		purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
-		purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
-		purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
-		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
-		purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
-		purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
-		purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
-		purchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
+    	while(rs.next()){
+	    	purchaseexp.setPur_id(rs.getInt("PUR_ID"));
+			purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+			purchaseexp.setSl_id(rs.getInt("SL_ID"));
+			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
+			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
+			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
+			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
+			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+			purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
-		purchaseexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+			purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
+			purchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 
+			purchaseexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+    	}
 
 		st.close();
 		con.close();

@@ -1,8 +1,8 @@
 package membership;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,13 +25,12 @@ public class Purchase extends HttpServlet {
         int slotId = (int) session.getAttribute("slotId");
 
         String facilityName = (String) request.getSession().getAttribute("facilityName");
-        Time startTime = (Time) request.getSession().getAttribute("startTime");
-        Time endTime = (Time) request.getSession().getAttribute("endTime");
+        LocalTime startTime = (LocalTime) request.getSession().getAttribute("startTime");
+        LocalTime endTime = (LocalTime) request.getSession().getAttribute("endTime");
 
         // 時間をフォーマットして文字列に変換
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        String formattedStartTime = startTime != null ? timeFormat.format(startTime) : "不明";
-        String formattedEndTime = endTime != null ? timeFormat.format(endTime) : "不明";
+        String formattedStartTime = startTime != null ? startTime.format(DateTimeFormatter.ofPattern("hh:mm")) : "不明";
+        String formattedEndTime = endTime != null ? endTime.format(DateTimeFormatter.ofPattern("hh:mm")) : "不明";
 
         int adultPrice = Integer.parseInt(request.getSession().getAttribute("adultPrice").toString());
         int childPrice = Integer.parseInt(request.getSession().getAttribute("childPrice").toString());

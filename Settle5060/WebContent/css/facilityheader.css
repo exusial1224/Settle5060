@@ -3,27 +3,33 @@ html,body{
   padding: 0;
   height: 100vh;
   position: relative;
-
+}
+header{
+	height: 80px;
+		position: fixed;
 }
 
 .faci-header {
-	height: 100px;
+	width: 100%;
 	display: flex;
-	background-color: #fffff0;
-}
-.header-line hr{
 
+	background: -moz-linear-gradient(top, #758492, #FFF);
+ 	background: -webkit-linear-gradient(top, #758492, #FFF);
+ 	background: linear-gradient(to bottom, #758492, #FFF);
+	position: fixed;
+    top: 0;
+    left: 0;
 }
+
 li{
     list-style: none;
 }
 .header-logo{
-	z-index:1;
 	width: 100%;
 
-    padding-top: 5px;
+    padding-top: 15px;
     box-sizing: border-box;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
 }
@@ -32,15 +38,33 @@ li{
     text-decoration: none;
     font-weight: bold;
     font-size: 30px;
-    color: black;
+    color: white;
     margin-right: 35px;
     pointer-events: auto;
 }
 
-.logout_area {
-	width:20px;
-    height:10px;
-	background-color:black;
-    color: white;
-    position: absolute;
+
+
+.logout-botton{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #67c5ff;
+  border: dashed 1px #67c5ff;
+  background: #f2fcff;
+  border-radius: 3px;
+  transition: .4s;
+  position: absolute;
+  margin-top:20px;
+  margin-left: 85%;
+
+}
+.logout-botton a{
+	font-size:5px;
+	font-weight: bold;
+}
+
+.logout-botton:hover {
+  background: #cbedff;
+  color: #FFF;
 }
