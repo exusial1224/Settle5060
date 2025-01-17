@@ -4,7 +4,7 @@
 <html lang="ja">
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/top.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/top.css">  -->
     <meta charset="UTF-8">
     <title>入場券購入</title>
 </head>
@@ -53,7 +53,7 @@
     <form action="SlotSelect" method="post">
         <h4>時間帯を選択してくださいa</h4>
         <div class="sel-slot-scroll">
-            <table border="1" id="sel-slot-table">
+            <table border="1" id="sel-slot-table" >
                 <tr>
                     <th class="sticky">時間帯</th>
                     <th class="sticky">現在の価格</th>
@@ -69,12 +69,13 @@
                     <td><%= slot.getSl_price() %>円</td>
                     <td><%= slot.getRemain() %>枚</td>
                     <td>
-                        <input type="radio" name="selectedSlotId" value="<%= slot.getSl_id() %>" <%= slot.getRemain() == 0 ? "disabled" : "" %>>
-                    </td>
+		                <input type="radio" name="selectedSlotId" value="<%= slot.getSl_id() %>">
+		            </td>
                 </tr>
                 <% } %>
             </table>
         </div>
+        <input type="submit" value="決定">
     </form>
     <% } else { %>
     <p>データが見つかりません。</p>
