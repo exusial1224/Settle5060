@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="cust-header">
-	<div class="header">
+	<div class="header" id="header-color">
 		<ul>
 			<div class="cust__wrapper">
 				<li class="nav__item"><a href="Inquiry">お問い合わせ</a></li>
@@ -35,6 +35,29 @@
                 window.location.href = "Logout";
             }
         });
+    });
+    $(function(){
+    var hour = new Date().getHours();
+	console.log(hour);
+    if(7<=hour && hour<17){
+    	$('#header-color').css({
+  				'background': '-moz-linear-gradient(top, #59b9c6, 	#007DC5)',
+  	  			'background': '-webkit-linear-gradient(top, #59b9c6, #007DC5)',
+  	  			'background': 'linear-gradient(to bottom, #59b9c6, 	#007DC5)'
+    		});
+    }else if(19<=hour && hour<=23 || 0<=hour && hour<6){
+    	$('#header-color').css({
+			'background': '-moz-linear-gradient(top, #465DAA, 	#283446)',
+  			'background': '-webkit-linear-gradient(top, #465DAA, 	#283446)',
+  			'background': 'linear-gradient(to bottom, #465DAA, 	#283446)'
+		});
+    }else if(6<=hour && hour<7 || 17<=hour && hour<19){
+    	$('#header-color').css({
+    		'background': '-moz-linear-gradient(top, #f8b500, 	#e14024)',
+  			'background': '-webkit-linear-gradient(top, #f8b500, 	#e14024)',
+  			'background': 'linear-gradient(to bottom, #f8b500, 	#e14024)'
+		});
+   	 }
     });
 </script>
 </body>

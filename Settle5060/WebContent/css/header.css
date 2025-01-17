@@ -8,21 +8,24 @@ html,body{
 
 header {
 	height: 70px;
-    position: sticky;
+    position: fixed;
 }
 .header {
     width: 100%;
-    background-color: #174A5C;
-    padding-top: 5px;
+    /* 昼用のheader-color*/
+  	background: -moz-linear-gradient(top, #FFC778, 	#FFD800);
+  	background: -webkit-linear-gradient(top, #FFC778, 	#FFD800);
+  	background: linear-gradient(to bottom, #FFC778, 	#FFD800);
+    padding-top: 10px;
     box-sizing: border-box;
-
+	height: 80px;
     position: fixed;
     top: 0;
     left: 0;
 }
 .cust__wrapper {
     display: flex;
-    position: fixed;
+    position: absolute;
     right: 0%;
     height: 0;
 }
@@ -34,6 +37,9 @@ li {
     text-decoration: none;
     color: white;
     margin-right: 35px;
+    font-weight: bold;
+    font-size: 30px;
+
 }
 .cust__wrapper a{
     display: block;

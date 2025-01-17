@@ -21,12 +21,13 @@ import dao.MembershipDAO;
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String mail = request.getParameter("mail");
-        String password = request.getParameter("password");
-
-        MembershipDAO membershipDAO = new MembershipDAO();
-
         try {
+        	String mail = request.getParameter("mail");
+        	String password = request.getParameter("password");
+
+        	MembershipDAO membershipDAO = new MembershipDAO();
+
+
             String hashedPassword = hashPassword(password);
             Membership membership = membershipDAO.loginMember(mail, hashedPassword);
 

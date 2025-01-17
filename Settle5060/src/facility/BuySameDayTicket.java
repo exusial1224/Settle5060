@@ -38,7 +38,7 @@ public class BuySameDayTicket extends HttpServlet {
 
     	//枚数チェック
     	try {
-			int remain = slotDao.getRemainingSlot(Integer.parseInt(session.getAttribute("fac_id").toString()));
+			int remain = slotDao.getRemainingSlot(Integer.parseInt(session.getAttribute("fac_id").toString()));//スロットIDを送らなきゃダメ
 			if(remain < adultNum+childNum){
 				//購入したい枚数が残り枚数より多い場合、購入不可な件をメッセージで表示する
 				session.setAttribute("message", "購入枚数は残り枠以下にしてください。");

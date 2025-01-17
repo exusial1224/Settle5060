@@ -12,7 +12,7 @@
 		<div class="header-logo">
 			<a href="top">SETTLE施設管理</a>
 		</div>
-		<a href="Logout" class="logout_area">ログアウト</a>
+		<a href="Logout" class="logout-botton">ログアウト<i class="fas fa-angle-down fa-position-bottom"></i></a>
 
 	<hr class="header-line">
 </header>
