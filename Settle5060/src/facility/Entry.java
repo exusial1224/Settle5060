@@ -45,11 +45,21 @@ public class Entry extends HttpServlet {
     		//購入情報取得
     		purExp = purDao.getOneTkt(pur_id);
 
+    		//QRコードのチケット存在チェック
+    		if(purExp.getStart_time() == null){
+    			//代替フロー⑥読み取ったQRコードのチケットが存在しない場合、メッセージで表示する
+        		session.setAttribute("message", "このQRコードは使用できません。");
+            	//EntryDisplayへ
+        		response.sendRedirect("EntryDisplay");
+        		return;
+    		}
+
+
     		//今の日付と時刻
     		LocalDateTime now = LocalDateTime.now();
 
-    		//タイムスロットチェック
-    		if(!now.toLocalDate().equals(purExp.getBus_date()) || !(purExp.getStart_time().isAfter(now.toLocalTime()) && purExp.getEnd_time().isBefore(now.toLocalTime()))){
+       		//タイムスロットチェック
+    		if(!now.toLocalDate().equals(purExp.getBus_date()) || !(now.toLocalTime().isAfter(purExp.getStart_time()) && now.toLocalTime().isBefore(purExp.getEnd_time()))){
     			//代替フロー④読み取った入場券が現在のタイムスロットと一致しない場合、メッセージで表示する
         		session.setAttribute("message", "入場日時が違うチケットです。");
             	//EntryDisplayへ
