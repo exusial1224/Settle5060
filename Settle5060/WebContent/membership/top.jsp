@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../css/top.css">
     <meta charset="UTF-8">
     <title>入場券購入</title>
-
 </head>
 <body>
 
@@ -65,6 +64,7 @@
                     bean.SlotExp slot = (bean.SlotExp) obj;
                 %>
                 <tr>
+
                     <td><%= slot.getStart_time() %> ～ <%= slot.getEnd_time() %></td>
                     <td><%= slot.getSl_price() %>円</td>
                     <td><%= slot.getRemain() %>枚</td>

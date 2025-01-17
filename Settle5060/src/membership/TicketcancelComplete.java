@@ -31,6 +31,8 @@ public class TicketcancelComplete extends HttpServlet {
 
         	List<Integer> cancelcomp = PurchaseDAO.Cancel(pur_id, cancel_num_adlt_tkt, cancel_num_chld_tkt);
 
+
+
         	request.setAttribute("cancelcomp",cancelcomp);
             request.getRequestDispatcher("/membership/ticketcancelComplete.jsp").forward(request, response);
 		} catch (Exception e) {
