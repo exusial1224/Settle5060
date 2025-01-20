@@ -343,15 +343,27 @@ public class PurchaseDAO extends RootDAO {
 	}
 
 	//団体購入情報追加
-	public int OrganizationPurchase(int sl_id, String org_name, String rep_name,int num_adlt_tkt, int num_chld_tkt, String org_tel) throws Exception {
+	public List<Integer> OrganizationPurchase(int sl_id, String org_name, String rep_name,int num_adlt_tkt, int num_chld_tkt, String org_tel) throws Exception {
 	    //購入のinsertが正しく行われたのかチェック(listの最初)
 	    int check = 0;
+	    List<Integer> list = new ArrayList<>();
 
+	    //価格が上がった場合スロットのprice_counterのupdateに成功したのか(list2番目)
+	    int check2 = 0;
+
+	    //価格が上がった場合タイムスロットのprice_counterを何個デクリメントしたのか?(list3番目)
+	    int check3 = 0;
+
+	    //価格が上がった場合最終的な価格の挿入は正しく行われたのか?(list最後)
+	    int check4 = 0;
 	    try (Connection con = getConnection()) {
-
-
 	        // トランザクションの開始
 	        con.setAutoCommit(false);
+
+	        // 購入前スロット価格を所得before_slot_priceへ
+	        SlotDAO sd = new SlotDAO();
+	        int before_slot_price = sd.getSlotPrice(sl_id);
+
 	        // 購入
 	        try (PreparedStatement st = con.prepareStatement(
 	              "INSERT INTO ORGANIZATION_PURCHASE(SL_ID, ORG_NAME, REP_NAME,NUM_ADLT_TKT_GR, NUM_CHLD_TKT_GR, ORG_TEL) VALUES(?,?,?,?,?,?)")) {
@@ -365,13 +377,132 @@ public class PurchaseDAO extends RootDAO {
 	            check = st.executeUpdate();
 
 	        		}
+	        // 購入後スロット購入者数(キャンセル抜き)を取得し、合計をall_sumに設定
+	        int rsv_sum = purchasedOneSlotCountOnlyPurRsv(sl_id);
+	        int gr_sum = purchasedOneSlotCountOnlyPurGr(sl_id);
+	        int all_sum = rsv_sum + gr_sum;
+
+
+	        // SL_ID→FAC_ID
+	        int fi = sd.slTofac(sl_id);
+
+
+
+
+
+	        FacilityDAO fd = new FacilityDAO();
+
+	        // 初期価格と上限人数の取得
+	        int init_price = fd.getInit_price(fi);
+
+	        int max_num = sd.getSlotMax(sl_id);
+
+
+
+	        // 購入後スロット価格を取得→after_slot_price1へ
+	        DynamicPricing dp = new DynamicPricing();
+	        int after_slot_price1 = dp.calculatePrice(all_sum, init_price, max_num);
+
+
+	        // 価格が上がったら?
+	        if (after_slot_price1 > before_slot_price) {
+	            int price_counter = sd.getPriceCounter(sl_id);
+	            int after_price_counter = price_counter + 1;
+
+
+
+	            // 購入したスロットのprice_counterをインクリメントしてスロット価格を更新
+	            try (PreparedStatement st2 = con.prepareStatement(
+	                    "UPDATE SLOT SET PRICE_COUNTER = ?,SL_PRICE = ? WHERE SL_ID = ?")) {
+
+	                st2.setInt(1, after_price_counter);
+	                st2.setInt(2, after_slot_price1);
+	                st2.setInt(3, sl_id);
+
+	                check2 = st2.executeUpdate();
+	            }
+
+	            // 日付を取得
+	            Date d = Date.valueOf(sd.slToBusDate(sl_id));
+
+
+
+
+
+	            // 条件に該当するスロットのprice_counterをデクリメント
+	            try (PreparedStatement st3 = con.prepareStatement(
+	                    "SELECT SL_ID, PRICE_COUNTER FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ? AND SL_ID != ?")) {
+	                st3.setInt(1, fi);
+	                st3.setDate(2, d);
+	                st3.setInt(3, sl_id);
+
+
+
+	                try (ResultSet rs2 = st3.executeQuery()) {
+	                    while (rs2.next()) {
+	                        if (rs2.getInt("PRICE_COUNTER") < after_price_counter) {
+	                            try (PreparedStatement st4 = con.prepareStatement(
+	                                    "UPDATE SLOT SET PRICE_COUNTER = ? WHERE SL_ID = ?")) {
+	                                st4.setInt(1, rs2.getInt("PRICE_COUNTER") - 1);
+	                                st4.setInt(2, rs2.getInt("SL_ID"));
+
+	                                check3 += st4.executeUpdate();
+	                            }
+
+
+	                        }
+
+	                    }
+	                }
+	            }
+
+	            // price_counterに基づいて価格を下げる設定
+	            int low_price = fd.getLow_price(fi);
+	            int high_price = fd.getHigh_price(fi);
+
+	            try (PreparedStatement st5 = con.prepareStatement(
+	                    "SELECT SL_ID, SL_PRICE, PRICE_COUNTER FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ?")) {
+	                st5.setInt(1, fi);
+	                st5.setDate(2, d);
+
+
+
+
+	                try (ResultSet rs3 = st5.executeQuery()) {
+
+	                    while (rs3.next()) {
+
+	                        int des_price = dp.decisionPrice(rs3.getInt("SL_PRICE"), rs3.getInt("PRICE_COUNTER"), low_price, high_price);
+
+	                        try (PreparedStatement st6 = con.prepareStatement(
+	                                "UPDATE SLOT SET SL_PRICE = ? WHERE SL_ID = ?")) {
+	                            st6.setInt(1, des_price);
+	                            st6.setInt(2, rs3.getInt("SL_ID"));
+
+	                            check4 += st6.executeUpdate();
+	                        }
+
+
+
+	                    }
+	                }
+
+
+
+	            }
+
+	        }
+	        list.add(check);
+	        list.add(check2);
+	        list.add(check3);
+	        list.add(check4);
 
 	        	// トランザクションのコミット
 	        	con.commit();
 	    		} catch (Exception e) {
 	    			throw e;
 	    		}
-	    	return check;
+	    	return list;
 	        }
 
 	//会員の購入履歴を全件所得
