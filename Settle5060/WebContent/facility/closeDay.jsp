@@ -26,7 +26,7 @@
         </ul>
     </div>
 
-	    <!-- 結果メッセージの表示 -->
+	    <!-- 結果の表示 -->
 	<c:if test="${not empty successMessage}">
 	    <div class="alert alert-success">${successMessage}</div>
 	</c:if>
