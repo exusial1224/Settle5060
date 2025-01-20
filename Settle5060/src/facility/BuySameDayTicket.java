@@ -38,7 +38,7 @@ public class BuySameDayTicket extends HttpServlet {
 
     	//枚数チェック
     	try {
-			int remain = slotDao.getRemainingSlot(Integer.parseInt(session.getAttribute("fac_id").toString()));//スロットIDを送らなきゃダメ
+			int remain = slotDao.getRemainingSlot((int)session.getAttribute("facilityId"));//スロットIDを送らなきゃダメ
 			if(remain < adultNum+childNum){
 				//購入したい枚数が残り枚数より多い場合、購入不可な件をメッセージで表示する
 				session.setAttribute("message", "購入枚数は残り枠以下にしてください。");
@@ -47,6 +47,7 @@ public class BuySameDayTicket extends HttpServlet {
 				return;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			//エラー処理
 			request.getRequestDispatcher("./facilityError.jsp").forward(request, response);
 			return;
@@ -54,7 +55,7 @@ public class BuySameDayTicket extends HttpServlet {
 
     	//団体者の入場処理
 		try {
-			slotDao.SamedayPurchase(Integer.parseInt(session.getAttribute("fac_id").toString()),adultNum,childNum);
+			slotDao.SamedayPurchase((int)session.getAttribute("facilityId"),adultNum,childNum);
 			//メッセージで表示する
 			session.setAttribute("message", "当日券の購入処理が正常に終了しました。");
 	    	//EntryDisplayへ

@@ -379,8 +379,10 @@ public class SlotDAO extends RootDAO {
 
     	int now_endhour = now_starthour+1;
     	String now_endhour_str = String.valueOf(now_endhour)+":00:00";
-    	LocalTime now_end_time = LocalTime.parse(now_endhour_str+":00:00", tmf);
-
+    	System.out.println(now_date);
+    	System.out.println(now_starthour_str);
+    	System.out.println(now_endhour_str);
+    	System.out.println(fac_id);
     	Connection con = getConnection();
     	PreparedStatement st = con.prepareStatement("SELECT SL_ID FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ? AND START_TIME = ? AND END_TIME = ?");
     	st.setInt(1, fac_id);
