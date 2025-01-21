@@ -51,12 +51,11 @@
         if (timeSlots != null && selectedDate != null) {
     %>
     <form action="SlotSelect" method="post">
-        <h4>時間帯を選択してくださいa</h4>
         <div class="sel-slot-scroll">
             <table border="1" id="sel-slot-table">
                 <tr>
                     <th class="sticky">時間帯</th>
-                    <th class="sticky">現在の価格</th>
+                    <th class="sticky current-price" >現在の価格</th>
                     <th class="sticky">残り枚数</th>
                     <th class="sticky">リセール予約</th>
                 </tr>
@@ -75,6 +74,7 @@
                 <% } %>
             </table>
         </div>
+        <input type="submit" value="kouyn">
     </form>
     <% } else { %>
     <p>データが見つかりません。</p>
