@@ -226,10 +226,7 @@ public class SlotDAO extends RootDAO {
 
 
     //指定されたタイムスロットの残り枠数を返す
-    public int getRemainingSlot(int fac_id) throws Exception {
-
-    	//現在時刻を取得
-    	int sl_id = getslIdFromfacId(fac_id);
+    public int getRemainingSlot(int sl_id) throws Exception {
 
 
     	PurchaseDAO pd = new PurchaseDAO();
@@ -341,7 +338,7 @@ public class SlotDAO extends RootDAO {
     public int SamedayPurchase(int fac_id, int num_adlt_tkt_sm, int num_chld_tkt_sm) throws Exception {
 
     	//現在時刻を取得
-    	int sl_id = getslIdFromfacId(fac_id);
+    	int sl_id = getslIdFromfacIdAndNow(fac_id);
 
 
     	int check = 0;
@@ -366,7 +363,7 @@ public class SlotDAO extends RootDAO {
 
 
     //fac_idと現在時刻からsl_idをreturn
-    public int getslIdFromfacId(int fac_id) throws Exception {
+    public int getslIdFromfacIdAndNow(int fac_id) throws Exception {
 
     	//現在時刻から時間を取得
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

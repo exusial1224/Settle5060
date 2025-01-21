@@ -853,6 +853,38 @@ public class PurchaseDAO extends RootDAO {
 			return search;
 		}
 
+	//リセールデータが存在するか確認
+	public boolean checkResaleData(int pur_id) throws Exception {
+	    String sql = "SELECT COUNT(*) " +
+	                 "FROM RESALE r " +
+	                 "JOIN PURCHASE p ON r.SL_ID = p.SL_ID " +
+	                 "WHERE p.PUR_ID = ? AND r.CNC_FLG = 0";
+	    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, pur_id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0; // COUNTが1以上なら存在する
+	        }
+	    }
+	    return false;
+	}
+
+	//リセール登録している人のメールアドレス取得
+	public String getResaleMemberEmail(int pur_id) throws Exception {
+	    String sql = "SELECT m.MBR_MAIL " +
+	                 "FROM MEMBERSHIP m " +
+	                 "JOIN RESALE r ON m.MBR_ID = r.MBR_ID " +
+	                 "JOIN PURCHASE p ON r.SL_ID = p.SL_ID " +
+	                 "WHERE p.PUR_ID = ? AND r.CNC_FLG = 0";
+	    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, pur_id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("MBR_MAIL"); // メールアドレスを取得
+	        }
+	    }
+	    return null; // データがない場合はnullを返す
+	}
 
 
 
