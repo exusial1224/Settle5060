@@ -1,13 +1,18 @@
+
+/*コンテナ*/
 .container{
 	padding-left:10%;
 	padding-right:10%;
 }
 
+
+/*施設名レーン*/
 #first-lern{
 	display: flex;
 	justify-content: start;
 	align-items: center;
 }
+
 
 #second-lern{
 	display: flex;
@@ -18,10 +23,13 @@
 /*フレックスボックスではstrechとして動作するフレックスアイテムも全てstrechになる、つまり可能な限り拡張される*/
 /*よってalign-self:flex-endが必要*/
 
+
+
 .second-button{
 	width: 300px;
 	height: 150%;
 }
+
 
 #sel-slot-table{
 	border-spacing: 0; /* セル間の余白をなくす */
@@ -33,11 +41,11 @@
 }
 
 
-
 .sel-slot-scroll{
-	height:200px;
+	height:250px;
 	overflow: scroll;
 }
+
 
 .sticky{
 	position: sticky;
@@ -46,6 +54,7 @@
   	border-top: none;
   	color: white;
 }
+
 
 .sticky::before {
   content: "";
@@ -56,9 +65,10 @@
   height: 100%;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
-  background: #0099FF;
+  background: #87cefa;
   z-index: -1;
 }
+
 
 div#blackout {
     display: none;
@@ -70,6 +80,7 @@ div#blackout {
     background-color: rgba(0, 0, 0, 0.5); /* 透明な黒で暗転 */
     z-index: 9998;
 }
+
 
 div#popup {
     display: none;
@@ -85,6 +96,7 @@ div#popup {
     z-index: 9999;
 }
 
+
 .popup-title {
     margin: 0;
     font-size: 18px;
@@ -96,8 +108,14 @@ div#popup {
     text-align: center;
 }
 
+
 .popup-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
+}
+
+
+.current-price::before{
+	background: #1e90ff;
 }
