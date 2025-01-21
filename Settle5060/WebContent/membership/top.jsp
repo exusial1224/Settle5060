@@ -6,7 +6,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/top.css">
     <meta charset="UTF-8">
-    <title>入場券購入</title>
+    <title>入場券購入あ</title>
 </head>
 <body>
 
