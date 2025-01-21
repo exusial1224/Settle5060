@@ -1,6 +1,7 @@
 package facility;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,8 @@ public class OrganizationPurchaseComplete extends HttpServlet{
             int childrenCount = Integer.parseInt((String)session.getAttribute("childrenCount"));
             System.out.println(String.valueOf(slotId)+","+groupName+","+representativeName+","+phoneNumber+","+String.valueOf(adultsCount)+","+String.valueOf(childrenCount));
             PurchaseDAO purchaseDao = new PurchaseDAO();
-            int result = purchaseDao.OrganizationPurchase(slotId,groupName,representativeName,adultsCount,childrenCount,phoneNumber);
+            List<Integer> result_list = purchaseDao.OrganizationPurchase(slotId,groupName,representativeName,adultsCount,childrenCount,phoneNumber);
+            int result = result_list.get(0);
             String message ="登録に失敗しました。もう一度お試しください。";
             if (result > 0) { // 最初の値が 1 以上なら購入成功
                 message = "団体登録が正常に完了しました。";

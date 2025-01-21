@@ -64,8 +64,11 @@
             const data = dateFormat(today,'YYYY-MM-DD');
             const field = document.getElementById("dateSelect");
         	console.log(field.value);
-        	if(!field.value){
+        	const select = <%=request.getAttribute("selectdate") %>;
+        	if(!select){
         		field.value = data;
+        	}else{
+        		field.value = select;
         	}
         	minsetting();
     }

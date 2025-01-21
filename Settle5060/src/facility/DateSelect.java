@@ -25,13 +25,13 @@ public class DateSelect extends HttpServlet {
                 int fac_id= (int) session.getAttribute("facilityId");
              // 選択された日付を取得
                 LocalDate bus_date =  LocalDate.parse(request.getParameter("selectedDate"));
-
             // スロット情報を取得
                 SlotDAO slotDao = new SlotDAO();
-            	List<SlotExp> slotdata = slotDao.getAllSlots(fac_id, bus_date);
+            	List<SlotExp> slotdata = slotDao.getAllSlots(fac_id, bus_date);	
+                //System.out.println(slotdata);
             	request.setAttribute("slotdata",slotdata);
             	request.setAttribute("selectdate",bus_date);
-    			} catch (ParseException e) {
+    		} catch (ParseException e) {
     				e.printStackTrace();
     			} catch (Exception e) {
     				e.printStackTrace();
