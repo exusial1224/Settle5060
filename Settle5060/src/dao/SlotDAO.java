@@ -226,10 +226,7 @@ public class SlotDAO extends RootDAO {
 
 
     //指定されたタイムスロットの残り枠数を返す
-    public int getRemainingSlot(int fac_id) throws Exception {
-
-    	//現在時刻を取得
-    	int sl_id = getslIdFromfacId(fac_id);
+    public int getRemainingSlot(int sl_id) throws Exception {
 
 
     	PurchaseDAO pd = new PurchaseDAO();
@@ -341,7 +338,7 @@ public class SlotDAO extends RootDAO {
     public int SamedayPurchase(int fac_id, int num_adlt_tkt_sm, int num_chld_tkt_sm) throws Exception {
 
     	//現在時刻を取得
-    	int sl_id = getslIdFromfacId(fac_id);
+    	int sl_id = getslIdFromfacIdAndNow(fac_id);
 
 
     	int check = 0;
@@ -366,7 +363,40 @@ public class SlotDAO extends RootDAO {
 
 
     //fac_idと現在時刻からsl_idをreturn
-    public int getslIdFromfacId(int fac_id) throws Exception {
+    public int getslIdFromfacIdAndNow(int fac_id) throws Exception {
+
+    	//現在時刻から時間を取得
+    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    	String now_date_str = (LocalDateTime.now()).format(dtf);
+    	Date now_date = Date.valueOf(now_date_str);
+
+    	DateTimeFormatter tmf = DateTimeFormatter.ofPattern("HH:mm:ss");
+    	int now_starthour = LocalDateTime.now().getHour();
+    	String now_starthour_str = String.valueOf(now_starthour)+":00:00";
+
+    	int now_endhour = now_starthour+1;
+    	String now_endhour_str = String.valueOf(now_endhour)+":00:00";
+    	System.out.println(now_date);
+    	System.out.println(now_starthour_str);
+    	System.out.println(now_endhour_str);
+    	System.out.println(fac_id);
+    	Connection con = getConnection();
+    	PreparedStatement st = con.prepareStatement("SELECT SL_ID FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ? AND START_TIME = ? AND END_TIME = ?");
+    	st.setInt(1, fac_id);
+    	st.setDate(2, now_date);
+    	st.setString(3, now_starthour_str);
+    	st.setString(4, now_endhour_str);
+
+    	ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int sl_id = rs.getInt("SL_ID");
+
+    	return sl_id;
+
+    }
+    //fac_idと指定された時刻からsl_idをreturn
+    public int getslIdFromfacIdAndSpecifiedtime(int fac_id) throws Exception {
 
     	//現在時刻から時間を取得
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
