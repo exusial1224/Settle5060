@@ -50,7 +50,7 @@ public class EntryDisplay extends HttpServlet {
 //	    	slotList.add(se2);
 
 	    	//当日団体来場者
-	    	List<OrganizationPurchaseExp> opList = opDao.getOrganization(Integer.parseInt(session.getAttribute("fac_id").toString()),today);
+	    	List<OrganizationPurchaseExp> opList = opDao.getOrganization(Integer.parseInt(session.getAttribute("facilityId").toString()),today);
 
 	    	//test用
 
@@ -68,7 +68,8 @@ public class EntryDisplay extends HttpServlet {
 //	    	op2.setStart_time(new Time(10));
 //	    	op2.setOrg_tel("03-1234-5678");
 //	    	opList.add(op2);
-
+	    	System.out.println(today);
+	    	System.out.println(opList);
 	    	//取得情報をrequestにつめつめ
 	    	request.setAttribute("soltList", slotList);
 	    	request.setAttribute("opList", opList);

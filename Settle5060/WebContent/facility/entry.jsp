@@ -47,17 +47,20 @@
 <hr>
 
 <%-- start======================== 団体者表示 ========================start --%>
+<form action="grCancel">
 <div>
 	<h2>団体来場者</h2>
 	<c:forEach var="op" items="${opList}">
 		<table>
-			<tr><td>${op.org_name }様</td><td></td></tr>
+			<tr><td>${op.org_name }様</td><td></td><td><input type="checkbox" id ="select_gr" value="${op.org_pur_id}"></td></tr>
 			<tr><td>${op.rep_name }様</td><td>時間${op.start_time}～</td></tr>
 			<tr><td rowspan="2"><button onclick="orgEntry(${op.org_pur_id});" ${op.gr_tkt_admitted ? "disabled" : "" }>入場：${op.gr_tkt_admitted ? "済" : "未" }</button></td><td>枚数　大人${op.cnc_gr_adlt}枚　子供${op.cnc_gr_adlt}枚</td></tr>
 			<tr><td>お電話番号${op.org_tel}</td></tr>
 		</table>
 	</c:forEach>
 </div>
+<button>団体購入キャンセル</button>
+</form>
 <%-- end======================== 団体者表示 ========================end --%>
 
 <canvas id="canvas" hidden></canvas><%-- カメラ映像表示 --%>
