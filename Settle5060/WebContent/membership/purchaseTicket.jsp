@@ -24,7 +24,15 @@
         <c:when test="${ticket.rsv_admitted == false }">
         <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
-        <a href="Purchaselist">戻る</a><a href="Ticketcancel?pur_id=${ticket.pur_id }">入場券キャンセル</a>
+        <a href="Purchaselist">戻る</a>
+        <c:choose>
+          <c:when test="${isExpired}">
+            <button disabled style="color: gray;">期限切れ</button>
+          </c:when>
+          <c:otherwise>
+            <a href="Ticketcancel?pur_id=${ticket.pur_id}">入場券キャンセル</a>
+          </c:otherwise>
+        </c:choose>
         </c:when>
         <c:otherwise>
         <hr>
