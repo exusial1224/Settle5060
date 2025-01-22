@@ -20,7 +20,7 @@
 				<li class="nav__item"><a href="#" id="logout">ログアウト</a></li> <!-- IDを追加 -->
 			</div>
 			<div class="header-logo">
-				<li class="nav__item"><a href="./top.jsp" class="head-settle">SETTLE</a></li>
+				<li class="nav__item"><a href="./categorySelect.jsp" class="head-settle">SETTLE</a></li>
 			</div>
 		</ul>
 	</div>

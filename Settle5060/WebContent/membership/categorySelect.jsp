@@ -10,11 +10,11 @@
     <title>カテゴリ選択</title>
 </head>
 <body>
-	<img src="../img/kinkakuzi2.png" class="main-img" alt="金閣寺の写真">
+	<img src="../static/img/kinkakuzi2.png" class="main-img" alt="金閣寺の写真">
 	<h1 class="title-text">SETTLEで<br>スマートな観光を</h1>
-	<img src="../img/anime_zgock.gif" class="zgock-gif"alt="ズゴックgif" align="top" >
+	<img src="../static/img/anime_zgock.gif" class="zgock-gif"alt="ズゴックgif" align="top" >
 	<div class="container">
-	    <form action="CategorySelect" method="get" class="category-sel">
+	    <form action="CategorySelect" method="get">
 	        <label for="categorySelect"></label>
 	        <select name="category" id="categorySelect" class="input-form">
 	        	<option value="">カテゴリを選択</option>
