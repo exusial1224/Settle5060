@@ -4,18 +4,20 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<link rel="stylesheet" type="text/css" href="../css/category_select.css">
 	<link rel="stylesheet" type="text/css" href="../css/test.css">
     <meta charset="UTF-8">
     <title>カテゴリ選択</title>
 </head>
 <body>
+	<img src="../img/kinkakuzi2.png" class="main-img" alt="金閣寺の写真">
+	<h1 class="title-text">SETTLEで<br>スマートな観光を</h1>
+	<img src="../img/anime_zgock.gif" class="zgock-gif"alt="ズゴックgif" align="top" >
 	<div class="container">
-	    <h1>カテゴリを選択</h1>
-	    <hr>
-	    <form action="CategorySelect" method="get">
-	        <label for="categorySelect">カテゴリ:</label>
-	        <select name="category" id="categorySelect">
+	    <form action="CategorySelect" method="get" class="category-sel">
+	        <label for="categorySelect"></label>
+	        <select name="category" id="categorySelect" class="input-form">
+	        	<option value="">カテゴリを選択</option>
 	            <option value="0">温泉</option>
 	            <option value="1">寺・寺院</option>
 	            <option value="2">博物館</option>
@@ -26,7 +28,7 @@
 	            <option value="7">レジャー</option>
 	            <option value="8">その他</option>
 	        </select>
-	        <button type="submit">施設を表示</button>
+	        <button type="submit" class="but">施設を表示</button>
 	    </form>
 	</div>
 </body>

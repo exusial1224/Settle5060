@@ -6,7 +6,7 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="height: 80%; text-align:center; color:red; padding-top: 10%">
     	<p>もう一度ログインし直してください。</p>
     	<a href="../membership/login.jsp">ログインする。</a>
 	</div>

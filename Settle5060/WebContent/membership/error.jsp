@@ -3,10 +3,10 @@
 <%@include file="header.jsp"%>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/generic.css">
+	<link rel="stylesheet" type="text/css" href="../css/error-tag.css">
 </head>
 <body>
-
+	<div class="err-tag">
     	<p>エラーが発生しました。</p>
 	</div>
 </body>
