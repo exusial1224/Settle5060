@@ -35,7 +35,7 @@ public class PurchaseHistorylist extends HttpServlet {
             PurchaseDAO PurchaseDAO = new PurchaseDAO();
             List<PurchaseExp> purchaseList = PurchaseDAO.getPurchaseHistory(mbr_id);
             System.out.println(purchaseList);
-            // リクエストに入場券一覧をセットして JSP に転送
+
             request.setAttribute("purchaseList", purchaseList);
             request.getRequestDispatcher("purchaseHistorylist.jsp").forward(request, response);
 
