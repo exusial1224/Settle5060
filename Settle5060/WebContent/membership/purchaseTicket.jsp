@@ -25,14 +25,12 @@
         <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
         <a href="Purchaselist">戻る</a>
-        <c:choose>
-          <c:when test="${isExpired}">
-            <button disabled style="color: gray;">期限切れ</button>
-          </c:when>
-          <c:otherwise>
-            <a href="Ticketcancel?pur_id=${ticket.pur_id}">入場券キャンセル</a>
-          </c:otherwise>
-        </c:choose>
+        <form action="Ticketcancel" method="post" style="display: inline;">
+            <input type="hidden" name="pur_id" value="${ticket.pur_id}">
+            <button type="submit" class="cancel-btn"
+            ${isExpired ? "disabled" : ""}>入場キャンセル</button>
+
+        </form>
         </c:when>
         <c:otherwise>
         <hr>
