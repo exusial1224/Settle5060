@@ -1,6 +1,7 @@
 package membership;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.PurchaseExp;
 import dao.PurchaseDAO;
 import utils.EmailUtility;
 
@@ -26,6 +28,7 @@ public class TicketcancelComplete extends HttpServlet {
 
             // DAO を使用してキャンセル処理を実行
             PurchaseDAO purchaseDAO = new PurchaseDAO();
+            PurchaseExp purchase = purchaseDAO.getOneTkt(pur_id);
             List<Integer> cancelcomp = purchaseDAO.Cancel(pur_id, cancel_num_adlt_tkt, cancel_num_chld_tkt);
 
             // リセールデータが存在するかをチェック
@@ -37,12 +40,19 @@ public class TicketcancelComplete extends HttpServlet {
 
                 if (resaleMemberEmail != null && !resaleMemberEmail.isEmpty()) {
 
+                	String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPort() +
+                	        request.getContextPath() + "/membership/EmailLinkRedirect";
+                	String encodedFacilityId = URLEncoder.encode(String.valueOf(purchase.getSl_id()), "UTF-8");
+                	String encodedSelectedDate = URLEncoder.encode(purchase.getBus_date().toString(), "UTF-8");
 
-                    // メール送信の準備
-                    String subject = "【SETTLE】リセール入場券に関するお知らせ";
-                    String content = "リセールに登録されている入場券がキャンセルされました。\n" +
-                                     "詳細はログイン後、システムをご確認ください。\n\n" +
-                                     "SETTLE運営";
+                	String slotSelectionLink = baseUrl + "?facilityId=" + encodedFacilityId + "&selectedDate=" + encodedSelectedDate;
+
+                	String subject = "【SETTLE】リセール入場券に関するお知らせ";
+                	String content = "以下のリンクをクリックして、キャンセルされた入場券を購入できます。\n\n" +
+                	                 slotSelectionLink + "\n\n" +
+                	                 "SETTLE運営";
+
+                	EmailUtility.sendEmail(resaleMemberEmail, subject, content);
 
                     // メール送信
                     try {

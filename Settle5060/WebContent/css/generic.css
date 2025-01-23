@@ -94,9 +94,9 @@
         border: 0;
         background: #ff9900;
         display: block;
-        margin: 20px;
+        margin: 0 0 10px 10%;
         padding: 15px 10px;
-        width: 90%;
+        width: 80%;
         outline: none;
         color: #fff;
         border-radius: 25px;
@@ -136,3 +136,4 @@
 		outline:solid 2px red;
 		background-color: pink;
 	}
+

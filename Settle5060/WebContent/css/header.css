@@ -2,13 +2,12 @@ html,body{
   margin: 0;
   padding: 0;
   height: 100vh;
-  position: relative;
 
 }
 
 header {
 	height: 70px;
-    position: fixed;
+
 }
 .header {
     width: 100%;
@@ -19,7 +18,7 @@ header {
     padding-top: 10px;
     box-sizing: border-box;
 	height: 80px;
-    position: fixed;
+
     top: 0;
     left: 0;
 }
@@ -46,4 +45,8 @@ li {
     text-decoration: none;
     color: white;
     margin-right: 35px;
+}
+
+.head-settle{
+	position:absolute;
 }

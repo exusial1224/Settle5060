@@ -3,6 +3,9 @@ package membership;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -69,6 +72,19 @@ public class PurchaseTicket extends HttpServlet {
             // DAO から入場券情報を取得
             PurchaseDAO PurchaseDAO = new PurchaseDAO();
             PurchaseExp ticket = PurchaseDAO.getOneTkt(pur_id);
+
+            // 期限判定
+            LocalDateTime currentTime = LocalDateTime.now();
+            LocalDate currentDate = currentTime.toLocalDate();
+
+            // チケットの終了時間を LocalDateTime に変換
+            LocalTime endTime = ticket.getEnd_time(); // LocalTime型
+            LocalDateTime ticketEndDateTime = LocalDateTime.of(currentDate, endTime);
+
+            // 期限切れかどうかの判定
+            boolean isExpired = currentTime.isAfter(ticketEndDateTime);
+            request.setAttribute("isExpired", isExpired);
+
             // リクエストに入場券情報をセットして JSP に転送
             request.setAttribute("ticket", ticket);
             request.getRequestDispatcher("purchaseTicket.jsp").forward(request, response);
