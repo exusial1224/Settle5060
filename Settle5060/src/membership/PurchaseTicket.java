@@ -73,13 +73,14 @@ public class PurchaseTicket extends HttpServlet {
             PurchaseDAO PurchaseDAO = new PurchaseDAO();
             PurchaseExp ticket = PurchaseDAO.getOneTkt(pur_id);
 
-            // 期限判定
+         // 現在時刻を取得
             LocalDateTime currentTime = LocalDateTime.now();
-            LocalDate currentDate = currentTime.toLocalDate();
 
-            // チケットの終了時間を LocalDateTime に変換
-            LocalTime endTime = ticket.getEnd_time(); // LocalTime型
-            LocalDateTime ticketEndDateTime = LocalDateTime.of(currentDate, endTime);
+            // 日付と終了時刻
+            LocalDate busDate = ticket.getBus_date();
+            LocalTime endTime = ticket.getEnd_time();
+            LocalDateTime ticketEndDateTime = LocalDateTime.of(busDate, endTime);
+
 
             // 期限切れかどうかの判定
             boolean isExpired = currentTime.isAfter(ticketEndDateTime);
