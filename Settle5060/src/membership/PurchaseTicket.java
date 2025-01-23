@@ -85,8 +85,6 @@ public class PurchaseTicket extends HttpServlet {
             // 期限切れかどうかの判定
             boolean isExpired = currentTime.isAfter(ticketEndDateTime);
             request.setAttribute("isExpired", isExpired);
-
-            // リクエストに入場券情報をセットして JSP に転送
             request.setAttribute("ticket", ticket);
             request.getRequestDispatcher("purchaseTicket.jsp").forward(request, response);
 
