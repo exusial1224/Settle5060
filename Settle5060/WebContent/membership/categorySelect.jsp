@@ -30,6 +30,12 @@
 	        </select>
 	        <button type="submit" class="but">施設を表示</button>
 	    </form>
+	    <h2>今ホットな目的地</h2>
+		    <img src="../static/img/619763.jpg" class="sub-img-harf" alt="東京の写真">
+		    <img src="../static/img/619709.jpg" class="sub-img-harf" alt="大阪の写真">
+		    <img src="../static/img/691432.jpg" class="sub-img-quarter" alt="福岡の写真">
+		    <img src="../static/img/971332.jpg" class="sub-img-quarter" alt="京都の写真">
+		    <img src="../static/img/972557.jpg" class="sub-img-quarter" alt="横浜の写真">
 	</div>
 </body>
 </html>

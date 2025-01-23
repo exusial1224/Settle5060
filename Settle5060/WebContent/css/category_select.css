@@ -81,3 +81,20 @@
     	border-radius: 3px;
     }
 
+	/*サブイメージ(ハーフ)書式*/
+	.sub-img-harf{
+		border-radius: 10px;
+		object-fit: cover;
+		width: 49%;
+		height: 250px;
+		text-align:center;
+
+	}
+
+	/*サブイメージ(クウォーター)書式*/
+	.sub-img-quarter{
+		border-radius: 10px;
+		object-fit: cover;
+		width: 32%;
+		height: 200px;
+	}

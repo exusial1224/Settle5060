@@ -13,7 +13,7 @@
 	align-items: center;
 }
 
-
+/*リセール履歴レーン書式*/
 #second-lern{
 	display: flex;
 	justify-content: start;
@@ -24,13 +24,13 @@
 /*よってalign-self:flex-endが必要*/
 
 
-
+/*リセール履歴ボタン書式*/
 .second-button{
 	width: 300px;
 	height: 150%;
 }
 
-
+/*テーブル書式*/
 #sel-slot-table{
 	border-spacing: 0; /* セル間の余白をなくす */
  	border: 1px solid #ccc; /* テーブル全体の境界線 */
@@ -40,13 +40,13 @@
 	border-color: #66CCCC;
 }
 
-
+/*スクロール設定*/
 .sel-slot-scroll{
 	height:250px;
 	overflow: scroll;
 }
 
-
+/*テーブルのスクロール化*/
 .sticky{
 	position: sticky;
   	top: 0;
@@ -55,7 +55,7 @@
   	color: white;
 }
 
-
+/**/
 .sticky::before {
   content: "";
   position: absolute;
@@ -69,7 +69,7 @@
   z-index: -1;
 }
 
-
+/*ポップアップ時画面暗転*/
 div#blackout {
     display: none;
     position: absolute;
@@ -81,7 +81,7 @@ div#blackout {
     z-index: 9999;
 }
 
-
+/*カレンダーのポップアップ設定*/
 div#popup {
     display: none;
     position: fixed;
@@ -108,14 +108,19 @@ div#popup {
     text-align: center;
 }
 
-
+/**/
 .popup-buttons {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
 }
 
-
+/*現在の価格背景色変更*/
 .current-price::before{
 	background: #1e90ff;
+}
+
+/*選択レコードの強調*/
+.selectable-row:hover{
+	background-color: lightpink;
 }

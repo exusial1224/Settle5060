@@ -54,7 +54,7 @@
                     <th class="sticky">時間帯</th>
                     <th class="sticky current-price">現在の価格</th>
                     <th class="sticky">残り枚数</th>
-                    <th class="sticky">リセール予約</th>
+                    <th class="sticky resale" >リセール予約</th>
                 </tr>
                 <% for (Object obj : timeSlots) {
                     bean.SlotExp slot = (bean.SlotExp) obj;
@@ -64,7 +64,7 @@
                     <td><%= slot.getSl_price() %>円</td>
                     <td><%= slot.getRemain() %>枚</td>
                     <td>
-                        <input type="radio" name="radioSlotId" value="<%= slot.getSl_id() %>" <%= slot.getRemain() == 0 ? "disabled" : "" %>>
+                        <input type="checkbox" name="radioSlotId" class="resale-check" value="<%= slot.getSl_id() %>" <%= slot.getRemain() != 0 ? "disabled" : "" %>>
                     </td>
                 </tr>
                 <% } %>
