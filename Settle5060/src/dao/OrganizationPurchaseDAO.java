@@ -70,9 +70,9 @@ public class OrganizationPurchaseDAO extends RootDAO {
 
     }
   //購入をキャンセル + スロットの上限人数の更新
-    public List<Integer> Cancel(int org_pur_id, int cnc_gr_adlt, int cnc_gr_chld) throws Exception {
+    public List<Integer> OrganizationCancel(int org_pur_id) throws Exception {
 
-
+    	OrganizationPurchaseExp org_tkt = getOneTktGr(org_pur_id);
         List<Integer> list = new ArrayList<>();
 
         //リセールメールの送信精査をするかどうか
@@ -115,11 +115,11 @@ public class OrganizationPurchaseDAO extends RootDAO {
 
 
             // キャンセル情報を更新
-            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, SET CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
+            try (PreparedStatement st = con.prepareStatement("UPDATE ORGANIZATION_PURCHASE SET CNC_GR_ADLT = ?,CNC_GR_CHLD = ? WHERE ORG_PUR_ID = ?")) {
 
 
-                st.setInt(1, cnc_gr_adlt);
-                st.setInt(2, cnc_gr_chld);
+                st.setInt(1, org_tkt.getNum_adlt_tkt_gr());
+                st.setInt(2, org_tkt.getNum_chld_tkt_gr());
                 st.setInt(3, org_pur_id);
 
                 cancelInsertResult = st.executeUpdate();
@@ -127,7 +127,7 @@ public class OrganizationPurchaseDAO extends RootDAO {
             }
 
             // タイムスロットの上限更新
-            maxUpdateResult = sd.updateSlotMax(ope.getSl_id(), cnc_gr_adlt + cnc_gr_chld);
+            maxUpdateResult = sd.updateSlotMax(ope.getSl_id(), org_tkt.getNum_adlt_tkt_gr() + org_tkt.getNum_chld_tkt_gr());
 
 
 
@@ -173,11 +173,11 @@ public class OrganizationPurchaseDAO extends RootDAO {
     		organizationpurchaseexp.setOrg_pur_id(rs.getInt("ORG_PUR_ID"));
 	    	organizationpurchaseexp.setSl_id(rs.getInt("SL_ID"));
 	    	organizationpurchaseexp.setOrg_name(rs.getString("ORG_NAME"));
+	    	organizationpurchaseexp.setOrg_tel(rs.getString("ORG_TEL"));
 	    	organizationpurchaseexp.setRep_name(rs.getString("REP_NAME"));
-	    	organizationpurchaseexp.setCnc_gr_adlt(rs.getInt("CNC_RSV_ADLT"));
-	    	organizationpurchaseexp.setNum_chld_tkt_gr(rs.getInt("NUM_CHLD_TKT"));
-	    	organizationpurchaseexp.setCnc_gr_chld(rs.getInt("CNC_RSV_CHLD"));
-	    	organizationpurchaseexp.setGr_tkt_admitted(rs.getBoolean("RSV_ADMITTED"));
+	    	organizationpurchaseexp.setNum_adlt_tkt_gr(rs.getInt("NUM_ADLT_TKT_GR"));
+	    	organizationpurchaseexp.setNum_chld_tkt_gr(rs.getInt("NUM_CHLD_TKT_GR"));
+	    	organizationpurchaseexp.setGr_tkt_admitted(rs.getBoolean("GR_TKT_ADMITTED"));
 
 	    	organizationpurchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
 	    	organizationpurchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());

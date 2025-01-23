@@ -20,7 +20,7 @@ public class PurchaseHistorylist extends HttpServlet {
         try {
             // セッションから membershipIds リストを取得
             List<Membership> membershipIds = (List<Membership>) request.getSession().getAttribute("membershipIds");
-
+            System.out.println(membershipIds);
             if (membershipIds == null || membershipIds.isEmpty()) {
                 // リストが存在しない、もしくは空の場合エラーページにリダイレクト
                 request.setAttribute("error", "ユーザーIDが設定されていません。ログインしてください。");
