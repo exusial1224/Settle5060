@@ -20,7 +20,7 @@ public class PurchaseHistorylist extends HttpServlet {
         try {
             // セッションから membershipIds リストを取得
             List<Membership> membershipIds = (List<Membership>) request.getSession().getAttribute("membershipIds");
-
+            System.out.println(membershipIds);
             if (membershipIds == null || membershipIds.isEmpty()) {
                 // リストが存在しない、もしくは空の場合エラーページにリダイレクト
                 request.setAttribute("error", "ユーザーIDが設定されていません。ログインしてください。");
@@ -35,7 +35,7 @@ public class PurchaseHistorylist extends HttpServlet {
             PurchaseDAO PurchaseDAO = new PurchaseDAO();
             List<PurchaseExp> purchaseList = PurchaseDAO.getPurchaseHistory(mbr_id);
             System.out.println(purchaseList);
-            // リクエストに入場券一覧をセットして JSP に転送
+
             request.setAttribute("purchaseList", purchaseList);
             request.getRequestDispatcher("purchaseHistorylist.jsp").forward(request, response);
 

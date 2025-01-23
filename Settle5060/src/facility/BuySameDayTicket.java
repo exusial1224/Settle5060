@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import dao.SlotDAO;
 
@@ -58,6 +59,7 @@ public class BuySameDayTicket extends HttpServlet {
 			slotDao.SamedayPurchase((int)session.getAttribute("facilityId"),adultNum,childNum);
 			//メッセージで表示する
 			session.setAttribute("message", "当日券の購入処理が正常に終了しました。");
+//			JOptionPane.showMessageDialog(null, "当日券の購入処理が正常に終了しました。");
 	    	//EntryDisplayへ
 			response.sendRedirect("EntryDisplay");
 		} catch (Exception e) {
