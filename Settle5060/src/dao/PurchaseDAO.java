@@ -573,6 +573,76 @@ public class PurchaseDAO extends RootDAO {
 
 		return list;
 	}
+	//会員の購入履歴を施設名から所得
+	public List<PurchaseExp> getPurchaseSearchByFacility(int mbr_id,String keyword) throws Exception {
+
+		List<PurchaseExp> list = new ArrayList<>();
+		PurchaseExp purchaseexp = null;
+
+		Connection con = getConnection();
+
+
+		PreparedStatement st = con.prepareStatement(
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND FAC_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT AND NUM_CHLD_TKT != CNC_RSV_CHLD");
+		st.setInt(1, mbr_id);
+		st.setString(1, keyword);
+
+
+		ResultSet rs = st.executeQuery();
+
+		SlotDAO sd = new SlotDAO();
+		FacilityDAO fd = new FacilityDAO();
+		List<LocalTime> time_list = new ArrayList<>();
+
+
+
+		while (rs.next()) {
+			purchaseexp = new PurchaseExp();
+			purchaseexp.setPur_id(rs.getInt("PUR_ID"));
+			purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+			purchaseexp.setSl_id(rs.getInt("SL_ID"));
+			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
+			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
+			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
+			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
+			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+
+			//SL_IDからFAC_IDを所得
+			int fi = sd.slTofac(purchaseexp.getSl_id());
+
+			//FAC_IDから施設名を所得する
+			String f_name = fd.getFacilityName(fi);
+
+			purchaseexp.setFac_name(f_name);
+
+			//始まりと終わりの時刻所得
+			time_list = sd.getTimes(purchaseexp.getSl_id());
+
+
+			purchaseexp.setStart_time(time_list.get(0));
+			purchaseexp.setEnd_time(time_list.get(1));
+
+			//営業日付入れる
+			purchaseexp.setBus_date(sd.slToBusDate(purchaseexp.getSl_id()));
+
+
+
+
+		    list.add(purchaseexp);
+
+		    //さいご初期化する
+		    sd = new SlotDAO();
+		    fd = new FacilityDAO();
+		    time_list.clear();
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+	}
 
 
 	//購入情報から大人入場券購入枚数をとってくる
