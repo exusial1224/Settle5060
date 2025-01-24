@@ -515,8 +515,9 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT OR NUM_CHLD_TKT != CNC_RSV_CHLD");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT OR MBR_ID = ? AND NUM_CHLD_TKT != CNC_RSV_CHLD");
 		st.setInt(1, mbr_id);
+		st.setInt(2, mbr_id);
 
 		ResultSet rs = st.executeQuery();
 
@@ -583,9 +584,11 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE INNER JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME LIKE ? AND PURCHASE.NUM_ADLT_TKT != PURCHASE.CNC_RSV_ADLT OR PURCHASE.NUM_CHLD_TKT != PURCHASE.CNC_RSV_CHLD");
+			"SELECT * FROM PURCHASE INNER JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME LIKE ? AND PURCHASE.NUM_ADLT_TKT != PURCHASE.CNC_RSV_ADLT OR PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME AND PURCHASE.NUM_CHLD_TKT != PURCHASE.CNC_RSV_CHLD");
 		st.setInt(1, mbr_id);
 		st.setString(2, "%"+keyword+"%");
+		st.setInt(3, mbr_id);
+		st.setString(4, "%"+keyword+"%");
 
 
 		ResultSet rs = st.executeQuery();
