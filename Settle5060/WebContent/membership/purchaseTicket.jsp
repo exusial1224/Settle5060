@@ -25,7 +25,7 @@
         <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
         <a href="Purchaselist">戻る</a>
-        <form action="Ticketcancel" method="post" style="display: inline;">
+        <form action="Ticketcancel" method="get" style="display: inline;">
             <input type="hidden" name="pur_id" value="${ticket.pur_id}">
             <button type="submit" class="cancel-btn"
             ${isExpired ? "disabled" : ""}>入場キャンセル</button>
