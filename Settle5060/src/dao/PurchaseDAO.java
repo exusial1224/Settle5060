@@ -755,7 +755,7 @@ public class PurchaseDAO extends RootDAO {
 
 
             // キャンセル情報を更新
-            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, SET CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
+            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
 
 
                 st.setInt(1, cnc_rsv_adlt);
@@ -923,7 +923,7 @@ public class PurchaseDAO extends RootDAO {
 			return search;
 		}
 
-	//リセールデータが存在するか確認
+	// リセールデータが存在するか確認
 	public boolean checkResaleData(int pur_id) throws Exception {
 	    String sql = "SELECT COUNT(*) " +
 	                 "FROM RESALE r " +
@@ -933,13 +933,13 @@ public class PurchaseDAO extends RootDAO {
 	        ps.setInt(1, pur_id);
 	        ResultSet rs = ps.executeQuery();
 	        if (rs.next()) {
-	            return rs.getInt(1) > 0; // COUNTが1以上なら存在する
+	            return rs.getInt(1) > 0; // COUNTが1以上ならリセールデータが存在する
 	        }
 	    }
-	    return false;
+	    return false; // データがない場合はfalseを返す
 	}
 
-	//リセール登録している人のメールアドレス取得
+	// リセール登録している人のメールアドレス取得
 	public String getResaleMemberEmail(int pur_id) throws Exception {
 	    String sql = "SELECT m.MBR_MAIL " +
 	                 "FROM MEMBERSHIP m " +
