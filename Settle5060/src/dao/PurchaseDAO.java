@@ -578,7 +578,7 @@ public class PurchaseDAO extends RootDAO {
 
 		List<PurchaseExp> list = new ArrayList<>();
 		PurchaseExp purchaseexp = null;
-//s
+
 		Connection con = getConnection();
 
 
