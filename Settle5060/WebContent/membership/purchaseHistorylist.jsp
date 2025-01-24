@@ -30,15 +30,40 @@
   	  location.href = "PurchaseTicket?pur_id="+message;
 
     }
+    function selectsearchtype(){
+    	const search_type = document.getElementById("search_type");
+
+    	if(search_type == "fac_name"){
+    		console.log(search_type.value);
+    		search_type.onclick("");
+    	}else if(search_type == "date"){
+    		console.log(search_type.value);
+    		search_type.onclick("dateselect()");
+    	}
+    }
+	function dateselect(){
+		console.log("事項");
+
+	}
+    function search(){
+    	const search_type = document.getElementById("search_type");
+    	console.log(search_type.value);
+    	const keyword = document.getElementById("keyword");
+    	console.log(keyword.value);
+    	location.href="PurchaseListSearch?search_type="+search_type.value+"&keyword="+keyword.value;
+
+    }
     </script>
     <div class="container">
         <h2 class="title-text">入場券購入一覧</h2>
 		<hr>
         <c:if test="${not empty purchaseList}">
         <p><label for="targetselect">入場前のみ表示する</label><input type="checkbox" id="targetselect" onclick="targeted()"><label for="down">降順</label><input type="radio" id="down" name="updown" checked><label for="up">昇順</label><input type="radio" id="up" name="updown"></p>
-        <p><select>
-        <option>施設名</option>
-        </select><input type="text"><button>検索</button></p>
+        <p><select id="search_type" onchange="selectsearchtype()">
+        <option value="fac_name">施設名</option>
+        <option value="date">入場日時</option>
+        </select><input type="text" id="keyword" name="formtype">
+        <button onclick="search()">検索</button></p>
         <div class="purchaselist" id="purchaselist">
         	<c:forEach var="purchase" items="${purchaseList}">
         	<c:choose>
@@ -83,7 +108,8 @@
 
         <a href="top.jsp">戻る</a><p>※購入履歴は使用後数ヶ月で削除</p>
     </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../js/black_out.js"></script>
 </body>
 </html>
 <%@include  file="footer.jsp"%>

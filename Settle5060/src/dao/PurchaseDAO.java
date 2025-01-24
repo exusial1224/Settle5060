@@ -583,9 +583,9 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND FAC_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT AND NUM_CHLD_TKT != CNC_RSV_CHLD");
+			"SELECT * FROM PURCHASE INNER JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME LIKE ? AND PURCHASE.NUM_ADLT_TKT != PURCHASE.CNC_RSV_ADLT AND PURCHASE.NUM_CHLD_TKT != PURCHASE.CNC_RSV_CHLD");
 		st.setInt(1, mbr_id);
-		st.setString(1, keyword);
+		st.setString(1, "%"+keyword+"%");
 
 
 		ResultSet rs = st.executeQuery();
