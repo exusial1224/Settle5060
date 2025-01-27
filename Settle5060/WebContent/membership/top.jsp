@@ -75,7 +75,6 @@
     <form id="resaleForm" action="ResaleRegister" method="post">
     <div class="resale-section">
         <p>リセール予約を選択した後、以下のボタンを押してください。</p>
-        <!-- リセール予約専用のボタン -->
         <!-- nameをselectedSlotId[]に設定 -->
         <button type="submit" class="resale-button">リセール予約を確定</button>
     </div>

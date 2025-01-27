@@ -8,7 +8,7 @@ $(document).ready(function() {
         // チェックがない場合のバリデーション
         if (selectedIds.length === 0) {
             alert('リセール予約するスロットを選択してください。');
-            e.preventDefault(); // フォーム送信をキャンセル
+            e.preventDefault();
         } else {
             // 動的にhiddenフィールドを作成してフォームに追加
             selectedIds.forEach(function(id) {

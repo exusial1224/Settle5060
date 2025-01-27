@@ -60,7 +60,7 @@ public class ResaleRegister extends HttpServlet {
             }
             session.setAttribute("registeredSlots", registeredSlots);
 
-            // リセール登録成功メッセージ
+            // リセール登録成功メッセージ。
             session.setAttribute("message", "リセールが登録されました。");
 
             // 元の画面にリダイレクト

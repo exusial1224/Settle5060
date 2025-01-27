@@ -276,8 +276,8 @@ public class ResaleDAO extends RootDAO {
         try (Connection con = getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
             st.setInt(1, mbr_id);
             st.setInt(2, sl_id);
-            st.setBoolean(3, false); // キャンセルされていない
-            st.setBoolean(4, false); // 未取引のスロット
+            st.setBoolean(3, false);
+            st.setBoolean(4, false);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
