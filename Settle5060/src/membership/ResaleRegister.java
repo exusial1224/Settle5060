@@ -20,29 +20,44 @@ public class ResaleRegister extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        	HttpSession session = request.getSession();
-            List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
+            HttpSession session = request.getSession();
 
+            // ログインセッションの確認
+            List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
             if (membershipIds == null || membershipIds.isEmpty()) {
-                response.sendRedirect("../error/mbrLoginSessionError.jsp");//ログインセッションが無い場合の遷移
+                response.sendRedirect("../error/mbrLoginSessionError.jsp"); // ログインセッションが無い場合の遷移
                 return;
             }
 
-            Membership membership = membershipIds.get(0); // ログイン中の会員を取得
+            // ログイン中の会員情報を取得
+            Membership membership = membershipIds.get(0);
             int memberId = membership.getMbr_id();
 
-            int slotId = Integer.parseInt(request.getParameter("selectedSlotId"));
+            // 選択されたスロットIDの取得
+            String[] selectedSlotIds = request.getParameterValues("selectedSlotId[]");
 
-            // リセール登録
+            if (selectedSlotIds == null || selectedSlotIds.length == 0) {
+                session.setAttribute("error", "スロットが選択されていません。");
+                response.sendRedirect("error1.jsp");
+                return;
+            }
+
             ResaleDAO resaleDao = new ResaleDAO();
-            resaleDao.AddNewResale(memberId, slotId);
+
+            // リセール登録処理
+            for (String slotIdStr : selectedSlotIds) {
+                int slotId = Integer.parseInt(slotIdStr);
+                resaleDao.AddNewResale(memberId, slotId);
+            }
 
             // 登録済みスロットIDをセッションに保存
             List<Integer> registeredSlots = (List<Integer>) session.getAttribute("registeredSlots");
             if (registeredSlots == null) {
                 registeredSlots = new ArrayList<>();
             }
-            registeredSlots.add(slotId);
+            for (String slotIdStr : selectedSlotIds) {
+                registeredSlots.add(Integer.parseInt(slotIdStr));
+            }
             session.setAttribute("registeredSlots", registeredSlots);
 
             // リセール登録成功メッセージ
