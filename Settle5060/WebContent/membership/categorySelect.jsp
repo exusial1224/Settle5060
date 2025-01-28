@@ -37,5 +37,6 @@
 		    <img src="../static/img/971332.jpg" class="sub-img-quarter" alt="京都の写真">
 		    <img src="../static/img/972557.jpg" class="sub-img-quarter" alt="横浜の写真">
 	</div>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
