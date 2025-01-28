@@ -42,7 +42,7 @@ public class FacilityLogin extends HttpServlet {
             	}else{
                 // ログイン失敗時の処理
                 request.setAttribute("loginError", "無効なメールアドレスまたはパスワードです。");
-                request.getRequestDispatcher("/settle/membership/loginError.jsp").forward(request, response);
+                request.getRequestDispatcher("/facility/login.jsp").forward(request, response);
             	}
             }
         } catch (Exception e) {
