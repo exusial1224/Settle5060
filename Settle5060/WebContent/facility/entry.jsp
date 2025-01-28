@@ -2,11 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@ include file="facilityheader.jsp" %>　 -->
 
-<%-- start======================== アラート表示用隠しパラメータ ========================start --%>
-<c:if test="${ticket != null}">
-	<hidden></hidden>
+<%-- start======================== アラート表示用隠し要素 ========================start --%>
+<input type="hidden" id="isTicketed" name="isTicketed" value="${test != null}">
+<c:if test="${test != null}">
+<div id="blackout" style="display: none;"></div>
+<div id="popup" style="display: none;">
+    <h2 class="popup-title">日付を選択</h2>
+    <div class="popup-content">
+        <%-- 購入者名、スロット情報、購入枚数を表示 --%>
+        <ul>
+        	<li>購入者名：${ticket.mbr_name}様</li>
+        	<li>タイムスロット：${ticket.start_time}～${ticket.end_time}</li>
+        	<li>購入枚数：${ticket.number}</li>
+        </ul>
+    </div>
+    <div class="popup-buttons">
+        <button id="popupSubmit">確定</button>
+        <button id="popupCancel">キャンセル</button>
+    </div>
+</div>
 </c:if>
-<%-- end======================== アラート表示用隠しパラメータ ========================end --%>
+<%-- end======================== アラート表示用隠し要素 ========================end --%>
 
 <div class="contair">
 <%-- start======================== システムメッセージ ========================start --%>
@@ -80,10 +96,10 @@
 <%-- end======================== 団体者用隠しForm ========================end --%>
 
 <%-- ======================== JS読み込み ======================== --%>
-<script type="text/javascript" src="../js/facilityEntry.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/jsQR.js"></script>
 <script type="text/javascript" src="../js/ticketEntry.js"></script>
-
+<script type="text/javascript" src="../js/facilityEntry.js"></script>
 
 </body>
 </html>
