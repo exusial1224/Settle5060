@@ -13,7 +13,7 @@
         <div class="ticketinfo" id="ticketinfo">
             	<table border="1">
                 	<tr>
-                    	<th>施設名</th><td>${ticket.fac_name}</td><th>購入日</th><td>${ticket.time_pur}</td>
+                    	<th>施設名</th><td>${ticket.fac_name}</td><th>入場日</th><td>${ticket.bus_date}</td>
                 	</tr>
                 	<tr>
                     	<th>枚数</th><td>[大人：${ticket.num_adlt_tkt}枚][小人：${ticket.num_chld_tkt}枚]</td><th>入場時間</th><td>${ticket.start_time}～${ticket.end_time}</td>

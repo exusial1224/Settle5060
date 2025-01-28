@@ -68,30 +68,39 @@
         	<c:forEach var="purchase" items="${purchaseList}">
         	<c:choose>
         	<c:when test="${purchase.rsv_admitted == false}">
-          	 <a href="javascript:urlmaker(${purchase.pur_id});">
-            	<table border="1">
-                	<tr>
-                    	<th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td>
-                	</tr>
-                	<tr>
-                    	<th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td>
-                	</tr>
-                </table>
-              </a>
-              </c:when>
-              <c:otherwise>
-              <a href="javascript:urlmaker(${purchase.pur_id});">
-              <p id = "admitted">使用済み</p>
-            	<table border="1">
-                	<tr>
-                    	<th>施設名</th><td>${purchase.fac_name}</td><th>購入日</th><td>${purchase.time_pur}</td>
-                	</tr>
-                	<tr>
-                    	<th>枚数</th><td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td><th>入場時間</th><td>${purchase.start_time}～${purchase.end_time}</td>
-                	</tr>
-                </table>
-              </a>
-              </c:otherwise>
+  <a href="javascript:urlmaker(${purchase.pur_id});">
+    <table border="1">
+      <tr>
+        <th>施設名</th>
+        <td>${purchase.fac_name}</td>
+        <th>入場日時</th>
+        <td>${purchase.bus_date} ${purchase.start_time}～${purchase.end_time}</td>
+      </tr>
+      <tr>
+        <th>枚数</th>
+        <td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td>
+      </tr>
+    </table>
+  </a>
+</c:when>
+<c:otherwise>
+  <a href="javascript:urlmaker(${purchase.pur_id});">
+    <p id="admitted">使用済み</p>
+    <table border="1">
+      <tr>
+        <th>施設名</th>
+        <td>${purchase.fac_name}</td>
+        <th>入場日時</th>
+        <td>${purchase.bus_date} ${purchase.start_time}～${purchase.end_time}</td>
+      </tr>
+      <tr>
+        <th>枚数</th>
+        <td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td>
+      </tr>
+    </table>
+  </a>
+</c:otherwise>
+
               </c:choose>
             </c:forEach>
         </div>

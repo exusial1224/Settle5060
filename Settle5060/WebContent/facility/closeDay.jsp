@@ -7,7 +7,7 @@
     <p>×: 定休日, ✔: 不定休</p>
 
     <!-- 新しい不定休館日を登録するフォーム -->
-    <form action="CloseDayUpdate" method="post">
+    <form action="CloseDayUpdate" method="get">
         <div>
             <label for="selectedDate">日付選択:</label>
             <input type="date" id="selectedDate" name="selectedDate" required>
@@ -17,7 +17,7 @@
 
     <!-- 定期休館日と不定休館日を表示 -->
     <div>
-        <h3>定休日: ${regularHolidays}</h3>
+        <h3>定休日:</h3>
         <h3>不定休日:</h3>
         <ul>
             <c:forEach var="closure" items="${irregularClosures}">
