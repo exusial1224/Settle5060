@@ -342,6 +342,168 @@ public class PurchaseDAO extends RootDAO {
 	    return list;
 	}
 
+	//団体購入情報追加
+	public List<Integer> OrganizationPurchase(int sl_id, String org_name, String rep_name,int num_adlt_tkt, int num_chld_tkt, String org_tel) throws Exception {
+	    //購入のinsertが正しく行われたのかチェック(listの最初)
+	    int check = 0;
+	    List<Integer> list = new ArrayList<>();
+
+	    //価格が上がった場合スロットのprice_counterのupdateに成功したのか(list2番目)
+	    int check2 = 0;
+
+	    //価格が上がった場合タイムスロットのprice_counterを何個デクリメントしたのか?(list3番目)
+	    int check3 = 0;
+
+	    //価格が上がった場合最終的な価格の挿入は正しく行われたのか?(list最後)
+	    int check4 = 0;
+	    try (Connection con = getConnection()) {
+	        // トランザクションの開始
+	        con.setAutoCommit(false);
+
+	        // 購入前スロット価格を所得before_slot_priceへ
+	        SlotDAO sd = new SlotDAO();
+	        int before_slot_price = sd.getSlotPrice(sl_id);
+
+	        // 購入
+	        try (PreparedStatement st = con.prepareStatement(
+	              "INSERT INTO ORGANIZATION_PURCHASE(SL_ID, ORG_NAME, REP_NAME,NUM_ADLT_TKT_GR, NUM_CHLD_TKT_GR, ORG_TEL) VALUES(?,?,?,?,?,?)")) {
+	            st.setInt(1, sl_id);
+	            st.setString(2, org_name);
+	            st.setString(3, rep_name);
+	            st.setInt(4, num_adlt_tkt);
+	            st.setInt(5, num_chld_tkt);
+	            st.setString(6, org_tel);
+
+	            check = st.executeUpdate();
+
+	        		}
+	        // 購入後スロット購入者数(キャンセル抜き)を取得し、合計をall_sumに設定
+	        int rsv_sum = purchasedOneSlotCountOnlyPurRsv(sl_id);
+	        int gr_sum = purchasedOneSlotCountOnlyPurGr(sl_id);
+	        int all_sum = rsv_sum + gr_sum;
+
+
+	        // SL_ID→FAC_ID
+	        int fi = sd.slTofac(sl_id);
+
+
+
+
+
+	        FacilityDAO fd = new FacilityDAO();
+
+	        // 初期価格と上限人数の取得
+	        int init_price = fd.getInit_price(fi);
+
+	        int max_num = sd.getSlotMax(sl_id);
+
+
+
+	        // 購入後スロット価格を取得→after_slot_price1へ
+	        DynamicPricing dp = new DynamicPricing();
+	        int after_slot_price1 = dp.calculatePrice(all_sum, init_price, max_num);
+
+
+	        // 価格が上がったら?
+	        if (after_slot_price1 > before_slot_price) {
+	            int price_counter = sd.getPriceCounter(sl_id);
+	            int after_price_counter = price_counter + 1;
+
+
+
+	            // 購入したスロットのprice_counterをインクリメントしてスロット価格を更新
+	            try (PreparedStatement st2 = con.prepareStatement(
+	                    "UPDATE SLOT SET PRICE_COUNTER = ?,SL_PRICE = ? WHERE SL_ID = ?")) {
+
+	                st2.setInt(1, after_price_counter);
+	                st2.setInt(2, after_slot_price1);
+	                st2.setInt(3, sl_id);
+
+	                check2 = st2.executeUpdate();
+	            }
+
+	            // 日付を取得
+	            Date d = Date.valueOf(sd.slToBusDate(sl_id));
+
+
+
+
+
+	            // 条件に該当するスロットのprice_counterをデクリメント
+	            try (PreparedStatement st3 = con.prepareStatement(
+	                    "SELECT SL_ID, PRICE_COUNTER FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ? AND SL_ID != ?")) {
+	                st3.setInt(1, fi);
+	                st3.setDate(2, d);
+	                st3.setInt(3, sl_id);
+
+
+
+	                try (ResultSet rs2 = st3.executeQuery()) {
+	                    while (rs2.next()) {
+	                        if (rs2.getInt("PRICE_COUNTER") < after_price_counter) {
+	                            try (PreparedStatement st4 = con.prepareStatement(
+	                                    "UPDATE SLOT SET PRICE_COUNTER = ? WHERE SL_ID = ?")) {
+	                                st4.setInt(1, rs2.getInt("PRICE_COUNTER") - 1);
+	                                st4.setInt(2, rs2.getInt("SL_ID"));
+
+	                                check3 += st4.executeUpdate();
+	                            }
+
+
+	                        }
+
+	                    }
+	                }
+	            }
+
+	            // price_counterに基づいて価格を下げる設定
+	            int low_price = fd.getLow_price(fi);
+	            int high_price = fd.getHigh_price(fi);
+
+	            try (PreparedStatement st5 = con.prepareStatement(
+	                    "SELECT SL_ID, SL_PRICE, PRICE_COUNTER FROM SLOT WHERE FAC_ID = ? AND BUS_DATE = ?")) {
+	                st5.setInt(1, fi);
+	                st5.setDate(2, d);
+
+
+
+
+	                try (ResultSet rs3 = st5.executeQuery()) {
+
+	                    while (rs3.next()) {
+
+	                        int des_price = dp.decisionPrice(rs3.getInt("SL_PRICE"), rs3.getInt("PRICE_COUNTER"), low_price, high_price);
+
+	                        try (PreparedStatement st6 = con.prepareStatement(
+	                                "UPDATE SLOT SET SL_PRICE = ? WHERE SL_ID = ?")) {
+	                            st6.setInt(1, des_price);
+	                            st6.setInt(2, rs3.getInt("SL_ID"));
+
+	                            check4 += st6.executeUpdate();
+	                        }
+
+
+
+	                    }
+	                }
+
+
+
+	            }
+
+	        }
+	        list.add(check);
+	        list.add(check2);
+	        list.add(check3);
+	        list.add(check4);
+
+	        	// トランザクションのコミット
+	        	con.commit();
+	    		} catch (Exception e) {
+	    			throw e;
+	    		}
+	    	return list;
+	        }
 
 	//会員の購入履歴を全件所得
 	public List<PurchaseExp> getPurchaseHistory(int mbr_id) throws Exception {
@@ -353,8 +515,81 @@ public class PurchaseDAO extends RootDAO {
 
 
 		PreparedStatement st = con.prepareStatement(
-			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT AND NUM_CHLD_TKT != CNC_RSV_CHLD");
+			"SELECT * FROM PURCHASE WHERE MBR_ID = ? AND NUM_ADLT_TKT != CNC_RSV_ADLT OR MBR_ID = ? AND NUM_CHLD_TKT != CNC_RSV_CHLD");
 		st.setInt(1, mbr_id);
+		st.setInt(2, mbr_id);
+
+		ResultSet rs = st.executeQuery();
+
+		SlotDAO sd = new SlotDAO();
+		FacilityDAO fd = new FacilityDAO();
+		List<LocalTime> time_list = new ArrayList<>();
+
+
+
+		while (rs.next()) {
+			purchaseexp = new PurchaseExp();
+			purchaseexp.setPur_id(rs.getInt("PUR_ID"));
+			purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+			purchaseexp.setSl_id(rs.getInt("SL_ID"));
+			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
+			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
+			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
+			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
+			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+
+			//SL_IDからFAC_IDを所得
+			int fi = sd.slTofac(purchaseexp.getSl_id());
+
+			//FAC_IDから施設名を所得する
+			String f_name = fd.getFacilityName(fi);
+
+			purchaseexp.setFac_name(f_name);
+
+			//始まりと終わりの時刻所得
+			time_list = sd.getTimes(purchaseexp.getSl_id());
+
+
+			purchaseexp.setStart_time(time_list.get(0));
+			purchaseexp.setEnd_time(time_list.get(1));
+
+			//営業日付入れる
+			purchaseexp.setBus_date(sd.slToBusDate(purchaseexp.getSl_id()));
+
+
+
+
+		    list.add(purchaseexp);
+
+		    //さいご初期化する
+		    sd = new SlotDAO();
+		    fd = new FacilityDAO();
+		    time_list.clear();
+		}
+
+		st.close();
+		con.close();
+
+		return list;
+	}
+	//会員の購入履歴を施設名から所得
+	public List<PurchaseExp> getPurchaseSearchByFacility(int mbr_id,String keyword) throws Exception {
+
+		List<PurchaseExp> list = new ArrayList<>();
+		PurchaseExp purchaseexp = null;
+
+		Connection con = getConnection();
+
+
+		PreparedStatement st = con.prepareStatement(
+			"SELECT * FROM PURCHASE INNER JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME LIKE ? AND PURCHASE.NUM_ADLT_TKT != PURCHASE.CNC_RSV_ADLT OR PURCHASE.MBR_ID = ? AND FACILITY.FAC_NAME LIKE ? AND PURCHASE.NUM_CHLD_TKT != PURCHASE.CNC_RSV_CHLD");
+		st.setInt(1, mbr_id);
+		st.setString(2,"%"+keyword+"%");
+		st.setInt(3, mbr_id);
+		st.setString(4,"%"+keyword+"%");
+
 
 		ResultSet rs = st.executeQuery();
 
@@ -523,7 +758,7 @@ public class PurchaseDAO extends RootDAO {
 
 
             // キャンセル情報を更新
-            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, SET CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
+            try (PreparedStatement st = con.prepareStatement("UPDATE PURCHASE SET CNC_RSV_ADLT = ?, CNC_RSV_CHLD = ? WHERE PUR_ID = ?")) {
 
 
                 st.setInt(1, cnc_rsv_adlt);
@@ -620,25 +855,26 @@ public class PurchaseDAO extends RootDAO {
 
     	ResultSet rs = st.executeQuery();
 
-    	rs.next();
     	purchaseexp = new PurchaseExp();
-		purchaseexp.setPur_id(rs.getInt("PUR_ID"));
-		purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
-		purchaseexp.setSl_id(rs.getInt("SL_ID"));
-		purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
-		purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
-		purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
-		purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
-		purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
-		purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
-		purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
-		purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
-		purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
-		purchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
+    	while(rs.next()){
+	    	purchaseexp.setPur_id(rs.getInt("PUR_ID"));
+			purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+			purchaseexp.setSl_id(rs.getInt("SL_ID"));
+			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
+			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));
+			purchaseexp.setCnc_rsv_adlt(rs.getInt("CNC_RSV_ADLT"));
+			purchaseexp.setNum_chld_tkt(rs.getInt("NUM_CHLD_TKT"));
+			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
+			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
+			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+			purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
-		purchaseexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+			purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
+			purchaseexp.setEnd_time(rs.getTime("END_TIME").toLocalTime());
 
+			purchaseexp.setBus_date(rs.getDate("BUS_DATE").toLocalDate());
+    	}
 
 		st.close();
 		con.close();
@@ -666,6 +902,62 @@ public class PurchaseDAO extends RootDAO {
 
     }
 
+
+//	引数と同じ購入IDを持つ場合true、ない場合falseをreturn
+	public boolean searchPurId(int pur_id) throws Exception {
+
+			boolean search = false;
+			Connection con=getConnection();
+
+			PreparedStatement st = con.prepareStatement("SELECT PUR_ID FROM PURCHASE");
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				if(pur_id == rs.getInt("PUR_ID")) {
+					search = true;
+				}
+
+			}
+
+			st.close();
+			con.close();
+			return search;
+		}
+
+	// リセールデータが存在するか確認
+	public boolean checkResaleData(int pur_id) throws Exception {
+	    String sql = "SELECT COUNT(*) " +
+	                 "FROM RESALE r " +
+	                 "JOIN PURCHASE p ON r.SL_ID = p.SL_ID " +
+	                 "WHERE p.PUR_ID = ? AND r.CNC_FLG = 0";
+	    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, pur_id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0; // COUNTが1以上ならリセールデータが存在する
+	        }
+	    }
+	    return false; // データがない場合はfalseを返す
+	}
+
+	// リセール登録している人のメールアドレス取得
+	public String getResaleMemberEmail(int pur_id) throws Exception {
+	    String sql = "SELECT m.MBR_MAIL " +
+	                 "FROM MEMBERSHIP m " +
+	                 "JOIN RESALE r ON m.MBR_ID = r.MBR_ID " +
+	                 "JOIN PURCHASE p ON r.SL_ID = p.SL_ID " +
+	                 "WHERE p.PUR_ID = ? AND r.CNC_FLG = 0";
+	    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, pur_id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("MBR_MAIL"); // メールアドレスを取得
+	        }
+	    }
+	    return null; // データがない場合はnullを返す
+	}
 
 
 

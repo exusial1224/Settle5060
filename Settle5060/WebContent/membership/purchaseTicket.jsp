@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,7 +13,7 @@
         <div class="ticketinfo" id="ticketinfo">
             	<table border="1">
                 	<tr>
-                    	<th>施設名</th><td>${ticket.fac_name}</td><th>購入日</th><td>${ticket.time_pur}</td>
+                    	<th>施設名</th><td>${ticket.fac_name}</td><th>入場日</th><td>${ticket.bus_date}</td>
                 	</tr>
                 	<tr>
                     	<th>枚数</th><td>[大人：${ticket.num_adlt_tkt}枚][小人：${ticket.num_chld_tkt}枚]</td><th>入場時間</th><td>${ticket.start_time}～${ticket.end_time}</td>
@@ -24,7 +24,13 @@
         <c:when test="${ticket.rsv_admitted == false }">
         <img alt="入場券QRコード" src="img/qr_code.png">
         <hr>
-        <a href="Purchaselist">戻る</a><a href="Ticketcancel?pur_id=${ticket.pur_id }">入場券キャンセル</a>
+        <a href="Purchaselist">戻る</a>
+        <form action="Ticketcancel" method="get" style="display: inline;">
+            <input type="hidden" name="pur_id" value="${ticket.pur_id}">
+            <button type="submit" class="cancel-btn"
+            ${isExpired ? "disabled" : ""}>入場キャンセル</button>
+
+        </form>
         </c:when>
         <c:otherwise>
         <hr>

@@ -1,0 +1,100 @@
+
+	/*タイトルテキスト ブラー*/
+	.title-text{
+		padding:3%;
+		padding-top: 6%;
+		padding-bottom: 6%;
+		border-radius: 10px;
+		position:absolute;
+		top: 25%;
+		left: 5%;
+		color: black;
+		backdrop-filter: blur(5px);
+		font-size: 200%;
+
+	}
+
+	/*メインのイメージ*/
+	.main-img{
+	    transform: scale(-1, 1);
+	    height: 400px;
+	     width: 100%;
+	}
+
+	/*ズゴック岐阜*/
+	.zgock-gif{
+		position: absolute;
+		top: 30px;
+		left: 180px;
+	}
+
+	/*フォームコンテナ*/
+	.container{
+		padding: 0;
+		margin: 0;
+	}
+
+	/*入力フォーム*/
+	.input-form{
+		border: 1px solid #a9a9a9;
+		width: 49%;
+		height: 98%;
+        box-sizing: border-box;
+        border-radius: 5px;
+        outline: none;
+	}
+	/*入力フォームフォーカス*/
+    .input-form:focus{
+        border-color: #ff9900;
+
+    }
+
+
+    	/*検索ボタン*/
+    .but{
+        border: 0;
+        background: #3399FF;
+        width: 49%;
+		height:98%;
+        outline: none;
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+	/*検索ボタンフォーカス*/
+    .button:hover {
+        background-color: #0099CC;
+    }
+
+    form{
+    	position: absolute;
+		top: 440px;
+		left:23%;
+    	margin: 0;
+    	background-color:#ffa500;
+    	height:50px;
+    	width: 50%;
+		padding: 3px 0 3px 7px;
+    	border-radius: 3px;
+    }
+
+	/*サブイメージ(ハーフ)書式*/
+	.sub-img-harf{
+		border-radius: 10px;
+		object-fit: cover;
+		width: 49%;
+		height: 250px;
+		text-align:center;
+
+	}
+
+	/*サブイメージ(クウォーター)書式*/
+	.sub-img-quarter{
+		border-radius: 10px;
+		object-fit: cover;
+		width: 32%;
+		height: 200px;
+	}

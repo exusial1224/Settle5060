@@ -3,21 +3,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/top.css">
     <meta charset="UTF-8">
-    <title>入場券購入</title>
-
+    <script src="../js/rowClickHandler.js" defer></script>
+    <script src="../js/resaleCheckbox.js" defer></script>
 </head>
 <body>
-
 <div id="blackout" style="display: none;"></div>
 <div id="popup" style="display: none;">
     <h2 class="popup-title">日付を選択</h2>
     <div class="popup-content">
         <select id="popupDateSelect" name="popupDateSelect">
             <option value="">--日付を選択--</option>
-
         </select>
     </div>
     <div class="popup-buttons">
@@ -27,8 +25,6 @@
 </div>
 
 <div class="container">
-    <div class="title-text">入場券購入</div>
-    <hr>
     <div id="first-lern">
         <h1 id="fac-name">
             ${facilityName}
@@ -51,31 +47,40 @@
         }
         if (timeSlots != null && selectedDate != null) {
     %>
-    <form action="SlotSelect" method="post">
-        <h4>時間帯を選択してくださいa</h4>
+    <form id="slotForm" action="SlotSelect" method="post">
+        <input type="hidden" id="selectedSlotId" name="selectedSlotId">
         <div class="sel-slot-scroll">
             <table border="1" id="sel-slot-table">
                 <tr>
                     <th class="sticky">時間帯</th>
-                    <th class="sticky">現在の価格</th>
+                    <th class="sticky current-price">現在の価格</th>
                     <th class="sticky">残り枚数</th>
-                    <th class="sticky">リセール予約</th>
+                    <th class="sticky resale" >リセール予約</th>
                 </tr>
                 <% for (Object obj : timeSlots) {
                     bean.SlotExp slot = (bean.SlotExp) obj;
                 %>
-                <tr>
+                <tr class="selectable-row" data-slot-id="<%= slot.getSl_id() %>">
                     <td><%= slot.getStart_time() %> ～ <%= slot.getEnd_time() %></td>
                     <td><%= slot.getSl_price() %>円</td>
                     <td><%= slot.getRemain() %>枚</td>
                     <td>
-                        <input type="radio" name="selectedSlotId" value="<%= slot.getSl_id() %>" <%= slot.getRemain() == 0 ? "disabled" : "" %>>
+                        <input type="checkbox" name= "selectedSlotId" class="resale-check" value="<%= slot.getSl_id() %>" <%= slot.getRemain() != 0 ? "" : "" %>>
                     </td>
                 </tr>
                 <% } %>
             </table>
         </div>
     </form>
+    <form id="resaleForm" action="ResaleRegister" method="post">
+    <div class="resale-section">
+        <p>リセール予約を選択した後、以下のボタンを押してください。</p>
+        <!-- nameをselectedSlotId[]に設定 -->
+        <button type="submit" class="resale-button">リセール予約を確定</button>
+    </div>
+	</form>
+
+
     <% } else { %>
     <p>データが見つかりません。</p>
     <% } %>

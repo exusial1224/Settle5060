@@ -268,5 +268,25 @@ public class ResaleDAO extends RootDAO {
 
     }
 
+    // 特定のスロットがすでに登録されているか確認
+    public boolean isSlotAlreadyRegistered(int mbr_id, int sl_id) throws Exception {
+        String sql = "SELECT COUNT(*) FROM RESALE WHERE MBR_ID = ? AND SL_ID = ? AND CNC_FLG = ? AND TRAN_FLG = ?";
+        boolean isRegistered = false;
+
+        try (Connection con = getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+            st.setInt(1, mbr_id);
+            st.setInt(2, sl_id);
+            st.setBoolean(3, false);
+            st.setBoolean(4, false);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                isRegistered = rs.getInt(1) > 0; // カウントが1以上なら登録済み
+            }
+        }
+        return isRegistered;
+    }
+
+
 
 }
