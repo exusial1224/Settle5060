@@ -40,7 +40,7 @@ public class FacilityLogin extends HttpServlet {
             		session.setAttribute("facilityId",facilityId);
             		response.sendRedirect("/Settle5060/admin/adminTop.jsp");
             	}else{
-                // ログイン失敗時の処理
+                // ログイン失敗時の処理せ
                 request.setAttribute("loginError", "無効なメールアドレスまたはパスワードです。");
                 request.getRequestDispatcher("/facility/login.jsp").forward(request, response);
             	}
