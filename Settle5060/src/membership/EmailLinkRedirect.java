@@ -35,6 +35,8 @@ public class EmailLinkRedirect extends HttpServlet {
             int facilityId = Integer.parseInt(facilityIdParam);
             session.setAttribute("facilityId", facilityId);
 
+            System.out.println("Facility ID: " + facilityId);
+
             String facilityName = new FacilityDAO().getFacilityName(facilityId);
             if (facilityName == null) {
                 response.sendRedirect("error.jsp?message=Facility not found");

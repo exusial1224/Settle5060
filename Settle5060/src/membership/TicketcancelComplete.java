@@ -42,7 +42,7 @@ public class TicketcancelComplete extends HttpServlet {
 
                 	String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPort() +
                 	        request.getContextPath() + "/membership/EmailLinkRedirect";
-                	String encodedFacilityId = URLEncoder.encode(String.valueOf(purchase.getSl_id()), "UTF-8");
+                	String encodedFacilityId = URLEncoder.encode(String.valueOf(purchase.getFac_id()), "UTF-8");
                 	String encodedSelectedDate = URLEncoder.encode(purchase.getBus_date().toString(), "UTF-8");
 
                 	String slotSelectionLink = baseUrl + "?facilityId=" + encodedFacilityId + "&selectedDate=" + encodedSelectedDate;

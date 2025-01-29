@@ -36,6 +36,17 @@
             <button type="submit">選択</button>
         </form>
     </div>
+    <%
+        String message = (String) session.getAttribute("message");
+        if (message != null) {
+    %>
+    <div class="message-box">
+        <p><%= message %></p>
+    </div>
+    <%
+            session.removeAttribute("message");
+        }
+    %>
 
     <%-- 時間帯選択フォーム --%>
     <%
