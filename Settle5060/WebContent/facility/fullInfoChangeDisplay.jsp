@@ -16,11 +16,11 @@
 <option value="1" id="category1">寺・寺院</option>
 <option value="2" id="category2">博物館</option>
 <option value="3" id="category3">スキー場</option>
-<option value="4" id="category3">水族館</option>
-<option value="5" id="category4">動物園</option>
-<option value="6" id="category5">果樹園</option>
-<option value="7" id="category6">レジャー</option>
-<option value="8" id="category7">その他</option>
+<option value="4" id="category4">水族館</option>
+<option value="5" id="category5">動物園</option>
+<option value="6" id="category6">果樹園</option>
+<option value="7" id="category7">レジャー</option>
+<option value="8" id="category8">その他</option>
 </select>
 <button>変更</button>
 </form>
