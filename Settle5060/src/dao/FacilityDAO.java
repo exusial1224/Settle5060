@@ -97,7 +97,7 @@ public class FacilityDAO extends RootDAO {
 	    while (rs.next()) {
 
 	        facility = new Facility();
-
+	        //2月 03日： 施設名のみだと見栄えが悪いので取得要素増
 	        facility.setFac_id(rs.getInt("FAC_ID"));
 	        facility.setFac_name(rs.getString("FAC_NAME"));
 	        facility.setCategory(rs.getInt("CATEGORY"));
