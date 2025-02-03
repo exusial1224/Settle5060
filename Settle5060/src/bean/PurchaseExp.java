@@ -6,7 +6,10 @@ import java.time.LocalTime;
 
 public class PurchaseExp extends Purchase implements Serializable {
 
+<<<<<<< HEAD
 	private String mbr_name;
+=======
+>>>>>>> branch 'master' of https://github.com/exusial1224/Settle5060.git
 	private int fac_id;
 	private String fac_name;
 	private LocalTime start_time;

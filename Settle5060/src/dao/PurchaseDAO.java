@@ -850,7 +850,13 @@ public class PurchaseDAO extends RootDAO {
     	PurchaseExp purchaseexp = null;
     	Connection con = getConnection();
 
-    	PreparedStatement st = con.prepareStatement("SELECT * FROM PURCHASE JOIN SLOT ON  PURCHASE.SL_ID = SLOT.SL_ID JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID WHERE PUR_ID = ?");
+    	PreparedStatement st = con.prepareStatement(
+    	        "SELECT PURCHASE.*, SLOT.FAC_ID, SLOT.START_TIME, SLOT.END_TIME, SLOT.BUS_DATE, FACILITY.FAC_NAME " +
+    	        "FROM PURCHASE " +
+    	        "JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID " +
+    	        "JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID " +
+    	        "WHERE PURCHASE.PUR_ID = ?"
+    	    );
     	st.setInt(1, pur_id);
 
     	ResultSet rs = st.executeQuery();
@@ -868,6 +874,7 @@ public class PurchaseDAO extends RootDAO {
 			purchaseexp.setCnc_rsv_chld(rs.getInt("CNC_RSV_CHLD"));
 			purchaseexp.setTime_pur(rs.getTimestamp("TIME_PUR").toLocalDateTime());
 			purchaseexp.setRsv_admitted(rs.getBoolean("RSV_ADMITTED"));
+			purchaseexp.setFac_id(rs.getInt("FAC_ID"));
 			purchaseexp.setFac_name(rs.getString("FAC_NAME"));
 
 			purchaseexp.setStart_time(rs.getTime("START_TIME").toLocalTime());
