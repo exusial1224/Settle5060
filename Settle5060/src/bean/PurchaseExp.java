@@ -6,11 +6,20 @@ import java.time.LocalTime;
 
 public class PurchaseExp extends Purchase implements Serializable {
 
+	private String mbr_name;
+	private int fac_id;
 	private String fac_name;
 	private LocalTime start_time;
 	private LocalTime end_time;
 	private LocalDate bus_date;
 
+	public int getFac_id() {
+        return fac_id;
+    }
+
+    public void setFac_id(int fac_id) {
+        this.fac_id = fac_id;
+    }
 
 	public String getFac_name() {
 		return fac_name;
@@ -42,6 +51,14 @@ public class PurchaseExp extends Purchase implements Serializable {
 
 	public void setBus_date(LocalDate bus_date) {
 		this.bus_date = bus_date;
+	}
+
+	public String getMbr_name() {
+		return mbr_name;
+	}
+
+	public void setMbr_name(String mbr_name) {
+		this.mbr_name = mbr_name;
 	}
 
 
