@@ -101,6 +101,10 @@ public class FacilityDAO extends RootDAO {
 	        facility.setFac_id(rs.getInt("FAC_ID"));
 	        facility.setFac_name(rs.getString("FAC_NAME"));
 	        facility.setCategory(rs.getInt("CATEGORY"));
+	        facility.setFac_address(rs.getString("FAC_ADDRESS"));
+			facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
+			facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
+			facility.setFac_tel(rs.getString("FAC_TEL"));
 
 	        list.add(facility);
 
