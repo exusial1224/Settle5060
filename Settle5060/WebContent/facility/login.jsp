@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<!--  <h1 class="login-title">-->
-		<!-- 民間ログインと合併 -->>
+		<!-- 民間ログインと合併 -->
 		<p class=title-text> SETTLEにログイン</p>
 	    <hr>
 	    <form action="facilityLogin" method="post" class="login-form">

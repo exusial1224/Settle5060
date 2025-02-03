@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.temporal.ChronoUnit;
 import bean.SlotExp;
 
 public class SlotDAO extends RootDAO {
@@ -423,6 +423,67 @@ public class SlotDAO extends RootDAO {
 
 
 
+    public int insertFutureSlots() throws Exception {
+        Connection con = getConnection();
+        int[] result;
+
+        // FACILITY テーブルからデータを取得
+        PreparedStatement selectSt = con.prepareStatement(
+            "SELECT FAC_ID, OPEN_TIME, CLOSE_TIME, INIT_PRICE, MAX_NUM, SLS_STR FROM FACILITY"
+        );
+        ResultSet rs = selectSt.executeQuery();
+
+        // INSERT 用の PreparedStatement
+        PreparedStatement insertSt = con.prepareStatement(
+            "INSERT INTO slot (FAC_ID, BUS_DATE, START_TIME, END_TIME, SL_PRICE, PRICE_COUNTER, NUM_ADLT_TKT_SM, NUM_CHLD_TKT_SM, SLOT_MAX) " +
+            "VALUES (?, ?, ?, ?, ?, 0, 0, 0, ?)"
+        );
+
+        while (rs.next()) {
+            int facId = rs.getInt("FAC_ID");
+            LocalTime openTime = rs.getTime("OPEN_TIME").toLocalTime();
+            LocalTime closeTime = rs.getTime("CLOSE_TIME").toLocalTime();
+            int initPrice = rs.getInt("INIT_PRICE");
+            int maxNum = rs.getInt("MAX_NUM");
+            int slsStr = rs.getInt("SLS_STR"); // 7や14などの日数
+
+            // 現在の日付を取得し、slsStr 日後の開始日を計算
+            LocalDate startDate = LocalDate.now().plusDays(slsStr);
+
+            for (int day = 0; day < 30; day++) { // 30日分のスロット作成
+                LocalDate busDate = startDate.plusDays(day);
+
+                // 営業時間内でスロットを作成（1時間単位）
+                LocalTime currentSlotTime = openTime;
+                while (currentSlotTime.isBefore(closeTime)) {
+                    LocalTime startTime = currentSlotTime;
+                    LocalTime endTime = startTime.plus(1, ChronoUnit.HOURS);
+
+                    // スロットをINSERT
+                    insertSt.setInt(1, facId);
+                    insertSt.setDate(2, Date.valueOf(busDate));
+                    insertSt.setTime(3, Time.valueOf(startTime));
+                    insertSt.setTime(4, Time.valueOf(endTime));
+                    insertSt.setInt(5, initPrice);
+                    insertSt.setInt(6, maxNum);
+                    insertSt.addBatch();
+
+                    currentSlotTime = endTime; // 次の時間に進める
+                }
+            }
+        }
+
+        // バッチ実行
+        result = insertSt.executeBatch();
+
+        // クローズ処理
+        rs.close();
+        selectSt.close();
+        insertSt.close();
+        con.close();
+
+        return result.length; // 登録したスロット数を返す
+    }
 
 
 
