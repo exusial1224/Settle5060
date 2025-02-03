@@ -19,7 +19,7 @@
         </select>
     </div>
     <div class="popup-buttons">
-        <button id="popupSubmit">確定</button>
+        <button id="popupSubmit" onclick="dateselect()">確定</button>
         <button id="popupCancel">キャンセル</button>
     </div>
 </div>
@@ -33,7 +33,7 @@
         <form id="dateForm" action="DateSelect" method="post">
             <label for="dateInput">日付を選択</label>
             <input id="dateInput" type="text" name="selectedDate" readonly placeholder="日付を選択" onclick="showPopup()" />
-            <button type="submit">選択</button>
+            <button type="submit" id="dateInputSelect">選択</button>
         </form>
     </div>
     <%
@@ -108,5 +108,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/black_out.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	document.getElementById('dateInputSelect').disabled = true;
+}
+var dateselect = function() {
+		document.getElementById('dateInputSelect').disabled = false;
+	}
+
+</script>
 </body>
 </html>
