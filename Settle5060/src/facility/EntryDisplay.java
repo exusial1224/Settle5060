@@ -23,7 +23,7 @@ public class EntryDisplay extends HttpServlet {
     	HttpSession session = request.getSession();
 
     	//テスト用
-    	session.setAttribute("fac_id","1");
+    	//session.setAttribute("fac_id","1");
 
     	//今日日付を取得
     	LocalDate today = LocalDate.now();
@@ -34,7 +34,7 @@ public class EntryDisplay extends HttpServlet {
 
 		try {
 	    	//当日タイムスロット取得
-	    	List<SlotExp> slotList = slotDao.getAllSlots(Integer.parseInt(session.getAttribute("fac_id").toString()),today);
+	    	List<SlotExp> slotList = slotDao.getAllSlots(Integer.parseInt(session.getAttribute("facilityId").toString()),today);
 
 	    	//test用
 //	    	List<SlotExp> slotList = new ArrayList();
@@ -68,8 +68,8 @@ public class EntryDisplay extends HttpServlet {
 //	    	op2.setStart_time(new Time(10));
 //	    	op2.setOrg_tel("03-1234-5678");
 //	    	opList.add(op2);
-	    	System.out.println(today);
-	    	System.out.println(opList);
+//	    	System.out.println(today);
+//	    	System.out.println(opList);
 	    	//取得情報をrequestにつめつめ
 	    	request.setAttribute("soltList", slotList);
 	    	request.setAttribute("opList", opList);

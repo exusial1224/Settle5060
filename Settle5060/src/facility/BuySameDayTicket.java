@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import dao.SlotDAO;
 
@@ -19,6 +18,8 @@ public class BuySameDayTicket extends HttpServlet {
     	HttpSession session = request.getSession();
     	//セッション上のメッセージを破棄
     	session.removeAttribute("message");
+    	//セッション上のチケット情報を破棄
+    	session.removeAttribute("ticket");
 
     	//リクエストパラメータ―取得
     	int adultNum=0;
