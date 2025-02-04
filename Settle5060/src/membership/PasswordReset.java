@@ -23,7 +23,7 @@ public class PasswordReset extends HttpServlet {
         try {
             MembershipDAO dao = new MembershipDAO();
 
-            // パスワードのハッシュ化
+            //ハッシュ化
             String hashedNewPassword = hashPassword(newPassword);
 
 
@@ -36,7 +36,7 @@ public class PasswordReset extends HttpServlet {
 //            }
 
 
-            // 新しいパスワードを更新
+            //
             int check = dao.reconfigurePassword(newMail, hashedNewPassword);
             System.out.println(hashedNewPassword);
             System.out.println(newMail);
@@ -46,7 +46,7 @@ public class PasswordReset extends HttpServlet {
                 // 現在のセッションを取得
                 HttpSession session = request.getSession(false);
 
-                // セッションが存在する場合は無効化
+                //セッションが存在する場合は無効化
                 if (session != null) {
                     session.invalidate();
                 }
@@ -66,7 +66,7 @@ public class PasswordReset extends HttpServlet {
         }
     }
 
-    // パスワードのハッシュ化メソッド
+    //ハッシュ化メソ
     private String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
