@@ -851,8 +851,9 @@ public class PurchaseDAO extends RootDAO {
     	Connection con = getConnection();
 
     	PreparedStatement st = con.prepareStatement(
-    	        "SELECT PURCHASE.*, SLOT.FAC_ID, SLOT.START_TIME, SLOT.END_TIME, SLOT.BUS_DATE, FACILITY.FAC_NAME " +
+    	        "SELECT PURCHASE.*, SLOT.FAC_ID, SLOT.START_TIME, SLOT.END_TIME, SLOT.BUS_DATE, FACILITY.FAC_NAME, MEMBERSHIP.MBR_NAME " +
     	        "FROM PURCHASE " +
+    	        "JOIN MEMBERSHIP ON PURCHASE.MBR_ID = MEMBERSHIP.MBR_ID " +
     	        "JOIN SLOT ON PURCHASE.SL_ID = SLOT.SL_ID " +
     	        "JOIN FACILITY ON SLOT.FAC_ID = FACILITY.FAC_ID " +
     	        "WHERE PURCHASE.PUR_ID = ?"
@@ -866,6 +867,7 @@ public class PurchaseDAO extends RootDAO {
     	while(rs.next()){
 	    	purchaseexp.setPur_id(rs.getInt("PUR_ID"));
 			purchaseexp.setMbr_id(rs.getInt("MBR_ID"));
+			purchaseexp.setMbr_name(rs.getString("MBR_NAME"));
 			purchaseexp.setSl_id(rs.getInt("SL_ID"));
 			purchaseexp.setPur_price(rs.getInt("PUR_PRICE"));
 			purchaseexp.setNum_adlt_tkt(rs.getInt("NUM_ADLT_TKT"));

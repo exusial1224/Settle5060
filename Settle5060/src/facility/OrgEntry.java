@@ -18,6 +18,8 @@ public class OrgEntry extends HttpServlet {
     	HttpSession session = request.getSession();
     	//セッション上のメッセージを破棄
     	session.removeAttribute("message");
+    	//セッション上のチケット情報を破棄
+    	session.removeAttribute("ticket");
 
     	//リクエストパラメータ―取得
     	int org_pur_id=0;
