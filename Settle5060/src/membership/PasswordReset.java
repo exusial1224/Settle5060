@@ -28,7 +28,7 @@ public class PasswordReset extends HttpServlet {
 
 
 
-            // 新パスワードが正しいか確認はクライアントで行っている
+            // 新パスワードが正しいか確認はクライアントnanodefuyou
 //            if (hashedNewPassword != hashedConfirmPassword) {
 //               request.setAttribute("error", "パスワードと確認用パスワードが一致しません。");
 //                request.getRequestDispatcher("/passwordResetForm.jsp").forward(request, response);

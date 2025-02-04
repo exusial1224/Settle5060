@@ -11,7 +11,7 @@
         <hr>
 
         <%
-            // メールアドレスをURLから取得
+            //アドレスをURLから取得で飛ばす
             String newMail = request.getParameter("newMail");
         %>
 

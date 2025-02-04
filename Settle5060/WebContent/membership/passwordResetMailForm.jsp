@@ -6,7 +6,7 @@
 <body>
     <div class="container">
     	<h1 class="title-text">パスワード変更</h1>
-    	<hr>
+    	<hr><!-- びしゅうせい -->
     　　<form action="PasswordChangeMail" method="post" >
 			<p class="send-mail-info" style="text-align: center;">メールアドレスを入力してください。</p>
 	        <div class="login-input">

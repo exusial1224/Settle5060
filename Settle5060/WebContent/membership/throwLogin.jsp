@@ -7,8 +7,9 @@
 </head>
 <body>
 	<div>
+	<!-- ログイン画面へとぶ汎用画面 -->
 		${message }
-		<a href="./login.jsp">ログイン画面</a>
+		<a href="./login.jsp">ログイン画面へ</a>
 	</div>
 </body>
 </html>

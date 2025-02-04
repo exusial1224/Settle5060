@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PasswordResetDisplay extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//微修正
         request.getRequestDispatcher("/membership/passwordResetForm.jsp").forward(request, response);
     }
 }
