@@ -19,6 +19,7 @@
 	    transform: scale(-1, 1);
 	    height: 400px;
 	     width: 100%;
+	     margin-top: 80px;
 	}
 
 	/*ズゴック岐阜*/
@@ -26,6 +27,8 @@
 		position: absolute;
 		top: 30px;
 		left: 180px;
+		position: fixed;
+		z-index: 100;
 	}
 
 	/*フォームコンテナ*/

@@ -48,13 +48,19 @@ public class InformationChange extends HttpServlet {
         // 生年月日（StringからDateに変換）
         if (birth != null && !birth.isEmpty()) {
             try {
-                membership.setMbr_birth(Date.valueOf(birth).toLocalDate());  // yyyy-MM-dd形式で送信されると仮定
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessage", "生年月日の形式が不正です。");
+                // yyyyMMdd を yyyy-MM-dd に変換してないのでcatchされページ遷移が起きるのです。
+            	//date型にしたいのであれば、まずyyyyMMddではなく、yyyy-MM-ddにしましょう。
+                String formattedBirth = birth.substring(0, 4) + "-" + birth.substring(4, 6) + "-" + birth.substring(6, 8);
+
+                // 変換した文字列を java.sql.Date に変換
+                membership.setMbr_birth(Date.valueOf(formattedBirth).toLocalDate());
+            } catch (Exception e) {
+                request.setAttribute("birthError", "生年月日を正しく入力して下さい。");
                 request.getRequestDispatcher("/membership/informationChange.jsp").forward(request, response);
                 return;
             }
         }
+
 
         // DAOを使って会員情報を更新
         MembershipDAO dao = new MembershipDAO();

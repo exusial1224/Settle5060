@@ -13,6 +13,7 @@
 	.container{
 		background-color: white;
 		border-radius: 20px;
+		padding-bottom: 20px;
 	}
 
 	/*タイトルテキスト*/
@@ -110,6 +111,22 @@
         background-color: #e68a00;
     }
 
+    /*戻るボタン*/
+    .back-to-the-future{
+    	border: 0;
+        background: lightblue;
+        display: block;
+        margin: 0 0 10px 10%;
+        padding: 15px 10px;
+        width: 80%;
+        outline: none;
+        color: #fff;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
 	/*確認画面テキスト*/
 	.text-confirm{
 		margin-left:20%;
@@ -135,5 +152,10 @@
 	.input-error{
 		outline:solid 2px red;
 		background-color: pink;
+	}
+
+	/*リンク*/
+	.link{
+		margin-left: 10%;
 	}
 

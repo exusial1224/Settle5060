@@ -1,13 +1,9 @@
-html,body{
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  position: relative;
 
-}
 
 header {
 	height: 70px;
+	position: fixed;
+	z-index: 99;
 }
 .header {
     width: 100%;

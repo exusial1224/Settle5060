@@ -32,19 +32,22 @@
 <body>
 	<div class="container">
 	    <h1>施設選択</h1>
-	    <hr>
-	        <h1 style="color:red">見栄えの問題で住所とか色々データを乗せたいので後回し</h1>
 		<div class="sisetu">
 	    <%
 	        List<Facility> facilityList = (List<Facility>) request.getAttribute("facilityList");
 	        if (facilityList != null && !facilityList.isEmpty()) {
 	            for (Facility facility : facilityList) {
-	                out.println("<div>");
-	                out.println("<form action='FacilitySelect' method='get'>");
-	                out.println("<input type='hidden' name='facilityId' value='" + facility.getFac_id() + "'>");
-	                out.println("<button type='submit' class='sisetu'>" + facility.getFac_name() + "</button>");
-	                out.println("</form>");
-	                out.println("</div>");
+	    %>
+	                <div class="facility-one" onclick="submitForm('<%= facility.getFac_id() %>')">
+	                    <form action="FacilitySelect" method="get" id="form_<%= facility.getFac_id() %>">
+	                        <input type="hidden" name="facilityId" value="<%= facility.getFac_id() %>">
+	                        <div class="fac-name"><h1><%= facility.getFac_name() %></h1></div>
+	                        <div class="sub-text"><%= facility.getFac_address() %></div>
+	                        <div class="sub-text"> TEL：<%= facility.getFac_tel() %></div>
+	                        <div class="sub-text"><%= facility.getOpen_time() %> ～ <%= facility.getClose_time() %></div>
+	                    </form>
+	                </div>
+	    <%
 	            }
 	        } else {
 	            out.println("<p>該当する施設がありません。</p>");
@@ -52,5 +55,11 @@
 	    %>
 	    </div>
 	</div>
+
+	<script>
+	    function submitForm(facilityId) {
+	        document.getElementById("form_" + facilityId).submit();
+	    }
+	</script>
 </body>
 </html>

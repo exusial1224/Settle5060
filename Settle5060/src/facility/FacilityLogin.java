@@ -31,8 +31,8 @@ public class FacilityLogin extends HttpServlet {
         try {
             String hashedPassword = hashPassword(password);
             int facilityId = 0;
-            facilityId = facilityDAO.loginFacility(mail, hashedPassword);
-            //facilityId = facilityDAO.loginFacility(demoMail, demoPassword);
+            //facilityId = facilityDAO.loginFacility(mail, hashedPassword);
+            facilityId = facilityDAO.loginFacility(demoMail, demoPassword);
 
             HttpSession session = request.getSession();
             if (facilityId != 0) {
