@@ -31,6 +31,8 @@ public class PasswordChange extends HttpServlet {
 
         // セッションから membershipIds リストを取得
         List<Membership> membershipIds = (List<Membership>) session.getAttribute("membershipIds");
+        System.out.println(membershipIds);
+        System.out.println("aawsas");
 
         // 会員IDがない場合、エラーページへリダイレクト
         if (membershipIds == null || membershipIds.isEmpty()) {
