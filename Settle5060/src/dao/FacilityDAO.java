@@ -201,8 +201,9 @@ public class FacilityDAO extends RootDAO {
 		facility.setChld_dsc(rs.getInt("CHLD_DSC"));
 		facility.setCategory(rs.getInt("CATEGORY"));
 		facility.setFac_reg(rs.getTimestamp("FAC_REG").toLocalDateTime());
+		if(rs.getTimestamp("FAC_MOD") != null){
 		facility.setFac_mod(rs.getTimestamp("FAC_MOD").toLocalDateTime());
-
+		}
 		st.close();
 		con.close();
 
