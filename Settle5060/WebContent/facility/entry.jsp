@@ -1,25 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <%@ include file="facilityheader.jsp" %>　 -->
+<%@ include file="facilityheader.jsp" %>
+<head>
+<link rel="stylesheet" href="../css/facility_entry.css">
+</head>
 
 <%-- start======================== アラート表示用隠し要素 ========================start --%>
-<input type="hidden" id="isTicketed" name="isTicketed" value="${test != null}">
-<c:if test="${test != null}">
-<div id="blackout" style="display: none;"></div>
-<div id="popup" style="display: none;">
-    <h2 class="popup-title">日付を選択</h2>
+<input type="hidden" id="isTicketed" name="isTicketed" value="${ticket != null}">
+<c:if test="${ticket != null}">
+<div id="modal" class="popup">
+<div id="popup" class="popup-content">
+    <h2 class="popup-title">入場者情報</h2>
     <div class="popup-content">
         <%-- 購入者名、スロット情報、購入枚数を表示 --%>
         <ul>
-        	<li>購入者名：${ticket.mbr_name}様</li>
-        	<li>タイムスロット：${ticket.start_time}～${ticket.end_time}</li>
-        	<li>購入枚数：${ticket.number}</li>
+        	<li>購入者氏名：${ticket.mbr_name}様</li>
+        	<li>時間：${ticket.start_time}～${ticket.end_time}</li>
+        	<li>購入枚数(大人)：${ticket.num_adlt_tkt}</li>
+        	<li>購入枚数(小人)：${ticket.num_chld_tkt}</li>
         </ul>
     </div>
     <div class="popup-buttons">
-        <button id="popupSubmit">確定</button>
-        <button id="popupCancel">キャンセル</button>
+        <button id="popupSubmit" onclick="hidePopup();">確認</button>
     </div>
+</div>
 </div>
 </c:if>
 <%-- end======================== アラート表示用隠し要素 ========================end --%>

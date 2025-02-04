@@ -5,12 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../css/facilityheader.css">
+<link rel="stylesheet" href="../css/facility_entry.css">
 <title>SETTLE施設管理</title>
 </head>
 <body>
 <header class="faci-header">
 		<div class="header-logo">
-			<a href="top">SETTLE施設管理</a>
+			<a href="facilityTop.jsp">SETTLE施設管理</a>
 		</div>
 		<a href="Logout" class="logout-botton">ログアウト<i class="fas fa-angle-down fa-position-bottom"></i></a>
 
