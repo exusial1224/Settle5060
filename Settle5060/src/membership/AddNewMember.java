@@ -47,6 +47,7 @@ public class AddNewMember extends HttpServlet {
         String contextPath = request.getContextPath();
 
         try {
+        	//2/5 メール重複チェック実施
         	MembershipDAO membershipDAO = new MembershipDAO();
             String Search  = membershipDAO.searchSameMail(mail);
 

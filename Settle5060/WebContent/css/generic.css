@@ -137,7 +137,7 @@
 	}
 
 
-	/*確認画面テキスト前縦線*/
+	/*確認テキスト前縦線*/
 	.text-confirm::before {
 		 content: "";
 	     display: inline-block;

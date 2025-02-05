@@ -14,7 +14,7 @@ public class MembershipDAO extends RootDAO {
 
 
 
-//	メールアドレス重複チェック 戻り値メールアドレス
+//	メールアドレス重複チェック 戻り値haメールアドレス
 	public String searchSameMail(String mbr_mail) throws Exception {
 
 			String search="";
