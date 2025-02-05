@@ -33,13 +33,15 @@ public class FullInfoChange extends HttpServlet {
         	int chld_dsc = Integer.parseInt(request.getParameter("chld_dsc"));
         	int category = Integer.parseInt(request.getParameter("category"));
         	String rg_hol = "";
+        	List<String> hol_list = new ArrayList<String>();
+            if(rg_hol_stres != null){
             for (String rg_hol_str : rg_hol_stres) {
                 System.out.println(rg_hol_str);
                 rg_hol = rg_hol.concat(rg_hol_str);
             }
             System.out.println(rg_hol);
-            List<String> hol_list = new ArrayList<String>();
-            if(rg_hol != null){
+
+
                 for(int i=0; i<rg_hol.length(); i++){
                 	int hol_num = rg_hol.charAt(i) - '0';
                 	System.out.println(hol_num);
