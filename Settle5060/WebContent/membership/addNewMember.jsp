@@ -12,6 +12,7 @@
 	<div class="container">
 	  <p class="title-text">新規会員登録</p>
 	  <hr>
+	  <div class="error-text">${mail}${error}</div>
 	  <form id="AddNewMemberForm" action="AddNewMemberConfirm" method="post" class="signup-form">
 	    <p class="text-form"><label for="name">氏名</label></p>
 	    <input type="text" id="name" name="name" class="input-form" required>

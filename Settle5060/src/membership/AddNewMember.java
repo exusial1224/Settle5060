@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MembershipDAO;
 import utils.EmailUtility;
 
 @WebServlet("/membership/AddNewMember")
@@ -46,22 +47,29 @@ public class AddNewMember extends HttpServlet {
         String contextPath = request.getContextPath();
 
         try {
-            // メール認証用のリンクを生成
-            String encodedMail = URLEncoder.encode(mail, "UTF-8");
-            String encodedSession = URLEncoder.encode(request.getSession().getId(), "UTF-8");
-            String verificationLink = "http://" + request.getServerName() + ":" + request.getServerPort() +
-                    contextPath + "/membership/AddNewMemberComplete?email=" + encodedMail + "&set=" +encodedSession;
+        	MembershipDAO membershipDAO = new MembershipDAO();
+            String Search  = membershipDAO.searchSameMail(mail);
 
-            // メール内容
-            String subject = "会員登録の確認";
-            String content = "以下のリンクをクリックして会員登録を完了させてください。\n" + verificationLink;
+            if(Search == null){
+	            // メール認証用のリンクを生成
+	            String encodedMail = URLEncoder.encode(mail, "UTF-8");
+	            String encodedSession = URLEncoder.encode(request.getSession().getId(), "UTF-8");
+	            String verificationLink = "http://" + request.getServerName() + ":" + request.getServerPort() +
+	                    contextPath + "/membership/AddNewMemberComplete?email=" + encodedMail + "&set=" +encodedSession;
 
-            // メール送信
-            EmailUtility.sendEmail(mail, subject, content);
+	            // メール内容
+	            String subject = "会員登録の確認";
+	            String content = "以下のリンクをクリックして会員登録を完了させてください。\n" + verificationLink;
 
-            // 仮登録完了ページへフォワード
-            request.getRequestDispatcher("/membership/addNewMemberComplete.jsp").forward(request, response);
+	            // メール送信
+	            EmailUtility.sendEmail(mail, subject, content);
 
+	            // 仮登録完了ページへフォワード
+	            request.getRequestDispatcher("/membership/addNewMemberComplete.jsp").forward(request, response);
+            }else{
+            	request.setAttribute("error", "は既に登録されています。");
+            	request.getRequestDispatcher("/membership/addNewMember.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect(contextPath + "/membership/error.jsp");

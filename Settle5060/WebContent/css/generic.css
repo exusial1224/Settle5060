@@ -126,11 +126,28 @@
         font-size: 16px;
         font-weight: bold;
     }
+	/*戻るボタンフォーカス*/
+     .back-to-the-future:hover {
+        background-color: #87ceeb;
+    }
 
 	/*確認画面テキスト*/
 	.text-confirm{
 		margin-left:20%;
 	}
+
+
+	/*確認画面テキスト前縦線*/
+	.text-confirm::before {
+		 content: "";
+	     display: inline-block;
+	     width: 1%;
+	     height: 6%;
+	     background-color: blue;
+	     margin-right: 4px;
+	     vertical-align: middle;
+	}
+
 	/*確認画面にゅう*/
     .input-confirm{
     	margin-left: 20%;
@@ -141,8 +158,8 @@
 		width: 70%;
 	}
 
+	/*エラーテキスト*/
 	.error-text{
-
 		color: red;
 		margin-left:10%;
 	}
