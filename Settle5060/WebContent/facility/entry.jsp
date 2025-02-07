@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="facilityheader.jsp" %>
+<!-- <%@ include file="facilityheader.jsp" %>　 -->
 
 <%-- start======================== アラート表示用隠しパラメータ ========================start --%>
 <c:if test="${ticket != null}">
@@ -54,7 +54,7 @@
 		<table>
 			<tr><td>${op.org_name }様</td><td></td><td><input type="checkbox" id ="org_sl_id" name="org_sl_id" value="${op.org_pur_id}"></td></tr>
 			<tr><td>${op.rep_name }様</td><td>時間${op.start_time}～</td></tr>
-			<tr><td rowspan="2"><button onclick="orgEntry(${op.org_pur_id});" ${op.gr_tkt_admitted ? "disabled" : "" }>入場：${op.gr_tkt_admitted ? "済" : "未" }</button></td><td>枚数　大人${op.num_adlt_tkt_gr - op.cnc_gr_adlt-op.}枚　子供${op.num_chld_tkt_gr - op.cnc_gr_chld}枚</td></tr>
+			<tr><td rowspan="2"><button onclick="orgEntry(${op.org_pur_id});" ${op.gr_tkt_admitted ? "disabled" : "" }>入場：${op.gr_tkt_admitted ? "済" : "未" }</button></td><td>枚数　大人${op.num_adlt_tkt_gr - op.cnc_gr_adlt}枚　子供${op.num_chld_tkt_gr - op.cnc_gr_chld}枚</td></tr>
 			<tr><td>お電話番号${op.org_tel}</td></tr>
 		</table>
 	</c:forEach>
