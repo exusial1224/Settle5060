@@ -2,11 +2,11 @@ html,body{
   margin: 0;
   padding: 0;
   height: 100vh;
-  position: relative;
+
 }
 header{
 	height: 80px;
-		position: fixed;
+    position: sticky;
 }
 
 .faci-header {
@@ -16,9 +16,9 @@ header{
 	background: -moz-linear-gradient(top, #758492, #FFF);
  	background: -webkit-linear-gradient(top, #758492, #FFF);
  	background: linear-gradient(to bottom, #758492, #FFF);
-	position: fixed;
     top: 0;
     left: 0;
+    border-bottom: double 5px black
 }
 
 li{

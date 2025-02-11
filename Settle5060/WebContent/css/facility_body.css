@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+/* ------------------ 施設管理者(システム管理者)用画面のBodyに適用するためのCSS ------------------ */
+body{
+	background-color: #EEEEEE;
+	margin: 0;
+	position: relative;
+}
+/* container内の要素を全て中央ぞろえに */
+.container{
+	text-align:center;
+}
+
+/* h2タグのテキストサイズを35pxに設定 */
+h2{
+	font-size:35px;
+}
+
+/* Top画面のメインメニューリンクの配置 */
+.main-menu-container{
+	text-align:center;
+}
+
+/* Top画面のメインメニューリンク(大きめ) */
+.main-menu-link{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  height:150px;
+  line-height: 150px;
+  width:300px;
+  text-align:center;
+  font-size:35px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #808080;
+  transition: .4s;
+}
+.main-menu-link:hover {
+   color: #808080;
+   background-color: #c0c0c0;
+}
+
+/* Top画面のサブメニューリンクの配置 */
+.sub-menu-container{
+	text-align:center;
+	margin:8px;
+}
+
+/* Top画面のサブメニューリンク */
+.sub-menu-link{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  height:100px;
+  line-height: 100px;
+  width:200px;
+  text-align:center;
+  font-size:20px;
+  border-radius: 3px;
+  color: #FFF;
+  background-color: #808080;
+  transition: .4s;
+}
+.sub-menu-link:hover {
+   color: #808080;
+   background-color: #c0c0c0;
+}
+
+/* 汎用ボタン */
+a #sinple-button{
+
+}
+
+/* 次へ（確認・完了）ボタン */
+a #confim-button{
+
+}
+
+/* トップに戻るボタン */
+a #back-button{
+
+
+}
