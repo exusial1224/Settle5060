@@ -26,6 +26,7 @@ public class FacilityLogin extends HttpServlet {
         String admin_pass= "020e5e47501be103bb0367269fb0fd1845a2f763c041cc26601849359479483d";
         FacilityDAO facilityDAO = new FacilityDAO();
 
+
         try {
             String hashedPassword = hashPassword(password);
             int facilityId = 0;
