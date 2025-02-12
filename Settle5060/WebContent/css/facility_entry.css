@@ -1,3 +1,46 @@
+/* ------------------ facility 入場管理画面専用のCSS ------------------ */
+
+/* 背景色の設定 */
+body{
+	background-color: #EEEEEE;
+	margin: 0;
+	position: relative;
+}
+
+
+/* 当日券購入フォーム */
+.buysameday-ticketform{
+	border-bottom: double 5px black;
+	line-height:3em;
+}
+
+/* タイムスロット・団体来場者情報を横並びに */
+.sub-item{
+	display: flex;
+	border-bottom: double 5px black;
+	line-height:auto;
+
+}
+
+/* タイムスロット表示 */
+.time-slot{
+ 	display: inline-block;
+    margin-right: 20px;
+    border-right: 3px solid black;
+    padding-right: 25%;
+}
+
+/* 団体来場者情報表示 */
+.organization-purchase{
+ 	display: inline-block;
+}
+
+/* QRコード読取 */
+.canvas{
+ 	display: none;
+}
+
+/* popup処理(先生担当箇所) */
 	.popup {
 		display: none;
 		position: fixed;
@@ -18,3 +61,27 @@
 		max-width: 400px;
 		text-align: center;
 	}
+
+/* fontstyle 赤色bold */
+.h2-bold-error{
+	color:red;
+	font-size:20px;
+}
+/* 戻るボタン */
+.back-button{
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  height:30px;
+  line-height: 30px;
+  width:50px;
+  font-size:15px;
+  border-radius: 3px;
+  color: #FFF;
+  background-color: #808080;
+  transition: .4s;
+}
+.back-button:hover {
+   color: #b22222;
+   background-color: #c0c0c0;
+}
