@@ -46,7 +46,7 @@
         border-radius: 5px;
         outline: none;
 	}
-	/*入力フォームフォーカス*/
+	/*入力フォームフォーカスa*/
     .input-form:focus{
         border-color: #ff9900;
 
