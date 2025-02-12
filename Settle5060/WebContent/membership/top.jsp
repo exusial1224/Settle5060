@@ -47,7 +47,7 @@
         }
     %>
 
-    <%-- 時間帯選択フォーム --%>
+    <%-- 時間帯選択フォームa --%>
     <%
         java.util.List<bean.Slot> timeSlots = (java.util.List<bean.Slot>) session.getAttribute("timeSlots");
         String selectedDateStr = (String) session.getAttribute("selectedDate");
