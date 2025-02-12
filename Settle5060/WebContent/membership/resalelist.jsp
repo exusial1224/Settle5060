@@ -41,7 +41,7 @@
             <p>リセール一覧はありません。</p>
         </c:if>
 
-        <a href="TopDisplay.java">戻る</a>
+        <a href="TopDisplay">戻る</a>
     </div>
 </body>
 </html>

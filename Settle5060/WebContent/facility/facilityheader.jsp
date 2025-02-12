@@ -15,5 +15,4 @@
 		</div>
 		<a href="Logout" class="logout-botton">ログアウト<i class="fas fa-angle-down fa-position-bottom"></i></a>
 
-	<hr class="header-line">
 </header>
