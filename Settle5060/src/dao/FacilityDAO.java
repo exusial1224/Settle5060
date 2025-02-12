@@ -189,27 +189,45 @@ public class FacilityDAO extends RootDAO {
 		facility.setFac_mail(rs.getString("FAC_MAIL"));
 		facility.setFac_address(rs.getString("FAC_ADDRESS"));
 		facility.setFac_tel(rs.getString("FAC_TEL"));
-		facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
-		facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
-		facility.setSls_str(rs.getInt("SLS_STR"));
-		facility.setMax_num(rs.getInt("MAX_NUM"));
-		facility.setLow_price(rs.getInt("LOW_PRICE"));
-		facility.setHigh_price(rs.getInt("HIGH_PRICE"));
-		facility.setInit_price(rs.getInt("INIT_PRICE"));
-		facility.setSd_tkt_price(rs.getInt("SD_TKT_PRICE"));
-		facility.setRg_hol(rs.getString("RG_HOL"));
-		facility.setChld_dsc(rs.getInt("CHLD_DSC"));
-		facility.setCategory(rs.getInt("CATEGORY"));
-		facility.setFac_reg(rs.getTimestamp("FAC_REG").toLocalDateTime());
 		if(rs.getTimestamp("FAC_MOD") != null){
-		facility.setFac_mod(rs.getTimestamp("FAC_MOD").toLocalDateTime());
+			facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
+			facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
+			facility.setSls_str(rs.getInt("SLS_STR"));
+			facility.setMax_num(rs.getInt("MAX_NUM"));
+			facility.setLow_price(rs.getInt("LOW_PRICE"));
+			facility.setHigh_price(rs.getInt("HIGH_PRICE"));
+			facility.setInit_price(rs.getInt("INIT_PRICE"));
+			facility.setSd_tkt_price(rs.getInt("SD_TKT_PRICE"));
+			facility.setRg_hol(rs.getString("RG_HOL"));
+			facility.setChld_dsc(rs.getInt("CHLD_DSC"));
+			facility.setCategory(rs.getInt("CATEGORY"));
+			facility.setFac_mod(rs.getTimestamp("FAC_MOD").toLocalDateTime());
 		}
+		facility.setFac_reg(rs.getTimestamp("FAC_REG").toLocalDateTime());
+
 		st.close();
 		con.close();
 
 		return facility;
 	}
+    //facilityNameからIDを取得　2/12追加
+    public int getAddFacilityId(String fac_name) throws Exception {
 
+    	Connection con = getConnection();
+
+    	PreparedStatement st = con.prepareStatement("SELECT FAC_ID FROM FACILITY WHERE FAC_NAME = ?");
+    	st.setString(1, fac_name);
+
+		ResultSet rs = st.executeQuery();
+
+		rs.next();
+		int fac_id = rs.getInt("FAC_ID");
+
+		st.close();
+		con.close();
+
+		return fac_id;
+    }
 
     //施設名所得
     public String getFacilityName(int fac_id) throws Exception {
@@ -334,11 +352,11 @@ public class FacilityDAO extends RootDAO {
     }
 
 
-    //Adminによる新規施設アカウント情報登録、登録されると1を返す(パスワードはハッシュ済を入れる)
+    //Adminによる新規施設アカウント情報登録、登録されると登録された施設IDを返す(パスワードはハッシュ済を入れる)
 	public int AddNewFacilityAd(String co_name, String fac_name, String fac_password, String fac_mail, String fac_address, String fac_tel) throws Exception {
 
 		Connection con = getConnection();
-		int line = 0;
+		int fac_id = 0;
 
 		PreparedStatement st = con.prepareStatement("INSERT INTO FACILITY(FAC_ID,CO_NAME,FAC_NAME,FAC_PASSWORD,FAC_MAIL,FAC_ADDRESS,FAC_TEL,FAC_REG) VALUES(NULL,?,?,?,?,?,?,?)");
 
@@ -355,12 +373,14 @@ public class FacilityDAO extends RootDAO {
 		st.setTimestamp(7, currentTimestamp);
 
 
-		line = st.executeUpdate();
-
+		fac_id = st.executeUpdate();
+		if(fac_id != 0){
+			fac_id = getAddFacilityId(fac_name);
+		}
 		st.close();
 		con.close();
 
-		return line;
+		return fac_id;
 	}
 
 
