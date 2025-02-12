@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="../css/top.css">
     <meta charset="UTF-8">
     <script src="../js/rowClickHandler.js" defer></script>
-    <script src="../js/resaleCheckbox.js" defer></script>
 </head>
 <body>
 <div id="blackout" style="display: none;"></div>
@@ -83,14 +82,6 @@
             </table>
         </div>
     </form>
-    <form id="resaleForm" action="ResaleRegister" method="post">
-    <div class="resale-section">
-        <p>リセール予約を選択した後、以下のボタンを押してください。</p>
-        <!-- nameをselectedSlotId[]に設定 -->
-        <button type="submit" class="resale-button">リセール予約を確定</button>
-    </div>
-	</form>
-
 
     <% } else { %>
     <p>データが見つかりません。</p>
