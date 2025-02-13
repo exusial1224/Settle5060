@@ -30,6 +30,7 @@ public class SlotSelect extends HttpServlet {
                 response.sendRedirect("error.jsp");
                 return;
             }
+
             int slotId = Integer.parseInt(selectedSlotIdStr);
 
             // セッションから施設IDと施設名を取得

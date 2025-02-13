@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const target = event.target;
             if (target.closest("td") && target.closest("td").cellIndex === 3) {
-                return; //11月 25日： カラム3無視でリセールリセール対応
+                return; //11a月 25日： カラム3無視でリセールリセール対応
             }
 
             //ここで取得

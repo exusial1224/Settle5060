@@ -84,7 +84,7 @@
         margin-left:10%;
 	}
 
-	/*入力フォームフォーカス*/
+	/*入力フォームフォーカスあ*/
     .input-form:focus, .passwordInput:focus{
         border-color: #ff9900;
 

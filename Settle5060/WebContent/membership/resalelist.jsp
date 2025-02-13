@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>リセール一覧</title>
 </head>
+
 <body>
     <div class="container">
         <h2 class="asdf">リセール一覧</h2>

@@ -51,6 +51,7 @@
 	                    </form>
 	                </div>
 	    <%
+
 	            }
 	        } else {
 	            out.println("<p>該当する施設がありません。</p>");

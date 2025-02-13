@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>
 </head>
+
 <body>
     <div class="container">
         <h2>入場券情報</h2>

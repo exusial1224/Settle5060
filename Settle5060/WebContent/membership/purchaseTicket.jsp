@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
 	<link rel="stylesheet" type="text/css" href="../css/pl.css">
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>

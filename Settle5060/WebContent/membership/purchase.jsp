@@ -24,6 +24,7 @@
                     <td>1人 <strong>${adultPrice}円</strong></td>
                     <td><input type="number" name="adultCount" min="0" max="${remainingNum}" value=0 required></td>
                 </tr>
+
                 <tr>
                     <td>小人</td>
                     <td>1人 <strong>${childPrice}円</strong></td>

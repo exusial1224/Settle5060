@@ -15,6 +15,7 @@ public class FacilityDAO extends RootDAO {
 
 
 	//お問い合わせ画面用
+
 	public Facility getContactInfo(int fac_id) throws Exception {
 
 		Facility facility = null;

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
 <html lang="ja">
+
 <head>
 	<!-- <link rel="stylesheet" type="text/css" href="../css/generic.css">  -->
 	<link rel="stylesheet" type="text/css" href="../css/member_information.css">

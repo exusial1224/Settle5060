@@ -24,6 +24,7 @@ public class DateSelect extends HttpServlet {
             HttpSession session = request.getSession();
 
             // 選択された日付を取得
+
             String selectedDateStr = request.getParameter("selectedDate");
             System.out.print(request.getParameter("selectedDate"));
             if (selectedDateStr == null || selectedDateStr.isEmpty()) {

@@ -10,6 +10,7 @@
     <title>入場券購入一覧</title>
 </head>
 <body>
+
     <script >
     var target = false;
     function targeted(){
