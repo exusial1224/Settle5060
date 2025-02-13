@@ -176,3 +176,63 @@
 		margin-left: 10%;
 	}
 
+	/*隠し要素*/
+	*{
+	    box-sizing: border-box;
+	}
+	.outer{
+	    position: absolute;
+	    width: 10px;
+	    height: 10px;
+	}
+
+	.iconGear,
+	.iconGear:before,
+	.iconGear:after,
+	.iconGear div:before{
+	    position: absolute;
+	    width: 4px;
+	    height: 20px;
+	    content: '';
+	    background-color: #aaa;
+	    border-radius: 1px;
+	}
+	.iconGear{
+	    top: 5px;
+	    left: 13px;
+	}
+	.iconGear:before{
+	    top: 0;
+	    left: 0;
+	    transform: rotate(45deg);
+	}
+	.iconGear:after {
+	    top: 0;
+	    left: 0;
+	    transform: rotate(-45deg);
+	}
+	.iconGear div:before{
+	    top: -2px;
+	    left: 6px;
+	    transform: rotate(90deg);
+	 }
+	.iconGear div{
+	    position: absolute;
+	    top: 2px;
+	    left: -6px;
+	    width: 16px;
+	    height: 16px;
+	    background-color: #aaa;
+	    border-radius: 50%;
+	    z-index: 5;
+	 }
+	.iconGear div:after {
+	    position: absolute;
+	    top: 4px;
+	    left: 4px;
+	    content: '';
+	    width: 8px;
+	    height: 8px;
+	    background-color: #fff;
+	    border-radius: 50%;
+	}

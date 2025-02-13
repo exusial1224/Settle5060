@@ -16,25 +16,26 @@
         <p>選択した時間帯: <strong>${startTime} ～ ${endTime}</strong></p>
 
         <form action="Purchase" method="post">
-            <p>枚数</p>
+            <h3>枚数</h3>
+            ${selectedDate}
             <table>
                 <tr>
                     <td>大人</td>
                     <td>1人 <strong>${adultPrice}円</strong></td>
-                    <td><input type="number" name="adultCount" min="0" max="${remainingNum}" required></td>
+                    <td><input type="number" name="adultCount" min="0" max="${remainingNum}" value=0 required></td>
                 </tr>
                 <tr>
                     <td>小人</td>
                     <td>1人 <strong>${childPrice}円</strong></td>
-                    <td><input type="number" name="childCount" min="0" max="${remainingNum}" required></td>
+                    <td><input type="number" name="childCount" min="0" max="${remainingNum}" value=0 required></td>
                 </tr>
             </table>
             <p>残り: <strong>${remainingNum}人</strong></p>
             <p>※残り枚数を超えないように入力してください。</p>
 
             <div>
-                <button type="button" onclick="history.back()">戻る</button>
-                <button type="submit">次へ</button>
+                <button type="button" onclick="history.back()" class="back-to-the-future">戻る</button>
+                <input type="submit" value="つぎへ">
             </div>
         </form>
     </div>

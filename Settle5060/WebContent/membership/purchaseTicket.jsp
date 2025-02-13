@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/pl.css">
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>
 </head>
@@ -11,7 +12,7 @@
     <div class="container">
         <h2>入場券情報</h2>
         <div class="ticketinfo" id="ticketinfo">
-            	<table border="1">
+            	<table class="table2" border="1">
                 	<tr>
                     	<th>施設名</th><td>${ticket.fac_name}</td><th>入場日</th><td>${ticket.bus_date}</td>
                 	</tr>
@@ -22,9 +23,8 @@
         </div>
         <c:choose>
         <c:when test="${ticket.rsv_admitted == false }">
-        <img alt="入場券QRコード" src="img/qr_code.png">
+        <img class="qr" alt="入場券QRコード" src="img/qr_code.png">
         <hr>
-        <a href="Purchaselist">戻る</a>
         <form action="Ticketcancel" method="get" style="display: inline;">
             <input type="hidden" name="pur_id" value="${ticket.pur_id}">
             <button type="submit" class="cancel-btn"
@@ -34,7 +34,7 @@
         </c:when>
         <c:otherwise>
         <hr>
-        <a href="Purchaselist">戻る</a><p>購入履歴は使用後数ヶ月で削除</p>
+        <a href="Purchaselist">戻る</a><p>※購入履歴は使用後数ヶ月で削除</p>
         </c:otherwise>
         </c:choose>
     </div>

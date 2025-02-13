@@ -20,3 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+//2/5 リセールのクリック挙動
+$(document).ready(function () {
+    $(".resale-check").on("change", function () {
+        let selectedSlots = $(".resale-check:checked").map(function () {
+            return $(this).val();
+        }).get(); // 選択されたすべてのスロットIDを配列で取得
+
+        sendToResaleRegister(selectedSlots);
+    });
+
+    function sendToResaleRegister(slotIds) {
+        $.post("ResaleRegister", { "selectedSlotId[]": slotIds })
+            .done(function (response) {
+                alert("リセール予約を送信しました");
+                location.reload(); // UI更新
+            })
+            .fail(function () {
+                alert("リセール予約に失敗しました");
+            });
+    }
+});

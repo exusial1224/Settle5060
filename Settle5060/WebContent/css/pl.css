@@ -1,0 +1,56 @@
+.purlis {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top:10px;
+}
+
+.table2 {
+    width: 70%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top:5%;
+
+}
+
+.asdf{
+	margin: 10% 0 0 0;
+}
+
+#cancel_num_adlt_tkt, #cancel_num_chld_tkt{
+
+	width:60px;
+	height: 40px;
+}
+.qr{
+
+	width:200px;
+	height:200px;
+	margin:auto;
+
+}
+
+
+th, td {
+    width: 25%;
+    padding: 10px;
+    border: 1px solid #000;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#purchaselist p#admitted {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    width: 100%;
+}

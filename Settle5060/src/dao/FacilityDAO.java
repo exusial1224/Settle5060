@@ -105,6 +105,10 @@ public class FacilityDAO extends RootDAO {
 			facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
 			facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
 			facility.setFac_tel(rs.getString("FAC_TEL"));
+			facility.setHigh_price(rs.getInt("HIGH_PRICE"));
+			facility.setLow_price(rs.getInt("LOW_PRICE"));
+
+
 
 	        list.add(facility);
 

@@ -12,11 +12,10 @@
     <div class="container">
     	<div  class="mbr_info_tab">
 			<table class="mbr_info_table_tab">
-				<tr><td>個人情報</td></tr>
+				<tr><td><button onclick="#"  class="mbr_info_tab_btn_top">個人情報</button></td></tr>
 				<tr><td><button onclick="location.href='./Purchaselist'" class="mbr_info_tab_btn_ctr">購入済入場券</button></td></tr>
 				<tr><td><button onclick="location.href='./Resalelist'" class="mbr_info_tab_btn_ctr">リセール一覧</button></td></tr>
 				<tr><td><button onclick="location.href='./InformationChangeDisplay'" class="mbr_info_tab_btn_btm">会員情報変更</button></td></tr>
-
 			</table>
 
     	</div>

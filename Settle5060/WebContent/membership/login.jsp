@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
 <body>
+	<div class="outer">
+    <div class="iconGear"><div></div></div>
+	</div>
+
 	<div class="container">
 		<!--  <h1 class="login-title">-->
 		<p class=title-text> SETTLEにログイン</p>

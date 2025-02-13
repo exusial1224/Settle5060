@@ -25,6 +25,7 @@ public class DateSelect extends HttpServlet {
 
             // 選択された日付を取得
             String selectedDateStr = request.getParameter("selectedDate");
+            System.out.print(request.getParameter("selectedDate"));
             if (selectedDateStr == null || selectedDateStr.isEmpty()) {
                 response.sendRedirect("error.jsp");
                 return;
@@ -42,6 +43,7 @@ public class DateSelect extends HttpServlet {
 
 
             session.setAttribute("timeSlots", timeSlots);
+            request.setAttribute("selectedDate", selectedDate);
 
             request.getRequestDispatcher("top.jsp").forward(request, response);
         } catch (Exception e) {

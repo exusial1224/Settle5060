@@ -43,7 +43,7 @@
 
 /*スクロール設定*/
 .sel-slot-scroll{
-	height:250px;
+	height:340px;
 	overflow: scroll;
 }
 
@@ -125,3 +125,4 @@ div#popup {
 .selectable-row:hover{
 	background-color: lightpink;
 }
+

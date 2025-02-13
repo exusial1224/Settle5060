@@ -33,18 +33,21 @@
 	<div class="container">
 	    <h1>施設選択</h1>
 		<div class="sisetu">
+
 	    <%
 	        List<Facility> facilityList = (List<Facility>) request.getAttribute("facilityList");
 	        if (facilityList != null && !facilityList.isEmpty()) {
 	            for (Facility facility : facilityList) {
 	    %>
 	                <div class="facility-one" onclick="submitForm('<%= facility.getFac_id() %>')">
+	                	<div class="img"><%= facility.getFac_name() %>の写真建設予定地</div>
 	                    <form action="FacilitySelect" method="get" id="form_<%= facility.getFac_id() %>">
 	                        <input type="hidden" name="facilityId" value="<%= facility.getFac_id() %>">
 	                        <div class="fac-name"><h1><%= facility.getFac_name() %></h1></div>
 	                        <div class="sub-text"><%= facility.getFac_address() %></div>
 	                        <div class="sub-text"> TEL：<%= facility.getFac_tel() %></div>
-	                        <div class="sub-text"><%= facility.getOpen_time() %> ～ <%= facility.getClose_time() %></div>
+	                        <div class="sub-text-right"><%=facility.getLow_price() %>円 ～ <%=facility.getHigh_price() %>円まで</div>
+	                        <div class="sub-text-right"><%= facility.getOpen_time() %> ～ <%= facility.getClose_time() %></div>
 	                    </form>
 	                </div>
 	    <%

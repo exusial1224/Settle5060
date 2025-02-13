@@ -5,15 +5,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/pl.css">
     <meta charset="UTF-8">
     <title>リセール一覧</title>
 </head>
 <body>
     <div class="container">
-        <h2>リセール一覧</h2>
-
+        <h2 class="asdf">リセール一覧</h2>
+		<hr>
         <c:if test="${not empty resaleList}">
-            <table border="1">
+            <table border="1" class="table2"style="margin:0 0 0 0">
                 <tr>
                     <th>施設名</th>
                     <th>日付</th>
@@ -40,7 +41,7 @@
         <c:if test="${empty resaleList}">
             <p>リセール一覧はありません。</p>
         </c:if>
-
+		<hr>
         <a href="TopDisplay">戻る</a>
     </div>
 </body>

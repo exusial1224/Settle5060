@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!--<%@ include file="header.jsp" %>-->
+<%@ include file="header.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<link rel="stylesheet" type="text/css" href="../css/pl.css">
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>
 </head>
@@ -13,7 +14,7 @@
         <form id="TicketcancelComplete" action="TicketcancelComplete" method="post" class="signup-form">
         <div class="ticketcancel" id="ticketcancel">
 				<input type="hidden" name="pur_id" value="${ticket.pur_id}">
-            	<table border="1">
+            	<table border="1" class="table2">
                 	<tr>
                     	<th>施設名</th><td>${ticket.fac_name}</td>
                 	</tr>
@@ -25,7 +26,7 @@
                 	<td>
                 	<select name="cancel_adlt_tkt" id="cancel_num_adlt_tkt">
 						<c:forEach begin="0" end="${ticket.num_adlt_tkt}" step="1" varStatus="cancel_num_adlt_tkt">
-							<option value="${cancel_num_adlt_tkt.index}">${cancel_num_adlt_tkt.index}</option>
+							<option value="${cancel_num_adlt_tkt.index}" class="qwe">${cancel_num_adlt_tkt.index}</option>
 						</c:forEach>
                 	</select>
                 	<p>現在：${ticket.num_adlt_tkt}枚</p>

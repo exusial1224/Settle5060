@@ -24,6 +24,8 @@ public class SlotSelect extends HttpServlet {
 
             // スロットIDを取得
             String selectedSlotIdStr = request.getParameter("selectedSlotId");
+            String selectedDateStr = request.getParameter("selectedDate");
+            System.out.print(selectedDateStr);
             if (selectedSlotIdStr == null || selectedSlotIdStr.isEmpty()) {
                 response.sendRedirect("error.jsp");
                 return;
@@ -66,6 +68,7 @@ public class SlotSelect extends HttpServlet {
 
             if (remainingNum < 0) remainingNum = 0;
 
+            request.setAttribute("selectedDate", selectedDateStr);
             session.setAttribute("slotId", slotId);
             session.setAttribute("startTime", startTime);
             session.setAttribute("endTime", endTime);

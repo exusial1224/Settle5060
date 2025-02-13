@@ -31,7 +31,7 @@
         <button onclick="location.href='ChangeFacility'" class="change-btn">選択施設を変更</button>
         <form id="dateForm" action="DateSelect" method="post">
             <label for="dateInput">日付を選択</label>
-            <input id="dateInput" type="text" name="selectedDate" readonly placeholder="日付を選択" onclick="showPopup()" />
+            <input id="dateInput" type="text" name="selectedDate" readonly placeholder="日付を選択" value="${selectedDate }"  onclick="showPopup()" />
             <button type="submit">選択</button>
         </form>
     </div>
@@ -75,7 +75,7 @@
                     <td><%= slot.getSl_price() %>円</td>
                     <td><%= slot.getRemain() %>枚</td>
                     <td>
-                        <input type="checkbox" name= "selectedSlotId" class="resale-check" value="<%= slot.getSl_id() %>" <%= slot.getRemain() != 0 ? "" : "" %>>
+                        <input type="checkbox" name="selectedSlotId" class="resale-check" value="<%= slot.getSl_id() %>" <%= slot.getRemain() == 0 ? "" : "disabled" %>>
                     </td>
                 </tr>
                 <% } %>

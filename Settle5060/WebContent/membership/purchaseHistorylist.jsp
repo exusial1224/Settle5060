@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 	<link rel="stylesheet" type="text/css" href="../css/generic2.css">
-	<link rel="stylesheet" type="text/css" href="../css/test.css">
+	<link rel="stylesheet" type="text/css" href="../css/pl.css">
     <meta charset="UTF-8">
     <title>入場券購入一覧</title>
 </head>
@@ -69,7 +69,7 @@
         	<c:choose>
         	<c:when test="${purchase.rsv_admitted == false}">
   <a href="javascript:urlmaker(${purchase.pur_id});">
-    <table border="1">
+    <table border="1" class="purlis">
       <tr>
         <th>施設名</th>
         <td>${purchase.fac_name}</td>
@@ -78,7 +78,7 @@
       </tr>
       <tr>
         <th>枚数</th>
-        <td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td>
+        <td>大人：${purchase.num_adlt_tkt}枚</td><td>小人：${purchase.num_chld_tkt}枚</td>
       </tr>
     </table>
   </a>
@@ -86,7 +86,7 @@
 <c:otherwise>
   <a href="javascript:urlmaker(${purchase.pur_id});">
     <p id="admitted">使用済み</p>
-    <table border="1">
+    <table class= "purlis" border="1">
       <tr>
         <th>施設名</th>
         <td>${purchase.fac_name}</td>
@@ -95,7 +95,7 @@
       </tr>
       <tr>
         <th>枚数</th>
-        <td>[大人：${purchase.num_adlt_tkt}枚][小人：${purchase.num_chld_tkt}枚]</td>
+        <td>大人：${purchase.num_adlt_tkt}枚</td><td>小人：${purchase.num_chld_tkt}枚</td>
       </tr>
     </table>
   </a>
@@ -121,4 +121,4 @@
 <script type="text/javascript" src="../js/black_out.js"></script>
 </body>
 </html>
-<%@include  file="footer.jsp"%>
+
