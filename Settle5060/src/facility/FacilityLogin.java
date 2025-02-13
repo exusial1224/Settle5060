@@ -21,18 +21,16 @@ public class FacilityLogin extends HttpServlet {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
 
-//        String demoMail = "kinkakuji@gmail.com";
-//        String demoPassword = "0581056988b90770dfef4a2c2848826649a764bb";
 
         String admin_mail= "settle5060@gmail.com";
         String admin_pass= "020e5e47501be103bb0367269fb0fd1845a2f763c041cc26601849359479483d";
         FacilityDAO facilityDAO = new FacilityDAO();
 
+
         try {
             String hashedPassword = hashPassword(password);
             int facilityId = 0;
             facilityId = facilityDAO.loginFacility(mail, hashedPassword);
-            //facilityId = facilityDAO.loginFacility(demoMail, demoPassword);
 
             HttpSession session = request.getSession();
             if (facilityId != 0) {

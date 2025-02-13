@@ -36,7 +36,7 @@
 <%-- end======================== システムメッセージ ========================end --%>
 
 <%-- start======================== 当日券の購入Form ========================start --%>
-<div>
+<div class="buysameday-ticketform">
 	<h2>当日入場券</h2>
 	<form name="BuySameDayTicketForm" action="BuySameDayTicket" method="get">
 		<label for="adultNum">大人</label>
@@ -48,10 +48,10 @@
 </div>
 <%-- end======================== 当日券の購入Form ========================end --%>
 
-<hr>
 
+<div class="sub-item">
 <%-- start======================== タイムスロット表示 ========================start --%>
-<div>
+<div class="time-slot">
 	<h2>タイムスロット</h2>
 	<ul>
 	<c:forEach var="slot" items="${soltList}">
@@ -64,12 +64,13 @@
 </div>
 <%-- end======================== タイムスロット表示 ========================end --%>
 
-<hr>
 
 <%-- start======================== 団体者表示 ========================start --%>
 <form action="OrganizationCancel">
-<div>
+<div class="organization-purchase">
 	<h2>団体来場者</h2>
+	<c:choose>
+	<c:when test="${not empty opList}">
 	<c:forEach var="op" items="${opList}">
 		<table>
 			<tr><td>${op.org_name }様</td><td></td><td><input type="checkbox" id ="org_sl_id" name="org_sl_id" value="${op.org_pur_id}"></td></tr>
@@ -78,12 +79,18 @@
 			<tr><td>お電話番号${op.org_tel}</td></tr>
 		</table>
 	</c:forEach>
-</div>
-<button>団体購入キャンセル</button>
-</form>
-<%-- end======================== 団体者表示 ========================end --%>
+		<button>団体購入キャンセル</button>
+	</c:when>
+	<c:otherwise>
+	<h2 class="h2-bold-error">本日の団体入場はありません</h2>
+	</c:otherwise>
+	</c:choose>
 
-<canvas id="canvas" hidden></canvas><%-- カメラ映像表示 --%>
+</form>
+</div>
+<%-- end======================== 団体者表示 ========================end --%>
+</div>
+<canvas id="canvas" class="canvas"></canvas><%-- カメラ映像表示 --%>
 
 </div><%-- contair --%>
 
@@ -99,11 +106,14 @@
 </form>
 <%-- end======================== 団体者用隠しForm ========================end --%>
 
+<%-- ======================== 戻るリンク ========================start --%>
+<a href="facilityTop.jsp" class="back-button">TOPへ</a>
+
 <%-- ======================== JS読み込み ======================== --%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/jsQR.js"></script>
 <script type="text/javascript" src="../js/ticketEntry.js"></script>
 <script type="text/javascript" src="../js/facilityEntry.js"></script>
-
+<script type="text/javascript" src="../js/timeSlot.js"></script>
 </body>
 </html>
