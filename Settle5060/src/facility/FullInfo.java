@@ -21,9 +21,11 @@ public class FullInfo extends HttpServlet {
     	   HttpSession session = request.getSession();
         try {
         	int fac_id = (int) session.getAttribute("facilityId");
+            System.out.println(fac_id);
             FacilityDAO facilityDao = new FacilityDAO();
             Facility fac_info = facilityDao.getOneFacility(fac_id);
-            System.out.println(fac_info.getRg_hol());
+
+            System.out.println(fac_info.getOpen_time());
             String rg_hol = fac_info.getRg_hol();
             List<String> hol_list = new ArrayList<String>();
             if(rg_hol != null){

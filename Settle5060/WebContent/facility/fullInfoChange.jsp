@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  <%@ include file="facilityheader.jsp" %>-->
+<%@ include file="facilityheader.jsp" %>
 
 <form action="FullInfoChangeComplete">
 <p>営業時間：${fac_info.open_time}～${fac_info.close_time}</p>
@@ -13,4 +13,7 @@
 <p>子供割引：${fac_info.chld_dsc}%引き</p>
 <p>カテゴリー：${fac_info.category == 0 ? "温泉" :fac_info.category == 1 ? "寺・寺院" :fac_info.category == 2 ? "博物館" :fac_info.category == 3 ? "スキー場" :fac_info.category == 4 ? "水族館" :fac_info.category == 5 ? "動物園" :fac_info.category == 6 ? "果樹園" :fac_info.category == 7 ? "レジャー" :"その他"}</p>
 <button>変更</button>
+</form>
+<form id="backbutton" action="FullInfoChangeDisplay">
+<button>戻る</button>
 </form>
