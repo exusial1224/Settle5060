@@ -7,12 +7,26 @@
 <link rel="stylesheet" href="../css/facilityheader.css">
 <link rel="stylesheet" href="../css/facility_entry.css">
 <title>SETTLE施設管理</title>
+  <!-- jQueryのCDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header class="faci-header">
 		<div class="header-logo">
 			<a href="facilityTop.jsp">SETTLE施設管理</a>
 		</div>
-		<a href="Logout" class="logout-botton">ログアウト<i class="fas fa-angle-down fa-position-bottom"></i></a>
+		<a href="#" id="logout" class="logout-botton">ログアウト<i class="fas fa-angle-down fa-position-bottom"></i></a>
+
 
 </header>
+<script>
+    $(document).ready(function() {
+        $('#logout').click(function(event) {
+            event.preventDefault(); // デフォルトのリンク動作を無効化
+            if (confirm("ログアウトしますか？")) {
+                // ユーザーが「OK」を押した場合、ログアウト処理のリンク先に遷移
+                window.location.href = "Logout";
+            }
+        });
+    });
+</script>
