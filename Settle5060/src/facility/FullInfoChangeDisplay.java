@@ -23,7 +23,8 @@ public class FullInfoChangeDisplay extends HttpServlet {
         	int fac_id = (int) session.getAttribute("facilityId");
             FacilityDAO facilityDao = new FacilityDAO();
             Facility fac_info = facilityDao.getOneFacility(fac_id);
-            System.out.println(fac_info.getRg_hol());
+            System.out.println(fac_info.getOpen_time());
+            System.out.println(fac_id);
             String rg_hol = fac_info.getRg_hol();
             List<Integer> hol_num_list = new ArrayList<Integer>();
             if(rg_hol != null){
