@@ -24,6 +24,9 @@
 </select>
 <button onclick="priceSetting()">変更</button>
 </form>
+<form id="backbutton" action="FullInfo">
+<button>戻る</button>
+</form>
 <script>
 window.onload = function(){
 	var hol_num_list = ${hol_num_list}
@@ -45,5 +48,9 @@ window.onload = function(){
 
 	document.getElementById("fullInfoChange").action = "FullInfoChange";
 }
+ function back(){
+	 History.go( -1 );
+ }
+
 
 </script>
