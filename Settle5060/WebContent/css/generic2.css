@@ -25,24 +25,7 @@
 	    background-clip: text;
 	    font-weight: bold;
 	    -webkit-background-clip: text;
-	    color: transparent;
-	    background-image: linear-gradient(45deg,
-	        red,
-	        orange,
-	        yellow,
-	        green,
-	        aqua,
-	        blue,
-	        purple);
-	    background-size: 1200%;
-	    animation: 4s linear 0s infinite alternate slide;
-	}
-
-	/*動的な変色の実装*/
-	@keyframes slide {
-	    from { background-position: 0% 0%; }
-	    to { background-position: 100% 0%; }
-	}
+	    color: black;
 
 	/*タイトル下線*/
 	hr{

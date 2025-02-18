@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
 <body>
-	<div class="outer">
-    <div class="iconGear"><div></div></div>
-	</div>
+	<div class="outer" onclick="toggleRainbow()">
+        <div class="iconGear"><div></div></div>
+    </div>
 
 	<div class="container">
 		<!--  <h1 class="login-title">-->
@@ -46,6 +46,11 @@
 	            element.classList.add('input-error');
 	        });
 	    }
+
+       	function toggleRainbow() {
+            let title = document.querySelector('.title-text');
+            title.classList.toggle('rainbow');
+        }
 	</script>
 
 </body>

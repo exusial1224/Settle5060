@@ -15,6 +15,15 @@ public class Facility implements Serializable {
 	private String fac_address;
 	private String fac_tel;
 	private LocalTime open_time;
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+
 	private LocalTime close_time;
 	private int sls_str;
 	private int max_num;
@@ -27,6 +36,7 @@ public class Facility implements Serializable {
 	private int category;
 	private LocalDateTime fac_reg;
 	private LocalDateTime fac_mod;
+	private String filePath;
 
 
 	public int getFac_id() {

@@ -40,7 +40,7 @@
 	            for (Facility facility : facilityList) {
 	    %>
 	                <div class="facility-one" onclick="submitForm('<%= facility.getFac_id() %>')">
-	                	<div class="img"><%= facility.getFac_name() %>の写真建設予定地</div>
+	                	<div><img alt="<%= facility.getFac_name() %>の写真" src="../static/img/fac_img/<%= facility.getFilePath() %>.jpg" ></div>
 	                    <form action="FacilitySelect" method="get" id="form_<%= facility.getFac_id() %>">
 	                        <input type="hidden" name="facilityId" value="<%= facility.getFac_id() %>">
 	                        <div class="fac-name"><h1><%= facility.getFac_name() %></h1></div>

@@ -74,12 +74,13 @@
 	    left:25%;
 	    margin:0 auto
     }
-	.img, .facility-one, .sub-text-right {
+	img, .facility-one, .sub-text-right {
 		display: flex;
 	}
-	.img{
+	img{
 		text-align: center;
 		width: 200px;
+		height:170px;
 		margin:0 30px 0 0;
 		background:repeating-linear-gradient(
 			45deg,
@@ -105,7 +106,7 @@
 		content: "";
 		border: 1px;
 		top:0;
-		left: 70%;
+		left: 201px;
 		height:100%;
 		background-color: black;
 		width: 1px;

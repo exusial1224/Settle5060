@@ -99,16 +99,19 @@ public class FacilityDAO extends RootDAO {
 
 	        facility = new Facility();
 	        //2月 03日： 施設名のみだと見栄えが悪いので取得要素増
+	        //2月 18日： メールアドレスの @ より前の部分のみを取得、ファイルパスに設定
 	        facility.setFac_id(rs.getInt("FAC_ID"));
 	        facility.setFac_name(rs.getString("FAC_NAME"));
 	        facility.setCategory(rs.getInt("CATEGORY"));
 	        facility.setFac_address(rs.getString("FAC_ADDRESS"));
+	        String facMail = rs.getString("FAC_MAIL");
+	        facility.setFac_mail(facMail);
+	        facility.setFilePath(facMail != null && facMail.contains("@") ? facMail.split("@")[0] : facMail);
 			facility.setOpen_time(rs.getTime("OPEN_TIME").toLocalTime());
 			facility.setClose_time(rs.getTime("CLOSE_TIME").toLocalTime());
 			facility.setFac_tel(rs.getString("FAC_TEL"));
 			facility.setHigh_price(rs.getInt("HIGH_PRICE"));
 			facility.setLow_price(rs.getInt("LOW_PRICE"));
-
 
 
 	        list.add(facility);
