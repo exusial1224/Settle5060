@@ -12,7 +12,8 @@
 <body>
 	<img src="../static/img/kinkakuzi2.png" class="main-img" alt="金閣寺の写真">
 	<h1 class="title-text">SETTLEで<br>スマートな観光を</h1>
-	<img src="../static/img/anime_zgock.gif" class="zgock-gif"alt="ズゴックgif" align="top" >
+	<img src="../static/img/anime_zgock.gif" class="zgock-gif" id="zgock" alt="ズゴックgif" align="top" >
+	<div id="splitZ"></div>
 	<div class="container">
 	    <form action="CategorySelect" method="get">
 	        <label for="categorySelect"></label>
@@ -38,5 +39,53 @@
 		    <img src="../static/img/972557.jpg" class="sub-img-quarter" alt="横浜の写真">
 	</div>
 <%@ include file="footer.jsp" %>
+	<script>
+	document.getElementById("zgock").addEventListener("click", function() {
+	    let img = this;
+	    let parent = img.parentElement;
+	    let splitZ = document.getElementById("splitZ");
+
+	    if (!splitZ) {
+	        console.error("a");
+	        return;
+	    }
+
+	    img.classList.add("shake");
+	    setTimeout(() => {
+	        img.classList.remove("shake");
+	        setTimeout(() => {
+	            img.style.display = "none";
+
+	            //画像追加、クラス追加
+	            let newImg = document.createElement("img");
+	            newImg.src = "../static/img/inja.png";
+	            newImg.classList.add("replacement-img");
+	            parent.appendChild(newImg);
+
+	            //画像分割
+	            let leftHalf = document.createElement("img");
+	            leftHalf.src = img.src;
+	            leftHalf.classList.add("split", "left");
+	            leftHalf.style.clipPath = "polygon(0 0, 50% 0, 50% 100%, 0 100%)";//生成画像の分割,
+	            splitZ.appendChild(leftHalf);
+
+	            let rightHalf = document.createElement("img");
+	            rightHalf.src = img.src;
+	            rightHalf.classList.add("split", "right");
+	            rightHalf.style.clipPath = "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)";
+	            splitZ.appendChild(rightHalf);
+
+	            console.log(leftHalf, rightHalf); // デバッグ用
+
+	            // 0.1秒後に左右に飛ばす
+	            setTimeout(() => {
+	                leftHalf.classList.add("moveLeft");
+	                rightHalf.classList.add("moveRight");
+	            }, 100);
+	        }, 1000);
+	    }, 2000);
+	});
+
+	</script>
 </body>
 </html>

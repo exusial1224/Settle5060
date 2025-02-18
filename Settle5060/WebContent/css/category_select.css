@@ -29,7 +29,53 @@
 		left: 180px;
 		position: fixed;
 		z-index: 100;
+		transition: transform 0.8s ease-in-out;
 	}
+
+	/*振動*/
+	.shake {
+	    animation: shake 0.1s infinite linear;
+	}
+
+	@keyframes shake {
+	    0% { transform: translateX(-3px) rotate(-1deg); }
+	    25% { transform: translateX(3px) rotate(1deg); }
+	    50% { transform: translateX(-3px) rotate(-1deg); }
+	    75% { transform: translateX(3px) rotate(1deg); }
+	    100% { transform: translateX(-3px) rotate(-1deg); }
+	}
+
+	.split {
+	    position: absolute;
+	    top: 30px;
+	    width: 44px;
+	    height: 30px;
+	    transition: transform 1s ease-in-out;
+	}
+
+	/* 分割Ⅰ*/
+	.left {
+	    left: 180px;
+	    transform: translateX(0);
+	    z-index: 102;
+	}
+
+	.right {
+	    left: 180px;
+	    transform: translateX(0);
+	    z-index: 102;
+	}
+
+	/* 左右移動*/
+	.moveLeft {
+	    transform: translateX(-100vw);
+	}
+
+	.moveRight {
+	    transform: translateX(100vw);
+	}
+
+
 
 	/*フォームコンテナ*/
 	.container{
@@ -53,7 +99,7 @@
     }
 
 
-    	/*検索ボタン*/
+    /*検索ボタン*/
     .but{
         border: 0;
         background: #3399FF;
@@ -84,7 +130,7 @@
     	border-radius: 3px;
     }
 
-	/*サブイメージ(ハーフ)書式*/
+	/*サブハーフ書式*/
 	.sub-img-harf{
 		border-radius: 10px;
 		object-fit: cover;
@@ -94,10 +140,27 @@
 
 	}
 
-	/*サブイメージ(クウォーター)書式*/
+	/*サブ書式*/
 	.sub-img-quarter{
 		border-radius: 10px;
 		object-fit: cover;
 		width: 32%;
 		height: 200px;
+	}
+
+
+	/* 分割後 */
+	.replacement-img {
+	    position: absolute;
+	    top: 30px;
+	    left: 180px;
+	    width: 40px;
+	    height: 40px;
+	    z-index: 101;
+
+	    transition: opacity 0.5s ease-in-out;
+	}
+	.moveLeft + .replacement-img,
+	.moveRight + .replacement-img {
+	    opacity: 1;
 	}
